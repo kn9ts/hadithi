@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head id="header-title">
+    <title>Hadithi - App</title>
+    <!-- Site Necessities-->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="cleartype" content="on">
+    <!-- Favicons-->
+    <link rel="shortcut icon" type="image/png" href="">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+    <!-- fonts-->
+    <link rel="stylesheet" href="./assets/css/ace-fonts.css">
+    <!-- ace styles-->
+    <link rel="stylesheet" href="./assets/css/ace.min.css">
+    <link rel="stylesheet" href="./assets/css/ace-skins.min.css">
+    <!-- if [IE 7]link(rel="stylesheet", href="./assets/css/font-awesome-ie7.min.css)
+    -->
+    <!-- page specific plugin styles-->
+    <!-- ace settings handler-->
+    <script src="./assets/js/ace-extra.min.js"></script>
+    <!-- basic scripts-->
+    <!-- if [!IE]-->
+    <script type="text/javascript" src="./assets/js/jquery-2.0.3.min.js"></script>
+    <!--if [IE]script(type='text/javascript', src='./assets/js/jquery-1.10.2.min.js')
+    -->
+    <script type="text/javascript">//- if ("ontouchend" in document) $.getScript('./assets/js/jquery.mobile.custom.min.js');</script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- ace scripts-->
+    <script src="./assets/js/ace-elements.min.js"></script>
+    <script src="./assets/js/ace.min.js"></script>
+    <!--for bootstrap modal manager - to overide default modal limitations-->
+    <link rel="stylesheet" href="./assets/css/bootstrap-modal.css">
+    <script src="./assets/js/bootstrap-modal.js"></script>
+    <script src="./assets/js/bootstrap-modalmanager.js"></script>
+    <!--Additional scripts-->
+    <script src="../js/modernizr.custom.96386.js"></script>
+    <script src="../js/recorder.js"></script>
+    <link rel="stylesheet" href="../audiojs/audio-js.css">
+    <link rel="stylesheet" href="../audiojs/skins/tube.css">
+    <script src="../audiojs/audio.js"></script>
+    <!--Application script-->
+    <script src="../js/application.js"></script>
+  </head>
+  <body class="skin-2">
+    <!-- The HEADER BAR-->
+    <nav role="navigation" class="navbar navbar-default navbar-container">
+      <div class="navbar-header"><a href="#" class="navbar-brand"><i class="icon-bookmark"></i> Hadithi</a>
+      </div>
+      <div class="navbar-header pull-right">
+        <ul class="nav ace-nav">
+          <li class="red dark-opaque"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><img id="fbpicture" src="./assets/images/gallery/image-1.jpg" style="max-height: 32px" class="nav-user-photo"><span class="user-info"><small>Hello, </small><span id="fbusername">Jhene Knights</span></span><i class="icon-caret-down bigger-72"></i></a>
+            <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+              <li><a id="applogout" href="#"><i class="icon-off"> Log Out</i></a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- The body-->
+    <div id="main-container" class="main-container">
+      <div id="main-container-inner" class="main-container-inner">
+        <div class="main-container well-bg">
+          <div class="page-content">
+            <div class="row">
+              <div class="hr10 hidden-lg"></div>
+              <div class="hr30 hidden-sm hidden-xs"></div>
+              <div class="col-sm-8 col-sm-offset-2">
+                <div id="allow-mic" class="alert alert-info alert-dismissable">
+                  <button data-toggle="modal" data-target="#questionaire" class="btn btn-xs btn-primary pull-right">Modal</button><strong>Heads Up! </strong>Please allow <strong>"Hadithi" </strong>application to use your microphone
+                </div>
+                <div class="hr10"></div>
+                <div class="jumbotron">
+                  <h3>Record your story</h3>
+                  <p>We are always happy to here something great</p>
+                  <p>
+                    <button id="record-story" type="button" data-loading-text="Recording..." class="btn btn-danger btn-md"><i class="icon-play"></i> Start Recording</button>
+                    <button type="button" id="end-session" class="btn btn-danger btn-md"><i class="icon-stop"></i> End</button>
+                    <button type="button" id="upload-story" class="btn btn-info btn-md"><i class="icon-cloud-upload"></i> Upload Your Story</button>
+                  </p>
+                </div>
+              </div>
+              <!--Audio handler hidden below-->
+              <div class="col-sm-8 col-sm-offset-2 padding-10">
+                <div role="role back in  mobile platforms that do not support STREAM API" class="sr-only">
+                  <form name="recorded-file" encrypte="multipart/form-data" method="post" action="server.cgi" role="form" class="form-horizontal submit-story">
+                    <div class="form-group">
+                      <div class="ace-file-input">
+                        <input id="media-capture-api" type="file" name="recording" accept="audio/*" capture="microphone">
+                        <label data-title="choose" class="file-label"><span data-title="recording" class="file-name"><i class="icon-play"></i></span></label>
+                      </div>
+                      <button id="submit-rec-mobile" type="submit" role="button" class="btn btn-sm btn-info">Upload</button>
+                    </div>
+                  </form>
+                </div>
+                <div id="audio-player" class="hidden audio-js-box tube-css">
+                  <audio id="recorded-audio" src controls preload="none" type="audio/wav"></audio>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Facebook auth or sign up model-->
+    <div id="questionaire" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-hidden="true" role="dialog" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="alert alert-info">
+              <h5><strong class="bigger">We need a little info about you before recording your awesome story.</strong></h5><small>Thank you for your time. - Marc Maxson.</small>
+            </div>
+          </div>
+          <div class="model-body">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="container">
+                  <div class="well well-sm center"><a id="facebookInit" href="#" class="btn btn-primary btn-md btn-block"><i style="padding-left: 1em" class="icon-facebook bigger-130 pull-left"></i>Connect with Facebook </a></div>
+                  <h4 class="grey center bigger">or fill in the form below:</h4>
+                  <!--The form-->
+                  <form id="questionaire-form" role="form" style="padding: 5% 0" class="form-horizontal">
+                    <div class="form-group">
+                      <label for="email" class="control-label col-xs-12 col-sm-3 no-padding-right">Email Addr.:</label>
+                      <div class="col-xs-12 col-sm-7">
+                        <input id="email" type="email" name="email" placeholder="Your email address..." required class="form-control">
+                        <input id="hidden" type="hidden" name="isFacebook" value="false">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="the-story" class="control-label col-xs-12 col-sm-3 no-padding-right">Where did this story take place?</label>
+                      <div class="col-xs-12 col-sm-7">
+                        <input id="the-story-signup" type="text" name="location" placeholder="the location..." required class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="age_range" class="control-label col-xs-12 col-sm-3 no-padding-right">Age Range:</label>
+                      <div class="col-xs-12 col-sm-7">
+                        <select name="age_range">
+                          <option>17-21</option>
+                          <option>22-30</option>
+                          <option>31-45</option>
+                          <option>46-60</option>
+                          <option>Over 60</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="age_range" class="control-label col-xs-12 col-sm-3 no-padding-right">Gender: </label>
+                      <div class="col-xs-12 col-sm-7">
+                        <label>
+                          <input id="user-sex" type="checkbox" name="sex" required class="ace ace-switch ace-switch-7"><span class="lbl"></span>
+                        </label><span class="help-line"><span class="middle grey smaller">Tap to select gender.</span></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-offset-3 col-sm-9">
+                        <div class="btn-group">
+                          <button type="button" id="qtnr-submit" class="btn btn-primary btn-md"><i class="icon-ok bigger-110"></i> Submit</button>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" data-dismiss="modal" id="record-first" class="btn btn-default btn-md">Record first?!<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
