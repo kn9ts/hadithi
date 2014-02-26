@@ -34,7 +34,7 @@ function record(inputBuffer) {
 }
 
 function exportWAV(type) {
-    var bufferL = [] //mergeBuffers(recBuffersL, recLength);
+    var bufferL = mergeBuffers(recBuffersL, recLength);
     var bufferR = mergeBuffers(recBuffersR, recLength);
     var interleaved = interleave(bufferL, bufferR);
     var dataview = encodeWAV(interleaved);

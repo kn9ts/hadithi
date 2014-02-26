@@ -242,18 +242,18 @@ $(function() {
             }
         },
         /** 
-     * LOCAL STORAGE MANAGEMENT FUNCTION 
-     * @param options - local(bool), content(object), backup(bool)
-     * @param key
-     * STORE CONTENT locally or in cookie or BOTH
-     *
-     * HOW TO USE: 
-         app.localStorage('key') //Returns the content if existing, or false if it doesnt
-         app.localStorage('key', {
-            content: the content, can be a raw object, string or raw array //it is stringified by the function
-            local: true/false //yes or no if you want to store only in localStorage
-         })
-     */
+         * LOCAL STORAGE MANAGEMENT FUNCTION 
+         * @param options - local(bool), content(object), backup(bool)
+         * @param key
+         * STORE CONTENT locally or in cookie or BOTH
+         *
+         * HOW TO USE: 
+             app.localStorage('key') //Returns the content if existing, or false if it doesnt
+             app.localStorage('key', {
+                content: the content, can be a raw object, string or raw array //it is stringified by the function
+                local: true/false //yes or no if you want to store only in localStorage
+             })
+         */
         localStorage: function(key, options) {
             if (options) { //store this data
                 if (!options.local) {
@@ -280,7 +280,7 @@ $(function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
         FB.init({
-            appId: '1425261494379816',
+            appId: '213258518873900', //'1425261494379816',
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
