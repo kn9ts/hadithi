@@ -11,3 +11,6 @@ pw: ission~1X
 db: djotjog_gg
 
 What will you use for server side scripting? still php? Do what you know best, though I would like to understand how it works when you are done.
+
+#!/bin/sh
+git --work-tree=/home/djotjog/webapps/s/hadithi --git-dir=/home/djotjog/webapps/s/hadithi.git checkout -f

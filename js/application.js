@@ -321,7 +321,15 @@ $(function() {
                     // console.log(AudioContext);
 
                     var context = new AudioContext();
+                    // creates a gain node
+                    var volume = context.createGain();
+                    volume.gain.value = 15.5; //test volume gain
+
                     var mediaStreamSource = context.createMediaStreamSource(audioStream);
+                    // connect the stream to the gain node
+                    mediaStreamSource.connect(volume);
+
+                    //pass to plugin to manage the recording
                     recorder = new Recorder(mediaStreamSource);
                     // recorder.record();
 
@@ -365,7 +373,7 @@ $(function() {
             recorder.stop(); //1st stop it
 
             //get the WAV file encoding from the recording
-            recorder.exportWAV(hadithi.processAudioFile);
+            recorder.exportWAV(hadithi.processAudioFile, 'audio/wav'); //if 2nd param is set -- export Mono WAV
 
             //Get the whole audio recorded, not encoded yet
             // recorder.getBuffer(function(audioBuffer) {

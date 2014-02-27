@@ -1,21 +1,53 @@
+/*License (MIT)
+
+Copyright © 2014 Eugene Mutai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+DEALINGS IN THE SOFTWARE.
+*/
+
 (function(window) {
 
     var WORKER_PATH = '../js/recorderWorker.js';
+
+    /* From the spec: This value controls how frequently the audioprocess event is 
+    dispatched and how many sample-frames need to be processed each call. 
+    Lower values for buffer size will result in a lower (better) latency. 
+    Higher values will be necessary to avoid audio breakup and glitches */
 
     var Recorder = function(source, cfg) {
         var config = cfg || {};
         var bufferLen = config.bufferLen || 4096;
         this.context = source.context;
-        this.node = (this.context.createScriptProcessor ||
-            this.context.createJavaScriptNode).call(this.context,
-            bufferLen, 2, 2);
+        if (!this.context.createScriptProcessor) {
+            this.node = this.context.createJavaScriptNode(bufferLen, 2, 2);
+        } else {
+            this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
+        }
+
         var worker = new Worker(config.workerPath || WORKER_PATH);
-        worker.postMessage({
+        var audioStart = {
             command: 'init',
             config: {
                 sampleRate: this.context.sampleRate
             }
-        });
+        }
+        console.log("The sample rate is set at (in KHz)-- " + audioStart.config.sampleRate);
+        console.log(source)
+        worker.postMessage(audioStart);
+
+        //recoding has not yet began, so set at false
         var recording = false,
             currCallback;
 
@@ -59,15 +91,25 @@
             })
         }
 
-        this.exportWAV = function(cb, type) {
+        this.exportWAV = function(cb, typeb) {
             currCallback = cb || config.callback;
-            type = type || config.type || 'audio/wav';
+            type = typeb || config.type || 'audio/wav';
             if (!currCallback) throw new Error('Callback not set');
             worker.postMessage({
-                command: 'exportWAV',
+                command: typeb ? 'exportWAV' : 'exportMonoWAV',
                 type: type
             });
         }
+
+        // this.exportMonoWAV = function (cb, type) {
+        //     currCallback = cb || config.callback;
+        //     type = type || config.type || 'audio/wav';
+        //     if (!currCallback) throw new Error('Callback not set');
+        //     worker.postMessage({
+        //         command: 'exportMonoWAV',
+        //         type: type
+        //     });
+        // }
 
         worker.onmessage = function(e) {
             var blob = e.data;
