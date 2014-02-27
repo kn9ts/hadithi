@@ -442,8 +442,8 @@ $(function() {
 
             //save to local storage
             hadithi.localStorage('hadithiUser', {
-                content: formdata.fd,
-                local: false
+                content: formdata.fd
+                // ,local: false
             });
 
             var af = document.getElementById('recorded-audio');
