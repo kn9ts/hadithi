@@ -176,7 +176,7 @@ $(function() {
             audio.addEventListener("loadedmetadata", function(event) {
                 // duration = audio.duration;
                 console.log(audio.duration);
-                audio.setAttribute('data-duration', audio.duration);
+                audio.setAttribute('data-audio-length', audio.duration);
 
                 //Show the upload button
                 if (audio.src !== "") {
@@ -194,10 +194,10 @@ $(function() {
                 //append audio file to any existing formdata
                 try {
                     if (formdata) {
-                        formdata.append('recorded_file', audioBlob, {
+                        formdata.append('audio_file', audioBlob, {
                             type: audio.type
                         });
-                        formdata.append('recording_length', audio.duration);
+                        formdata.append('audio_length', audio.duration);
                     }
                 } catch (error) {
                     console.log("an error occured -- " + error);
@@ -410,8 +410,8 @@ $(function() {
 
                 fd.append('user_data', JSON.stringify(user));
                 // fd.append('facebook_data', JSON.stringify(user));
-                fd.append('recorded_file', af.src);
-                fd.append('recorded_length', af.getAttribute('data-duration'));
+                fd.append('audio_file', af.src);
+                fd.append('audio_length', af.getAttribute('data-audio-length'));
                 fd.append('isFacebook', user.isFacebook || false);
 
                 //transfer to formdata global variable
@@ -451,9 +451,10 @@ $(function() {
             if (af.src !== "" && /[\w._%+-]+\@[\w.-]+\.[a-zA-Z]{2,}$/.test(formdata.fd[0].value)) {
                 // $('#questionaire').modal('hide');
                 console.log("tyring to upload it once more.");
-                formdata.append('recorded_file', af.src, {
+                formdata.append('audio_file', af.src, {
                     type: af.type
                 });
+                formdata.append('audio_length', af.getAttribute('data-audio-length'));
                 if (formdata.fd.file) hadithi.uploadAudioFile();
             }
 
