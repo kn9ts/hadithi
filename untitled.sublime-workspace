@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"exp",
+				"exportMonoWAV"
+			],
+			[
+				"sor",
+				"source"
+			],
+			[
+				"conf",
+				"config  (namespace)"
+			],
+			[
+				"audo",
+				"audio_conf"
+			],
+			[
+				"med",
+				"mediaStreamSource"
+			],
+			[
 				"ini",
 				"initialise"
 			],
@@ -494,26 +514,6 @@
 			[
 				"web",
 				"webkitAudioContext"
-			],
-			[
-				"audioReco",
-				"audioRecorded"
-			],
-			[
-				"unde",
-				"undefined	jsProp"
-			],
-			[
-				"Aud",
-				"AudioContext"
-			],
-			[
-				"getEle",
-				"getElementById	jsDOM"
-			],
-			[
-				"getELe",
-				"getElementsByTagName	jsDOM"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "index.jade",
 			"settings":
 			{
-				"buffer_size": 8769,
+				"buffer_size": 8767,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,23 +531,23 @@
 			"file": "js/application.js",
 			"settings":
 			{
-				"buffer_size": 21889,
+				"buffer_size": 22434,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/css/ace.min.css",
+			"file": "js/recorder.js",
 			"settings":
 			{
-				"buffer_size": 322686,
+				"buffer_size": 4799,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "djotjog.txt",
+			"file": "js/recorderWorker.js",
 			"settings":
 			{
-				"buffer_size": 464,
+				"buffer_size": 4873,
 				"line_ending": "Unix"
 			}
 		}
@@ -612,7 +612,11 @@
 	},
 	"file_history":
 	[
+		"/Users/mac/Applab/hadithi/assets/js/date-time/locales/bootstrap-datepicker.ca.js",
+		"/Users/mac/Applab/hadithi/eg-metadata.txt",
 		"/Users/mac/.bash_profile",
+		"/Users/mac/Applab/hadithi/assets/css/ace.min.css",
+		"/Users/mac/Applab/hadithi/js/recorderWorker.js",
 		"/Users/mac/Applab/hadithi/.gitignore",
 		"/Users/mac/.bashrc",
 		"/Users/mac/Applab/hadithi/index.html",
@@ -624,7 +628,6 @@
 		"/Users/mac/Applab/hadithi/js/libmp3lame.js",
 		"/Users/mac/Applab/hadithi/speech-to-server-master/encoder.js",
 		"/Users/mac/Applab/hadithi/js/recorder.js",
-		"/Users/mac/Applab/hadithi/js/recorderWorker.js",
 		"/Users/mac/Applab/hadithi/speech-to-server-master/app.js",
 		"/Users/mac/Apps/hadithi/speech-to-server-master/libmp3lame.js",
 		"/Users/mac/Apps/hadithi/speech-to-server-master/lame.min.js",
@@ -736,10 +739,7 @@
 		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/www/config.xml",
 		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/www/JheneKnights.json",
 		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/build.xml",
-		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/qnx.xml",
-		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/build/application/device/prittynote.zip",
-		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/blackberry.xml",
-		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/www/plugins.xml"
+		"/Volumes/My Stuff/Websites/prittyapp/platforms/blackberry/qnx.xml"
 	],
 	"find":
 	{
@@ -759,6 +759,20 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"audio_file",
+			"duration",
+			"audio_file",
+			"duration",
+			"audio_file",
+			"recorded_length",
+			"audio_file",
+			"recording_length",
+			"recorded_file",
+			"exportMonoWAV",
+			"audio_conf",
+			"audioInput",
+			"1425261494379816",
+			"256",
 			"subl",
 			"sshmdo",
 			"sites",
@@ -872,21 +886,7 @@
 			"click",
 			"console",
 			"mp3blob",
-			"data",
-			"dataview",
-			"\"\n",
-			"recorder",
-			"wav",
-			"mp3audioRecorded",
-			"mp3blob",
-			"type",
-			"mp3audio",
-			"mp3audioRecorded",
-			"audioRecorded",
-			"audioRecording",
-			"getRawAudioData",
-			"e",
-			"mp3"
+			"data"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -913,15 +913,15 @@
 					"file": "index.jade",
 					"settings":
 					{
-						"buffer_size": 8769,
+						"buffer_size": 8767,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6946,
-								6946
+								6944,
+								6944
 							]
 						],
 						"settings":
@@ -1034,7 +1034,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 2630.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1044,15 +1044,147 @@
 					"file": "js/application.js",
 					"settings":
 					{
-						"buffer_size": 21889,
+						"buffer_size": 22434,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18363,
-								18363
+								18307,
+								18307
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 5.0,
+						"translation.y": 2033.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/recorder.js",
+					"settings":
+					{
+						"buffer_size": 4799,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3647,
+								3647
 							]
 						],
 						"settings":
@@ -1166,25 +1298,29 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3667.0,
+						"translation.y": 1449.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "assets/css/ace.min.css",
+					"buffer": 3,
+					"file": "js/recorderWorker.js",
 					"settings":
 					{
-						"buffer_size": 322686,
+						"buffer_size": 4873,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								123675,
-								123675
+								1497,
+								1510
+							],
+							[
+								2249,
+								2262
 							]
 						],
 						"settings":
@@ -1293,38 +1429,12 @@
 							},
 							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "djotjog.txt",
-					"settings":
-					{
-						"buffer_size": 464,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								100,
-								133
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 859.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1400,6 +1510,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 247.0,
+	"side_bar_width": 223.0,
 	"status_bar_visible": true
 }
