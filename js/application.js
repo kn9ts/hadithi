@@ -127,7 +127,7 @@ $(function() {
             } else { //anything else
                 FB.logout(function(response) {
                     // Person is now logged out
-                    cb(); //run callback
+                    cb(response); //run callback, passing the FB response
                 });
             }
         },
@@ -288,7 +288,7 @@ $(function() {
         //check if user is initialised
         hadithi.initApplication();
     }
-    
+
     $.support.cors = true;
 
     //rec control buttons
