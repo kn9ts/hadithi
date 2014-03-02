@@ -51,11 +51,11 @@
   <body class="skin-2">
     <!-- The HEADER BAR-->
     <nav role="navigation" class="navbar navbar-default navbar-container">
-      <div class="navbar-header"><a href="#" class="navbar-brand"><i class="icon-bookmark"></i> Hadithi</a>
+      <div class="navbar-header"><a href="#" class="navbar-brand"><img src="../assets/images/gg_horizontal_color.png" style="max-height: 32px" width="100px" class="img img-responsive pull"> Hadithi</a>
       </div>
       <div class="navbar-header pull-right">
         <ul class="nav ace-nav">
-          <li class="red dark-opaque"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><img id="fbpicture" src="../assets/images/gallery/image-1.jpg" style="max-height: 32px" class="nav-user-photo"><span class="user-info"><small>Hello, </small><span id="fbusername">Story Teller</span></span><i class="icon-caret-down bigger-72"></i></a>
+          <li class="red dark-opaque"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><img id="fbpicture" src="../assets/10.jpg" style="max-height: 32px" class="nav-user-photo"><span class="user-info"><small>Hello, </small><span id="fbusername">Storyteller</span></span><i class="icon-caret-down bigger-72"></i></a>
             <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
               <li><a id="applogout" href="#"><i class="icon-off"> Log Out</i></a></li>
             </ul>
@@ -72,18 +72,20 @@
               <div class="hr10 hidden-lg"></div>
               <div class="hr30 hidden-sm hidden-xs"></div>
               <div class="col-sm-8 col-sm-offset-2">
-                <div id="allow-mic" class="alert alert-info alert-dismissable">
-                  <button data-toggle="modal" data-target="#questionaire" class="btn btn-xs btn-primary pull-right">Modal</button><strong>Heads Up! </strong>Please allow <strong>"Hadithi" </strong>application to use your microphone
+                <div id="allow-mic" class="alert alert-info alert-dismissable"><strong>Heads Up! </strong>Please allow <strong>"Hadithi" </strong>application to use your microphone
                 </div>
                 <div class="hr10"></div>
                 <div class="jumbotron">
-                  <h3>Record your story</h3>
-                  <p>We are always happy to here something great</p>
+                  <h3>Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.</h3>
+                  <p>What happened? How were you affected or involved?</p>
                   <p>
-                    <button id="record-story" type="button" data-loading-text="Recording..." class="btn btn-danger btn-md"><i class="icon-play"></i> Start Recording</button>
+                    <button id="record-story" type="button" data-loading-text="Recording..." class="btn btn-danger btn-md"><i class="icon-circle"></i> Start Recording</button>
                     <button type="button" id="end-session" class="btn btn-danger btn-md"><i class="icon-stop"></i> End</button>
                     <button type="button" id="upload-story" class="btn btn-info btn-md"><i class="icon-cloud-upload"></i> Upload Your Story</button>
                   </p>
+                  <h3><small>
+                      <strong>NOTE:</strong> Maximum length is 3 minutes.
+                      Afterwards, we will fetch your age, sex, and location directly from Facebook if you give us permission. (Or you can enter it yourself, if you like.)</small></h3>
                 </div>
               </div>
               <!--Audio handler hidden below-->

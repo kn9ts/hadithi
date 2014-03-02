@@ -70,7 +70,8 @@ html(lang='en')
 				//- 	span.icon-bar
 				//- 	span.icon-bar
 				a.navbar-brand(href='#')
-					i.icon-bookmark
+					img.img.img-responsive.pull(src="../assets/images/gg_horizontal_color.png", style="max-height: 32px", width="100px")
+					//- i.icon.icon-play-circle
 					|  Hadithi
 
 			//- div#bs-example-navbar-collapse-4.navbar-collapse.collapse(style='height: 1px;')
@@ -78,10 +79,10 @@ html(lang='en')
 				ul.nav.ace-nav
 					li.red.dark-opaque
 						a(href="#", data-toggle="dropdown").dropdown-toggle
-							img.nav-user-photo#fbpicture(src="../assets/images/gallery/image-1.jpg", style="max-height: 32px")
+							img.nav-user-photo#fbpicture(src="../assets/10.jpg", style="max-height: 32px")
 							span.user-info
 								small Hello, 
-								span#fbusername Story Teller
+								span#fbusername Storyteller
 							i.icon-caret-down.bigger-72
 
 						ul.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
@@ -101,7 +102,7 @@ html(lang='en')
 							div.col-sm-8.col-sm-offset-2
 								div.alert.alert-info.alert-dismissable#allow-mic
 									//- button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
-									button.btn.btn-xs.btn-primary.pull-right(data-toggle="modal", data-target="#questionaire") Modal
+									//- button.btn.btn-xs.btn-primary.pull-right(data-toggle="modal", data-target="#questionaire") Modal
 									strong Heads Up! 
 									| Please allow 
 									strong "Hadithi" 
@@ -109,11 +110,11 @@ html(lang='en')
 									
 								div.hr10
 								div.jumbotron
-									h3 Record your story
-									p We are always happy to here something great
+									h3 Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.
+									p What happened? How were you affected or involved?
 									p
 										button.btn.btn-danger.btn-md(id="record-story", type="button", data-loading-text="Recording...")
-											i.icon-play
+											i.icon-circle
 											|  Start Recording
 										button.btn.btn-danger.btn-md(type="button", id="end-session")
 											i.icon-stop
@@ -121,6 +122,9 @@ html(lang='en')
 										button.btn.btn-info.btn-md(type="button", id="upload-story")
 											i.icon-cloud-upload
 											|  Upload Your Story
+									h3: small 
+										| <strong>NOTE:</strong> Maximum length is 3 minutes.
+										| Afterwards, we will fetch your age, sex, and location directly from Facebook if you give us permission. (Or you can enter it yourself, if you like.)
 
 							//Audio handler hidden below
 							div.col-sm-8.col-sm-offset-2.padding-10

@@ -175,7 +175,7 @@ $(function() {
             //get the duration of the audio
             audio.addEventListener("loadedmetadata", function(event) {
                 // duration = audio.duration;
-                console.log(audio.duration);
+                console.log(audio);
                 audio.setAttribute('data-audio-length', audio.duration);
 
                 //Show the upload button
@@ -285,12 +285,10 @@ $(function() {
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
         });
-
         //check if user is initialised
         hadithi.initApplication();
     }
-
-
+    
     $.support.cors = true;
 
     //rec control buttons
@@ -340,9 +338,10 @@ $(function() {
                     console.log("The following error occured: ", err);
 
                     var msg;
-                    if (err.name = "PermissionDeniedError") msg = "Oops! We need your permission to be able to access your microphone."
-                    else msg = "Drats!! Seems your browser does not support recording of audio. Oh well! We tried!"
+                    if (err.name = "PermissionDeniedError") msg = "Oops! We need your permission to be able to access your microphone.";
+                    else msg = "Drats!! Seems your browser does not support recording of audio. Oh well! We tried!";
                     recorder = false;
+                    //visualise the error
                     $('#allow-mic').removeClass('alert-info').addClass('alert-danger').text(msg);
                     $('button#record-story').attr('disabled', true);
                 }
@@ -373,7 +372,8 @@ $(function() {
             recorder.stop(); //1st stop it
 
             //get the WAV file encoding from the recording
-            recorder.exportWAV(hadithi.processAudioFile, 'audio/wav'); //if 2nd param is set -- export Mono WAV
+            //if 2nd param is set -- export Mono WAV
+            recorder.exportWAV(hadithi.processAudioFile, 'audio/wav');
 
             //Get the whole audio recorded, not encoded yet
             // recorder.getBuffer(function(audioBuffer) {
@@ -421,7 +421,6 @@ $(function() {
                 hadithi.checkIfUserExist([], false);
             }
         }, true); //no FB checkin needed
-
         //reset the upload button
         uploadEvent();
     });

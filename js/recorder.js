@@ -40,7 +40,7 @@ DEALINGS IN THE SOFTWARE.
         var audioStart = {
             command: 'init',
             config: {
-                sampleRate: 110025 //this.context.sampleRate
+                sampleRate: this.context.sampleRate //restored to orginal, changing is just messed up
             }
         }
         console.log("The sample rate is set at (in KHz)-- " + audioStart.config.sampleRate);
