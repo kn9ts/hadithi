@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"recor",
+				"recorder"
+			],
+			[
+				"fb",
+				"fbusername"
+			],
+			[
+				"htt",
+				"http"
+			],
+			[
+				"pro",
+				"profileImage"
+			],
+			[
+				"had",
+				"hadithi"
+			],
+			[
 				"pull",
 				"pull-left"
 			],
@@ -108,10 +128,6 @@
 				"padding"
 			],
 			[
-				"pro",
-				"profile"
-			],
-			[
 				"read",
 				"readyState  (variable)"
 			],
@@ -202,10 +218,6 @@
 			[
 				"cont",
 				"container"
-			],
-			[
-				"recor",
-				"recording"
 			],
 			[
 				"sty",
@@ -502,18 +514,6 @@
 			[
 				"pf",
 				"profile-info"
-			],
-			[
-				"profi",
-				"profile-pic"
-			],
-			[
-				"ur",
-				"decodeURIComponent	jsGlobal"
-			],
-			[
-				"fade",
-				"fadeTo	jQuery"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "index.jade",
 			"settings":
 			{
-				"buffer_size": 9310,
+				"buffer_size": 9314,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "js/application.js",
 			"settings":
 			{
-				"buffer_size": 22511,
+				"buffer_size": 25536,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +539,7 @@
 			"file": "js/recorder.js",
 			"settings":
 			{
-				"buffer_size": 4849,
+				"buffer_size": 4857,
 				"line_ending": "Unix"
 			}
 		},
@@ -768,6 +768,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Android",
+			"true",
+			"false",
+			"Bitly",
+			"processAudioFile",
+			"4096",
+			"loginFacebook",
+			"split",
+			", ",
+			"picture",
 			"getUserFacebookInfo",
 			"loginFacebook",
 			"left",
@@ -885,17 +895,7 @@
 			"emailaddress",
 			"Register",
 			"button",
-			"story",
-			"ordination",
-			"libs",
-			"Pleas",
-			"cancel",
-			"Cancel",
-			"Register",
-			"horizontal",
-			"button",
-			"clearfix",
-			"button"
+			"story"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -922,15 +922,15 @@
 					"file": "index.jade",
 					"settings":
 					{
-						"buffer_size": 9310,
+						"buffer_size": 9314,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4215,
-								4215
+								2536,
+								2536
 							]
 						],
 						"settings":
@@ -1042,8 +1042,8 @@
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 256.0,
-						"translation.y": 1608.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1053,15 +1053,15 @@
 					"file": "js/application.js",
 					"settings":
 					{
-						"buffer_size": 22511,
+						"buffer_size": 25536,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6326,
-								6326
+								1468,
+								1468
 							]
 						],
 						"settings":
@@ -1175,7 +1175,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 9334.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1185,15 +1185,15 @@
 					"file": "js/recorder.js",
 					"settings":
 					{
-						"buffer_size": 4849,
+						"buffer_size": 4857,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2106,
-								2106
+								2039,
+								2039
 							]
 						],
 						"settings":
@@ -1307,7 +1307,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1651.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1324,8 +1324,8 @@
 						"selection":
 						[
 							[
-								4854,
-								4854
+								47,
+								47
 							]
 						],
 						"settings":
@@ -1439,7 +1439,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2160.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1645,6 +1645,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 223.0,
+	"side_bar_width": 180.0,
 	"status_bar_visible": true
 }

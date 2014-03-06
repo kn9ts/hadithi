@@ -24,10 +24,37 @@ var formdata;
 //The DOM has began to be rendered
 $(function() {
     var hadithi = {
+
         hasGetUserMedia: function() {
             return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia || navigator.msGetUserMedia);
         },
+
+        detectAppleDevices: function() {
+            var bool = false;
+            // Apple Devices Detection with JavaScript
+            // For use within normal web clients
+            // The navigator string results: 
+            // Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10
+            if ((navigator.useragent.match(/iPhone/i)) || (navigator.useragent.match(/iPod/i)) || (navigator.useragent.match(/iPad/i))) {
+                bool = "idevice";
+                // if (document.cookie.indexOf("iphone_redirect=false") == -1) {
+                //     window.location = "http://m.espn.go.com/wireless/?iphone&i=COMR";
+                // }
+            }
+
+            // Android Detection with JavaScript
+            var ua = navigator.userAgent.toLowerCase();
+            var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+            if (isAndroid) {
+                // Do something!
+                // Redirect to Android-site?
+                // window.location = 'http://android.davidwalsh.name';
+                bool = "android";
+            }
+            return bool;
+        },
+
         checkIfUserExist: function(cb, bool) {
             var user = this.localStorage('hadithiUser');
             if (user) { //exists
@@ -71,6 +98,7 @@ $(function() {
             //run the callback
             if (typeof cb == "function") cb(user); //undefined if no user
         },
+
         initApplication: function() {
             // FB App check
             FB.getLoginStatus(function(response) {
@@ -120,6 +148,7 @@ $(function() {
                 }
             }, true);
         },
+
         loginFacebook: function(bool, cb) { //boolean, callback
             if (!cb) cb = function() {}; //assign an empty function if no callback is defined.
 
@@ -138,6 +167,7 @@ $(function() {
                 });
             }
         },
+
         getUserFacebookInfo: function() {
             console.log('Welcome! Fetching your information.... ');
             FB.api('/me', function(response) {
@@ -167,6 +197,7 @@ $(function() {
                 }
             });
         },
+
         getProfilePic: function() {
             /* make the API call */
             FB.api(
@@ -201,6 +232,7 @@ $(function() {
             //get the file
             var audiofile = af; //audioInput.files[0]; //its just one
             console.log(audiofile);
+            alert(JSON.stringify(audiofile));
 
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
             var audio = document.getElementById("recorded-audio");
@@ -250,6 +282,7 @@ $(function() {
 
             recorder.forceDownload(audioBlob, "hadithi-recording.wav");
         },
+
         uploadAudioFile: function() {
             //use recorder to prompt uploading
             try {
@@ -325,6 +358,13 @@ $(function() {
     }
 
     $.support.cors = true;
+
+    //check for device and change the API
+    var device = hadithi.detectAppleDevices();
+    if (device) { //If true -- a mobile device was detected
+        if (device == "android") $('audio#recorded-audio').attr("type", "audio/*"); //Do nothing, that is fine
+        if (device == "idevice") $('audio#recorded-audio').attr("type", "video/*");
+    };
 
     //rec control buttons
     var recbtn = $('#record-story');
