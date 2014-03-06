@@ -36,7 +36,7 @@ $(function() {
             // For use within normal web clients
             // The navigator string results: 
             // Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10
-            if ((navigator.useragent.match(/iPhone/i)) || (navigator.useragent.match(/iPod/i)) || (navigator.useragent.match(/iPad/i))) {
+            if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
                 bool = "idevice";
                 // if (document.cookie.indexOf("iphone_redirect=false") == -1) {
                 //     window.location = "http://m.espn.go.com/wireless/?iphone&i=COMR";
@@ -364,6 +364,7 @@ $(function() {
     if (device) { //If true -- a mobile device was detected
         if (device == "android") $('audio#recorded-audio').attr("type", "audio/*"); //Do nothing, that is fine
         if (device == "idevice") $('audio#recorded-audio').attr("type", "video/*");
+        console.log("Mobile device detected -- " + device);
     };
 
     //rec control buttons
