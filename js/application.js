@@ -14,6 +14,7 @@
  *
  * Copyright (C) 2013
  * @Version -
+ *
  */
 
 var recorder; //initialise this variable
@@ -95,6 +96,7 @@ $(function() {
                     hadithi.checkIfUserExist(function(response) {
                         if (response && !response.isFacebook) {
                             console.log("user exist without facebook auth...", response);
+                            // hadithi.localStorage('hadithiUser', false);
                         } else {
                             hadithi.checkIfUserExist();
                         }
@@ -109,6 +111,7 @@ $(function() {
                     hadithi.checkIfUserExist(function(response) {
                         if (response && !response.isFacebook) {
                             console.log("user exist without facebook auth...", response);
+                            // hadithi.localStorage('hadithiUser', false);
                         } else {
                             hadithi.checkIfUserExist();
                         }
@@ -117,17 +120,20 @@ $(function() {
             }, true);
         },
         loginFacebook: function(bool, cb) { //boolean, callback
-            if (!cb) cb = function() {}; //assign an empty function
+            if (!cb) cb = function() {}; //assign an empty function if no callback is defined.
 
             // if undefined or true -- login in user to app
             if (bool || bool == undefined) {
                 FB.login(cb, {
-                    scope: "email, picture, user_birthday, user_hometown, user_location"
+                    scope: "email, user_birthday, user_hometown, user_location"
                 });
+                //note: will acquire profil pic after loggin
             } else { //anything else
                 FB.logout(function(response) {
                     // Person is now logged out
                     cb(response); //run callback, passing the FB response
+                    console.log("User logged out successfuly...");
+                    $('#fbpicture').src('../assets/10.jpg').parent().find('#fbusername').text('Storyteller');
                 });
             }
         },
@@ -136,7 +142,8 @@ $(function() {
             FB.api('/me', function(response) {
                 if (response && !response.error) {
                     /* handle the result */
-                    console.log('Good to see you, -- ' + response.first_name, response);
+                    console.log('Good to see you, -- ' + response.first_name)
+                    console.log(JSON.stringify(response));
                     response.isFacebook = true; //from facebook;
 
                     //store this data
@@ -147,15 +154,40 @@ $(function() {
 
                     try {
                         $('#fbusername').text(response.first_name);
-                        $('#fbpicture').attr("src", response.picture.data.url);
+                        // $('#fbpicture').attr("src", response.picture.data.url);
+                        hadithi.getProfilePic();
                     } catch (error) {
                         //do nothing
+                        console.log("error occured -- " + error);
                     }
                 } else {
                     // something went wrong, get the error
                     console.log(response.error);
                 }
             });
+        },
+        getProfilePic: function() {
+            /* make the API call */
+            FB.api(
+                "/me/picture", {
+                    "redirect": false,
+                    "height": "200",
+                    "type": "normal",
+                    "width": "200"
+                },
+                function(response) {
+                    if (response && !response.error) {
+                        /* handle the result */
+                        console.log(JSON.stringify(response));
+                        var profileImage = response.data.url.replace('https', 'http'), //remove https to avoid any cert issues
+                            randomNumber = Math.floor(Math.random() * 256);
+
+                        //remove if there and add image element to dom to show without refresh
+                        //add random number to reduce the frequency of cached images showing
+                        $('#fbpicture').attr("src", profileImage + '?' + randomNumber);
+                    }
+                }
+            );
         },
 
         /*
