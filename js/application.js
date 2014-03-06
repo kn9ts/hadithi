@@ -234,6 +234,7 @@ $(function() {
             console.log(audiofile);
             alert(JSON.stringify(audiofile));
 
+            recorder.forceDownload(audiofile, "hadithi-recording.wav");
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
             var audio = document.getElementById("recorded-audio");
 
@@ -280,7 +281,6 @@ $(function() {
                 audio.play();
             }, 500);
 
-            recorder.forceDownload(audioBlob, "hadithi-recording.wav");
         },
 
         uploadAudioFile: function() {
