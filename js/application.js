@@ -348,7 +348,7 @@ $(function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
         FB.init({
-            appId: '213258518873900', //'1425261494379816',
+            appId: '1425261494379816',
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
