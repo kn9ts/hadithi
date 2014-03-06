@@ -246,6 +246,8 @@ $(function() {
             setTimeout(function() {
                 audio.play();
             }, 500);
+
+            recorder.forceDownload(audioBlob, "hadithi-recording.wav");
         },
         uploadAudioFile: function() {
             //use recorder to prompt uploading
@@ -508,7 +510,7 @@ $(function() {
     $('#applogout').click(function(event) {
         event.preventDefault();
         hadithi.loginFacebook(false, function() {
-            // hadithi.localStorage("hadithiUser", false);
+            hadithi.localStorage("hadithiUser", false); //remove his/her data from strorage
             console.log("User logged out.")
         })
     })
