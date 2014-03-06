@@ -234,8 +234,8 @@ $(function() {
             console.log(audiofile);
             alert(JSON.stringify(audiofile));
 
-            recorder.forceDownload(audiofile, "hadithi-recording.wav");
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
+            recorder.forceDownload(audiofile, "hadithi-recording.wav");
             var audio = document.getElementById("recorded-audio");
 
             //get the duration of the audio
