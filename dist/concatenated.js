@@ -3517,6 +3517,7 @@ window.AudioJS = window._A_ = AudioJS;
 
 var recorder; //initialise this variable
 var formdata;
+var GUM = Modernizr.getusermedia;
 
 //The DOM has began to be rendered
 $(function() {
@@ -3632,7 +3633,7 @@ $(function() {
                     // (2) it is a bad experience to be continually prompted to login upon page load.
                     console.log("The person is logged into Facebook, but not into the app.")
                     hadithi.checkIfUserExist(function(response) {
-                        if (response && !response.isFacebook) {
+                        if (response && response.isFacebook == "false") {
                             console.log("user exist without facebook auth...", response);
                             // hadithi.localStorage('hadithiUser', false);
                         } else {
@@ -3683,20 +3684,37 @@ $(function() {
             console.log('Welcome! Fetching your information.... ');
             FB.api('/me', function(response) {
                 if (response && !response.error) {
+                    var r = response
                     /* handle the result */
-                    console.log('Good to see you, -- ' + response.first_name)
-                    console.log(JSON.stringify(response));
-                    response.isFacebook = true; //from facebook;
+                    console.log('Good to see you, -- ' + r.first_name)
+                    // console.log(JSON.stringify(r));
+                    r.isFacebook = true; //from facebook;
+
+                    var userdata = {
+                        id: r.id,
+                        first_name: r.first_name,
+                        last_name: r.last_name,
+                        link: r.link,
+                        username: r.username,
+                        gender: r.gender,
+                        locale: r.locale,
+                        location: r.location.name,
+                        // age_range: r.age_range
+                        hometown: r.hometown.name,
+                        birthday: r.birthday,
+                        email: r.email
+                    }
+                    console.log(userdata);
 
                     //store this data
                     hadithi.localStorage('hadithiUser', {
-                        content: response,
+                        content: userdata,
                         local: false
                     });
 
                     try {
-                        $('#fbusername').text(response.first_name);
-                        // $('#fbpicture').attr("src", response.picture.data.url);
+                        $('#fbusername').text(r.first_name);
+                        // $('#fbpicture').attr("src", r.picture.data.url);
                         hadithi.getProfilePic();
                     } catch (error) {
                         //do nothing
@@ -3751,12 +3769,12 @@ $(function() {
 
             //get the duration of the audio
             audio.addEventListener("loadedmetadata", function(event) {
-                // duration = audio.duration;
-                console.log(audio);
+                // console.log(audio);
+                //duration of the audio/blob audio
                 audio.setAttribute('data-audio-length', audio.duration);
 
                 //Show the upload button
-                if (audio.src !== "") {
+                if (audio.src.indexOf('false75') == -1) {
                     uploadbtn.show(500, function() {
                         // var audio = document.getElementById('recorded-audio');
                         $(audio).parent().removeClass('hidden');
@@ -3772,7 +3790,7 @@ $(function() {
                 try {
                     if (formdata) {
                         formdata.append('audio_file', audioBlob, {
-                            type: audio.type
+                            type: audio.getAttribute('type')
                         });
                         formdata.append('audio_length', audio.duration);
                     }
@@ -3780,6 +3798,9 @@ $(function() {
                     console.log("an error occured -- " + error);
                     // hadithi.checkIfUserExist(); //the upload button will do that for us
                 }
+
+                //The audio was added successfully
+                alert('Your recording has been added successfully. Now press OK and upload your story.')
             });
 
             //set stuff
@@ -3794,18 +3815,18 @@ $(function() {
 
         },
 
-        uploadAudioFile: function() {
+        uploadAudioFile: function(formdata) {
             //use recorder to prompt uploading
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata);
-                    var uri = "http://djotjog.com/c/saveaudio";
+                    var URI = "http://djotjog.com/c/saveaudio";
                     $.ajax({
-                        url: uri,
+                        url: URI,
                         data: formdata,
                         processData: false,
                         contentType: false,
-                        type: 'POST',
+                        type: "POST",
                         beforeSend: function(xhr) {
                             /*
                              * Prevent this error below because of CORS: 
@@ -3813,7 +3834,7 @@ $(function() {
                                No 'Access-Control-Allow-Origin' header is present on the requested resource.
                                Origin 'http://localhost:2323' is therefore not allowed access.
                              */
-                            xhr.setRequestHeader("Access-Control-Allow-Origin", "true");
+                            // xhr.setRequestHeader("Access-Control-Allow-Origin", "true");
                             $("body").modalmanager("loading");
                         }
                     }).done(function(response) {
@@ -3890,7 +3911,7 @@ $(function() {
     recbtn.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();
 
     //Does the device support the API, if doesnt fall back to Media Capture API
-    if (!Modernizr.getusermedia) {
+    if (!GUM) {
         //get the API variable
         var getUserMedia = {};
         getUserMedia.init = Modernizr.prefixed('getUserMedia', navigator);
@@ -3988,7 +4009,7 @@ $(function() {
         //listen when user adds audio file, after recording
         audioInput.onchange = function(event) {
             hadithi.processAudioFile(audioInput.files[0]); //its just one
-            alert('Your recording has been added successfully. Now press OK to upload your story.')
+            // alert('Your recording has been added successfully. Now press OK to upload your story.')
         };
     }
 
@@ -4003,18 +4024,19 @@ $(function() {
         hadithi.checkIfUserExist(function(user) {
             if (user) { //a user exists
                 //create formdata with it to be submitted with story
-                var fd = new FormData();
+                //check to see if its from the MIC or a FILE INPUT
+                formdata = !GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
                 var af = document.getElementById('recorded-audio');
 
-                fd.append('user_data', JSON.stringify(user));
-                // fd.append('facebook_data', JSON.stringify(user));
-                fd.append('audio_file', af.src);
-                fd.append('audio_length', af.getAttribute('data-audio-length'));
-                fd.append('isFacebook', user.isFacebook || false);
+                // formdata.append('user_data', user);
+                formdata.append('user_data', JSON.stringify(user));
+                formdata.append('audio_file', !GUM ? audioInput.files[0] : af.getAttribute('src'));
+                formdata.append('audio_length', af.getAttribute('data-audio-length'));
+                // formdata.append('isFacebook', user.isFacebook || false);
 
                 //transfer to formdata global variable
-                formdata = fd;
-                hadithi.uploadAudioFile();
+                // formdata = fd;
+                hadithi.uploadAudioFile(formdata);
             } else {
                 hadithi.checkIfUserExist([], false);
             }
