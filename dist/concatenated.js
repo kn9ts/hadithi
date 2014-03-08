@@ -3800,7 +3800,7 @@ $(function() {
                 }
 
                 //The audio was added successfully
-                alert('Your recording has been added successfully. Now press OK and upload your story.')
+                bootbox.alert('Your recording has been added successfully. Now press OK and upload your story.')
             });
 
             //set stuff
@@ -3839,12 +3839,15 @@ $(function() {
                         }
                     }).done(function(response) {
                         //do something
+                        if(response && response.result) {
+                            bootbox.alert(response.message);
+                        }
                     }).fail(function(error) {
-                        console.log("An error occured -- ", error);
+                        bootbox.alert("An error occured -- " + JSON.stringify(error));
                     });
                 }
             } catch (error) {
-                console.log("An error occured while trying to upload -- " + error)
+                bootbox.alert("An error occured while trying to upload -- " + error)
             }
         },
         /** 
@@ -3886,7 +3889,7 @@ $(function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
         FB.init({
-            appId: '213258518873900', // '1425261494379816',
+            appId: '1425261494379816',
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
@@ -3904,14 +3907,14 @@ $(function() {
             capture: "camcorder"
         });
         console.log("Mobile device detected -- " + device);
-        alert("Mobile device detected -- " + device);
+        bootbox.alert("Mobile device detected -- " + device);
     }
 
     //disable the rec-btn until permission is granted to use microphone;
     recbtn.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();
 
     //Does the device support the API, if doesnt fall back to Media Capture API
-    if (!GUM) {
+    if (GUM) {
         //get the API variable
         var getUserMedia = {};
         getUserMedia.init = Modernizr.prefixed('getUserMedia', navigator);
@@ -3952,7 +3955,7 @@ $(function() {
                     //visualise the error
                     $('#allow-mic').removeClass('alert-info').addClass('alert-danger').text(msg);
                     $('button#record-story').attr('disabled', true);
-                    alert(msg);
+                    bootbox.alert(msg);
                 }
             );
 
@@ -3998,7 +4001,7 @@ $(function() {
 
     } else {
         //The STREAM API is not available, fallback to Media Capture API
-        alert("Browser does not support getUserMedia");
+        bootbox.alert("Browser does not support getUserMedia");
 
         // instead will act as handler for the file-picker input
         recbtn.removeAttr("disabled").on('click', function(event) {
@@ -4025,12 +4028,12 @@ $(function() {
             if (user) { //a user exists
                 //create formdata with it to be submitted with story
                 //check to see if its from the MIC or a FILE INPUT
-                formdata = !GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
+                formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
                 var af = document.getElementById('recorded-audio');
 
                 // formdata.append('user_data', user);
                 formdata.append('user_data', JSON.stringify(user));
-                formdata.append('audio_file', !GUM ? audioInput.files[0] : af.getAttribute('src'));
+                formdata.append('audio_file', GUM ? audioInput.files[0] : af.getAttribute('src'));
                 formdata.append('audio_length', af.getAttribute('data-audio-length'));
                 // formdata.append('isFacebook', user.isFacebook || false);
 

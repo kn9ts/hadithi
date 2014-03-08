@@ -303,7 +303,7 @@ $(function() {
                 }
 
                 //The audio was added successfully
-                alert('Your recording has been added successfully. Now press OK and upload your story.')
+                bootbox.alert('Your recording has been added successfully. Now press OK and upload your story.')
             });
 
             //set stuff
@@ -342,12 +342,15 @@ $(function() {
                         }
                     }).done(function(response) {
                         //do something
+                        if(response && response.result) {
+                            bootbox.alert(response.message);
+                        }
                     }).fail(function(error) {
-                        console.log("An error occured -- ", error);
+                        bootbox.alert("An error occured -- " + JSON.stringify(error));
                     });
                 }
             } catch (error) {
-                console.log("An error occured while trying to upload -- " + error)
+                bootbox.alert("An error occured while trying to upload -- " + error)
             }
         },
         /** 
@@ -407,7 +410,7 @@ $(function() {
             capture: "camcorder"
         });
         console.log("Mobile device detected -- " + device);
-        alert("Mobile device detected -- " + device);
+        bootbox.alert("Mobile device detected -- " + device);
     }
 
     //disable the rec-btn until permission is granted to use microphone;
@@ -455,7 +458,7 @@ $(function() {
                     //visualise the error
                     $('#allow-mic').removeClass('alert-info').addClass('alert-danger').text(msg);
                     $('button#record-story').attr('disabled', true);
-                    alert(msg);
+                    bootbox.alert(msg);
                 }
             );
 
@@ -501,7 +504,7 @@ $(function() {
 
     } else {
         //The STREAM API is not available, fallback to Media Capture API
-        alert("Browser does not support getUserMedia");
+        bootbox.alert("Browser does not support getUserMedia");
 
         // instead will act as handler for the file-picker input
         recbtn.removeAttr("disabled").on('click', function(event) {
