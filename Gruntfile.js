@@ -23,6 +23,11 @@ module.exports = function(grunt) {
         },
         //Minify the CSS concatenated
         cssmin: {
+            options: {
+                // banner: '/* My minified css file */',
+                keepSpecialComments: '1', // '*' or 1 or 0
+                report: 'min' // 'gzip'
+            },
             css: {
                 src: 'dist/concatenated.css',
                 dest: 'dist/concatenated.min.css'
@@ -64,10 +69,31 @@ module.exports = function(grunt) {
         },
         // Wouldn't it be awesome if grunt did all of this automatically every time we changed a file?
         // Watch is a grunt plugin written to do just that.
+        // Run predefined tasks whenever watched file patterns are added, changed or deleted.
+        //Grouped the files to run specific tasks that are unique to each;
         watch: {
-            files: ['**/*.jade', 'assets/css/**.js', 'js/**/*.js', 'assets/**/*.js', 'Gruntfile.js'],
-            tasks: ['concat', 'cssmin', 'uglify',  'jade', 'jshint']
+            css: {
+                files: ["**/*.css", 'assets/css/**/*.css'],
+                tasks: ['concat:css', 'cssmin:css']
+            },
+            scripts: {
+                files: ['js/**/*.js', 'assets/**/*.js', '!js/libmp3lame.min.js'],
+                tasks: ['concat:js', 'jshint', 'uglify']
+            },
+            jade: {
+                files: ['**/*.jade'],
+                tasks: ['jade']
+            },
+            gruntfile: {
+                files: ['Gruntfile.js'],
+                tasks: ['jshint']
+            }
         }
+    });
+
+    grunt.event.on('watch', function(action, filepath, target) {
+        grunt.log.writeln("INFO: -- " + target + ': ' + filepath + ' has ' + action);
+        // grunt.config(['jshint', 'all'], filepath);
     });
 
     // These plugins provide necessary tasks.
@@ -81,7 +107,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'nodeunit']);
-    grunt.registerTask('default', ['concat:css', 'cssmin:css', 'concat:js', 'uglify', 'jade', 'jshint', 'watch']);
+    // grunt.registerTask('default', ['jshint', 'nodeunit']);
+    grunt.registerTask('default', ['jade', 'concat:css', 'cssmin:css', 'concat:js', 'uglify', 'jshint', 'watch']);
 
 };

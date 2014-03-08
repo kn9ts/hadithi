@@ -23,6 +23,7 @@ var formdata;
 
 //The DOM has began to be rendered
 $(function() {
+    //CORS support
     $.support.cors = true;
 
     //rec control buttons
@@ -67,8 +68,9 @@ $(function() {
 
         checkIfUserExist: function(cb, bool) {
             var user = this.localStorage('hadithiUser');
+            console.log("does the user exit?? --- ", user);
             if (user) { //exists
-                if (user.isFacebook) {
+                if (user.isFacebook !== "false") {
                     //if bool is false, the function will run
                     if (!bool) hadithi.getUserFacebookInfo("facebook-opengraph-api");
                 } else {
@@ -148,11 +150,13 @@ $(function() {
                     // The same caveats as above apply to the FB.login() call here.
                     console.log("The person is not logged into Facebook")
                     hadithi.checkIfUserExist(function(response) {
-                        if (response && !response.isFacebook) {
+                        if (response && response.isFacebook == "false") {
                             console.log("user exist without facebook auth...", response);
                             // hadithi.localStorage('hadithiUser', false);
                         } else {
                             hadithi.checkIfUserExist();
+                            // hadithi.localStorage('hadithiUser', false);
+                            console.log("user exist is not saved anywhere or anyhow!!!", response);
                         }
                     }, false); //ask for info
                 }
@@ -173,7 +177,7 @@ $(function() {
                     // Person is now logged out
                     cb(response); //run callback, passing the FB response
                     console.log("User logged out successfuly...");
-                    $('#fbpicture').src('../assets/10.jpg').parent().find('#fbusername').text('Storyteller');
+                    $('#fbpicture').attr('src', '../assets/10.jpg').parent().find('#fbusername').text('Storyteller');
                 });
             }
         },
@@ -306,7 +310,13 @@ $(function() {
                         contentType: false,
                         type: 'POST',
                         beforeSend: function(xhr) {
-                            // xhr.setRequestHeader("Access-Control-Allow-Origin", "true");
+                            /*
+                             * Prevent this error below because of CORS: 
+                             * @error -- XMLHttpRequest cannot load http://djotjog.com/c/saveaudio. 
+                               No 'Access-Control-Allow-Origin' header is present on the requested resource.
+                               Origin 'http://localhost:2323' is therefore not allowed access.
+                             */
+                            xhr.setRequestHeader("Access-Control-Allow-Origin", "true");
                             $("body").modalmanager("loading");
                         }
                     }).done(function(response) {
@@ -358,7 +368,7 @@ $(function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
         FB.init({
-            appId: '1425261494379816',
+            appId: '213258518873900', // '1425261494379816',
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
@@ -383,7 +393,7 @@ $(function() {
     recbtn.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();
 
     //Does the device support the API, if doesnt fall back to Media Capture API
-    if (Modernizr.getusermedia) {
+    if (!Modernizr.getusermedia) {
         //get the API variable
         var getUserMedia = {};
         getUserMedia.init = Modernizr.prefixed('getUserMedia', navigator);
@@ -525,27 +535,38 @@ $(function() {
             //get the form
             var fd = document.getElementById('questionaire-form');
             //collect the user's data from the modal form
-            formdata = new FormData(fd);
-            formdata.fd = $(fd).serializeArray();
+            formdata = new FormData( /* fd -- previously */ );
+            var fdata = $(fd).serializeArray();
+
+            //Flatten the fdata object array
+            formDataObject = {};
+            for (var key in fdata) {
+                formDataObject[fdata[key].name] = fdata[key].value;
+            }
             console.log("User form filled data should be added to \"formdata\" variable");
-            console.log(formdata.fd);
+            console.log(formDataObject);
+
+            //correct the sex toggled -- 'on' for male
+            formDataObject.sex = formDataObject.sex === "on" ? "male" : "female";
+            formdata.append('user_data', formDataObject);
 
             //save to local storage
             hadithi.localStorage('hadithiUser', {
-                content: formdata.fd
+                content: formDataObject
                 // ,local: false
             });
 
             var af = document.getElementById('recorded-audio');
             //check if an audio recording exists and promp and uploading session
-            if (af.src !== "" && /[\w._%+-]+\@[\w.-]+\.[a-zA-Z]{2,}$/.test(formdata.fd[0].value)) {
+            //match for an email address in his formdata
+            if (af.src.indexOf('false75') == -1 && /[\w._%+-]+\@[\w.-]+\.[a-zA-Z]{2,}$/.test(formDataObject.email)) {
                 // $('#questionaire').modal('hide');
                 console.log("tyring to upload it once more.");
                 formdata.append('audio_file', af.src, {
                     type: af.type
                 });
                 formdata.append('audio_length', af.getAttribute('data-audio-length'));
-                if (formdata.fd.file) hadithi.uploadAudioFile();
+                if (formDataObject.email) hadithi.uploadAudioFile();
             }
 
             //Hide modal window
