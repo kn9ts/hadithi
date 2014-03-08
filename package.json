@@ -1,0 +1,39 @@
+{
+    "name": "hadithi",
+    "description": "MP3 audio + facebook storytelling collection tool [hadithi]",
+    "version": "0.1.0",
+    "homepage": "https://github.com/jheneknights/hadithi",
+    "author": {
+        "name": "Eugene Mutai",
+        "email": "eugenemutai@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jheneknights/hadithi.git"
+    },
+    "bugs": {
+        "url": "https://github.com/jheneknights/hadithi/issues"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/jheneknights/hadithi/blob/master/LICENSE-MIT"
+    }],
+    "main": "lib/hadithi",
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "scripts": {
+        "test": "grunt nodeunit"
+    },
+    "devDependencies": {
+        "grunt-contrib-jshint": "~0.6.4",
+        "grunt-contrib-nodeunit": "~0.2.0",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-contrib-jade": "latest",
+        "grunt-contrib-concat": "latest",
+        "grunt-contrib-uglify": "latest",
+        "grunt-contrib-cssmin": "latest",
+        "grunt": "~0.4.2"
+    },
+    "keywords": []
+}

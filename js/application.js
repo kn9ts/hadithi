@@ -23,6 +23,16 @@ var formdata;
 
 //The DOM has began to be rendered
 $(function() {
+    $.support.cors = true;
+
+    //rec control buttons
+    var recbtn = $('#record-story');
+    var stopbtn = $('#end-session');
+    var uploadbtn = $('#upload-story');
+
+    //input tag 4 mc-api fallback
+    var audioInput = document.getElementById('media-capture-api');
+
     var hadithi = {
 
         hasGetUserMedia: function() {
@@ -153,7 +163,7 @@ $(function() {
             if (!cb) cb = function() {}; //assign an empty function if no callback is defined.
 
             // if undefined or true -- login in user to app
-            if (bool || bool == undefined) {
+            if (bool || bool === undefined) {
                 FB.login(cb, {
                     scope: "email, user_birthday, user_hometown, user_location"
                 });
@@ -231,12 +241,12 @@ $(function() {
         processAudioFile: function(af) {
             //get the file
             var audiofile = af; //audioInput.files[0]; //its just one
+            // Recorder.forceDownload(audiofile, "hadithi-recording.wav");
             console.log(audiofile);
             alert(JSON.stringify(audiofile));
 
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
             var audio = document.getElementById("recorded-audio");
-            // recorder.forceDownload(audiofile, "hadithi-recording.wav");
 
             //get the duration of the audio
             audio.addEventListener("loadedmetadata", function(event) {
@@ -330,7 +340,7 @@ $(function() {
                     if ($.cookie) $.cookie(key, options.content);
                     localStorage.setItem(key, JSON.stringify(options.content));
                 }
-            } else if (options == false) { //if options == false
+            } else if (options === false) { //if options == false
                 localStorage.removeItem(key);
                 if ($.cookie) $.cookie(key, false); //remove everything
             }
@@ -357,23 +367,17 @@ $(function() {
         hadithi.initApplication();
     }
 
-    $.support.cors = true;
-
     //check for device and change the API
     var device = hadithi.detectAppleDevices();
     if (device) { //If true -- a mobile device was detected
         if (device == "android") $('audio#recorded-audio').attr("type", "audio/*"); //Do nothing, that is fine
-        if (device == "idevice") $('audio#recorded-audio').attr("type", "video/*");
+        if (device == "idevice") $('audio#recorded-audio').attr({
+            "type": "video/*",
+            capture: "camcorder"
+        });
         console.log("Mobile device detected -- " + device);
-    };
-
-    //rec control buttons
-    var recbtn = $('#record-story');
-    var stopbtn = $('#end-session');
-    var uploadbtn = $('#upload-story');
-
-    //input tag 4 mc-api fallback
-    var audioInput = document.getElementById('media-capture-api');
+        alert("Mobile device detected -- " + device);
+    }
 
     //disable the rec-btn until permission is granted to use microphone;
     recbtn.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();
@@ -420,8 +424,15 @@ $(function() {
                     //visualise the error
                     $('#allow-mic').removeClass('alert-info').addClass('alert-danger').text(msg);
                     $('button#record-story').attr('disabled', true);
+                    alert(msg);
                 }
             );
+
+            //Get all the JS scripts in the page for GRUNTFILE addition
+            // var sc = $('html').find('script').map(function(a, b) {
+            //     if($(b).attr('src'))return $(b).attr('src');
+            // });
+            // console.log(sc);
         });
 
         //if the user begins to record the data
@@ -456,18 +467,22 @@ $(function() {
             //     console.log(audioBuffer);
             // });
         });
+
     } else {
         //The STREAM API is not available, fallback to Media Capture API
         alert("Browser does not support getUserMedia");
+
         // instead will act as handler for the file-picker input
         recbtn.removeAttr("disabled").on('click', function(event) {
             event.preventDefault();
             audioInput.click(); //will prompt user to record audio with phone
         });
+
         //listen when user adds audio file, after recording
-        audioInput.addEventListener('change', function(event) {
+        audioInput.onchange = function(event) {
             hadithi.processAudioFile(audioInput.files[0]); //its just one
-        }, false);
+            alert('Your recording has been added successfully. Now press OK to upload your story.')
+        };
     }
 
     //prompt uploadin of the recording

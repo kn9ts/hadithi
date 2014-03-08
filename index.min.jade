@@ -12,56 +12,10 @@ html(lang='en')
 		// Favicons
 		link(rel='shortcut icon', type='image/png', href='')
 		link(rel='shortcut icon', type='image/x-icon', href='')
-		// Stylesheets
-		link(rel='stylesheet', href='../assets/css/bootstrap.min.css')
-		link(rel='stylesheet', href='../assets/css/font-awesome.min.css')
-		// fonts
-		link(rel='stylesheet', href='../assets/css/ace-fonts.css')
-		// ace styles
-		link(rel='stylesheet', href='../assets/css/ace.min.css')
-		link(rel='stylesheet', href='../assets/css/ace-skins.min.css')
-		// if [IE 7]
-			link(rel="stylesheet", href="../assets/css/font-awesome-ie7.min.css)
-		// page specific plugin styles
-		//- link(rel='stylesheet', href='../assets/css/jquery.gritter.css')
-		// ace settings handler
-		script(src='../assets/js/ace-extra.min.js')
-		// basic scripts
-		// if [!IE]
-		script(type='text/javascript', src='../assets/js/jquery-2.0.3.min.js')
-		//if [IE]
-			script(type='text/javascript', src='../assets/js/jquery-1.10.2.min.js')
-		script(type='text/javascript').
-			//- if ("ontouchend" in document) $.getScript('../assets/js/jquery.mobile.custom.min.js');
-		script(src='../assets/js/bootstrap.min.js')
-		//- script(src='../assets/js/typeahead-bs2.min.js')
+		//Minified Dist
+		link(rel='stylesheet', href='../concatenated.min.css')
+		script(type="text/javascript", src="../concatenated.min.js")
 
-		// ace scripts
-		script(src='../assets/js/ace-elements.min.js')
-		script(src='../assets/js/ace.min.js')
-
-		//- script(src='../assets/js/jquery-ui-1.10.3.custom.min.js')
-		//- script(src='../assets/js/jquery.ui.touch-punch.min.js')
-		//- script(src='../assets/js/bootbox.min.js')
-		//- script(src='../assets/js/jquery.easy-pie-chart.min.js')
-
-		//for bootstrap modal manager - to overide default modal limitations
-		link(rel="stylesheet", href="../assets/css/bootstrap-modal.css")
-		script(src="../assets/js/bootstrap-modal.js")
-		script(src="../assets/js/bootstrap-modalmanager.js")
-
-		//Additional scripts
-		script(src='../js/modernizr.custom.96386.js')
-		script(src='../js/recorder.js')
-
-		link(rel="stylesheet", href="../audiojs/audio-js.css")
-		link(rel="stylesheet", href="../audiojs/skins/tube.css")
-		script(src='../audiojs/audio.js')
-
-		//Application script
-		script(src='../js/hadithi.js')
-		script(src='../js/application.js')
-			
 	body.skin-2
 		// The HEADER BAR
 		nav.navbar.navbar-default.navbar-container(role='navigation')
