@@ -1,1 +1,45 @@
 node_modules
+docs
+lib
+test
+
+#font-files
+*.eot
+*.woff
+*.ttf
+*.otf
+font/*.svg
+
+# Created by http://www.gitignore.io
+
+### SublimeText ###
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+
+### Node ###
+lib-cov
+lcov.info
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+build
+.grunt
+
+node_modules
+
+
+### Bower ###
+bower_components

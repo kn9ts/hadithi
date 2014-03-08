@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         concat: {
             css: {
                 src: ['assets/**/*.css', 'audio/**/*.css'],
-                dest: 'concatenated.css'
+                dest: 'dist/concatenated.css'
             },
             js: {
                 options: {
@@ -18,14 +18,14 @@ module.exports = function(grunt) {
                 },
                 // src: ['assets/**/*.js', 'js/**/*.js'],
                 src: ["assets/js/ace-extra.min.js", "assets/js/jquery-2.0.3.min.js", "assets/js/bootstrap.min.js", "assets/js/ace-elements.min.js", "assets/js/ace.min.js", "assets/js/bootstrap-modal.js", "assets/js/bootstrap-modalmanager.js", "js/modernizr.custom.96386.js", "js/recorder.js", "audiojs/audio.js", "js/application.js"],
-                dest: 'concatenated.js'
+                dest: 'dist/concatenated.js'
             }
         },
         //Minify the CSS concatenated
         cssmin: {
             css: {
-                src: 'concatenated.css',
-                dest: 'concatenated.min.css'
+                src: 'dist/concatenated.css',
+                dest: 'dist/concatenated.min.css'
             }
         },
         //Your CSS has now been combined and compressed. 
@@ -35,8 +35,8 @@ module.exports = function(grunt) {
             dynamic_mapping: {
                 files: [{
                     // expand: true,
-                    src: 'concatenated.js',
-                    dest: "concatenated.min.js"
+                    src: 'dist/concatenated.js',
+                    dest: "dist/concatenated.min.js"
                 }]
             }
         },

@@ -3738,7 +3738,7 @@ $(function() {
         processAudioFile: function(af) {
             //get the file
             var audiofile = af; //audioInput.files[0]; //its just one
-            Recorder.forceDownload(audiofile, "hadithi-recording.wav");
+            // Recorder.forceDownload(audiofile, "hadithi-recording.wav");
             console.log(audiofile);
             alert(JSON.stringify(audiofile));
 

@@ -1,18 +1,18 @@
 # hadithi
 
-MP3 audio + facebook storytelling collection tool [hadithi]
+MP3 audio + facebook storytelling collection tool, [Hadithi](http://djotjog.com/hadithi/tellme)
 
 ## Documentation
 _(Coming soon)_
 
 ## Examples
-_(Coming soon)_
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+_(Just a little patience)_
+
+> "Never increase, beyond what is necessary,   
+> the number of entities required to explain anything."  
+> – *William Ockham*
 
 ## License
 Copyright (c) 2014 Eugene Mutai  
