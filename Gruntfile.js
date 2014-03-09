@@ -10,18 +10,18 @@ module.exports = function(grunt) {
         concat: {
             css: {
                 src: ['assets/**/*.css', 'audio/**/*.css'],
-                dest: 'dist/concatenated.css'
+                dest: 'dist/application.css'
             },
             js: {
                 options: {
                     seperator: ';'
                 },
                 // src: ['assets/**/*.js', 'js/**/*.js'],
-                src: ["assets/js/ace-extra.min.js", "assets/js/jquery-2.0.3.min.js", "assets/js/bootstrap.min.js", "assets/js/ace-elements.min.js", "assets/js/ace.min.js", "assets/js/bootstrap-modal.js", "assets/js/bootstrap-modalmanager.js", "js/modernizr.custom.96386.js", "js/recorder.js", "audiojs/audio.js", "js/application.js"],
-                dest: 'dist/concatenated.js'
+                src: ["assets/js/ace-extra.min.js", "assets/js/jquery-1.10.2.min.js", "assets/js/bootstrap.min.js", "assets/js/ace-elements.min.js", "assets/js/ace.min.js", "assets/js/bootstrap-modal.js", "assets/js/bootstrap-modalmanager.js", "js/bootbox.min.js", "js/modernizr.custom.96386.js", "js/recorder.js", "audiojs/audio.js", "js/application.js"],
+                dest: 'dist/application.js'
             }
         },
-        //Minify the CSS concatenated
+        //Minify the CSS concentanated application.css
         cssmin: {
             options: {
                 // banner: '/* My minified css file */',
@@ -29,8 +29,8 @@ module.exports = function(grunt) {
                 report: 'min' // 'gzip'
             },
             css: {
-                src: 'dist/concatenated.css',
-                dest: 'dist/concatenated.min.css'
+                src: 'dist/application.css',
+                dest: 'dist/application.min.css'
             }
         },
         //Your CSS has now been combined and compressed. 
@@ -40,8 +40,8 @@ module.exports = function(grunt) {
             dynamic_mapping: {
                 files: [{
                     // expand: true,
-                    src: 'dist/concatenated.js',
-                    dest: "dist/concatenated.min.js"
+                    src: 'dist/application.js',
+                    dest: "dist/application.min.js"
                 }]
             }
         },
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
             },
             gruntfile: {
                 files: ['Gruntfile.js'],
-                tasks: ['jshint']
+                tasks: ['jshint', 'concat:js', 'jshint', 'uglify']
             }
         }
     });

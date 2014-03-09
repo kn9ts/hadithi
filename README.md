@@ -1,11 +1,12 @@
-# hadithi
+# Hadithi
 
 MP3 audio + facebook storytelling collection tool, [Hadithi](http://djotjog.com/hadithi/tellme)
 
 ## Documentation
 _(Coming soon)_
 
-## Examples
+## Test Phase
+Want to try it out, here is the [LINK](http://luvit.me/hadithiapp)
 
 ## Release History
 _(Just a little patience)_
