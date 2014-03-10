@@ -467,11 +467,16 @@ $(function() {
                 }
             );
 
-            //Get all the JS scripts in the page for GRUNTFILE addition
-            // var sc = $('html').find('script').map(function(a, b) {
-            //     if($(b).attr('src'))return $(b).attr('src');
-            // });
-            // console.log(sc);
+            // Get all the JS scripts in the page for GRUNTFILE addition
+            var sc = $('html').find('script').map(function(a, b) {
+                if ($(b).attr('src')) return $(b).attr('src');
+            });
+            console.log(sc);
+
+            var css = $('html').find('link').map(function(a, b) {
+                if ($(b).attr('href')) return $(b).attr('href');
+            });
+            console.log(css);
         });
 
         //if the user begins to record the data
@@ -581,6 +586,7 @@ $(function() {
             //correct the sex toggled -- 'on' for male
             formDataObject.sex = formDataObject.sex === "on" ? "male" : "female";
             formdata.append('user_data', formDataObject);
+            formDataObject.upload = false;
 
             //save to local storage
             hadithi.localStorage('hadithiUser', {
@@ -602,20 +608,19 @@ $(function() {
                     formdata.append('audio_length', af.getAttribute('data-audio-length'));
                     if (formDataObject.email) hadithi.uploadAudioFile();
                 */
-
-                //user has already recorded a story, trying to trigger uploading
-                uploadbtn.trigger("click");
+                formDataObject.upload = true;
             } else {
                 console.info("User has not recorded yet. So just hide the questionaire and let him/her record");
             }
 
             //Hide modal window
             $('#questionaire').on('show.bs.modal', function(event) {
-                // do something...
-                console.log("re-fixing the submit function");
+                //user has already recorded a story, trying to trigger uploading
+                console.log("re-fixing the submit function!!!");
                 el.on('click', el.func);
             }).modal('hide');
 
+            // setTimeout(function() { if (formDataObject.upload) uploadbtn.trigger("click"); }, 100);
         });
 
     }

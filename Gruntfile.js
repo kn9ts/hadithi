@@ -9,8 +9,8 @@ module.exports = function(grunt) {
         // concatenate files.
         concat: {
             css: {
-                src: ['assets/**/*.css', 'audio/**/*.css'],
-                dest: 'dist/application.css'
+                src: ["assets/css/bootstrap.min.css", "assets/css/font-awesome.min.css", "assets/css/ace-fonts.css", "assets/css/ace.min.css", "assets/css/ace-skins.min.css", "assets/css/bootstrap-modal.css", "audiojs/audio-js.css", "audiojs/skins/tube.css", 'audio/**/*.css'],
+                dest: 'assets/css/application.css'
             },
             js: {
                 options: {
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 },
                 // src: ['assets/**/*.js', 'js/**/*.js'],
                 src: ["assets/js/ace-extra.min.js", "assets/js/jquery-1.10.2.min.js", "assets/js/bootstrap.min.js", "assets/js/ace-elements.min.js", "assets/js/ace.min.js", "assets/js/bootstrap-modal.js", "assets/js/bootstrap-modalmanager.js", "js/bootbox.min.js", "js/modernizr.custom.96386.js", "js/recorder.js", "audiojs/audio.js", "js/application.js"],
-                dest: 'dist/application.js'
+                dest: 'assets/js/application.js'
             }
         },
         //Minify the CSS concentanated application.css
@@ -29,8 +29,8 @@ module.exports = function(grunt) {
                 report: 'min' // 'gzip'
             },
             css: {
-                src: 'dist/application.css',
-                dest: 'dist/application.min.css'
+                src: 'assets/css/application.css',
+                dest: 'assets/css/application.min.css'
             }
         },
         //Your CSS has now been combined and compressed. 
@@ -40,8 +40,8 @@ module.exports = function(grunt) {
             dynamic_mapping: {
                 files: [{
                     // expand: true,
-                    src: 'dist/application.js',
-                    dest: "dist/application.min.js"
+                    src: 'assets/js/application.js',
+                    dest: "assets/js/application.min.js"
                 }]
             }
         },
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
                 tasks: ['concat:css', 'cssmin:css']
             },
             scripts: {
-                files: ['js/**/*.js', 'assets/**/*.js', '!js/libmp3lame.min.js'],
+                files: ['js/**/*.js', '!js/libmp3lame.min.js'],
                 tasks: ['concat:js', 'jshint', 'uglify']
             },
             jade: {

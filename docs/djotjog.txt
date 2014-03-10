@@ -12,5 +12,8 @@ db: djotjog_gg
 
 What will you use for server side scripting? still php? Do what you know best, though I would like to understand how it works when you are done.
 
+
+Example of git post-receive hook in bare repo /hook/post-receive
+create one if it dsnt exit: touch post-receive
 #!/bin/sh
 git --work-tree=/home/djotjog/webapps/s/hadithi --git-dir=/home/djotjog/webapps/s/hadithi.git checkout -f
