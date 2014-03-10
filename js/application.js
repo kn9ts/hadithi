@@ -269,7 +269,6 @@ $(function() {
 
             //if not initialised to collect form data
             if (!formdata) formdata = new FormData();
-            formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
 
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
             var audio = document.getElementById("recorded-audio");
@@ -279,7 +278,6 @@ $(function() {
                 // console.log(audio);
                 //duration of the audio/blob audio
                 audio.setAttribute('data-audio-length', audio.duration);
-                formdata.append('audio_length', audio.getAttribute('data-audio-length'));
 
                 //Show the upload button
                 if (audio.src.indexOf('false75') == -1) {
@@ -296,12 +294,8 @@ $(function() {
 
                 //append audio file to any existing formdata
                 try {
-                    if (formdata) {
-                        formdata.append('audio_file', audioBlob, {
-                            type: audio.getAttribute('type')
-                        });
-                        formdata.append('audio_length', audio.duration);
-                    }
+                    formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
+                    formdata.append('audio_length', audio.duration);
                 } catch (error) {
                     console.log("an error occured -- " + error);
                     // hadithi.checkIfUserExist(); //the upload button will do that for us
