@@ -531,12 +531,13 @@ $(function() {
             if (user) { //a user exists
                 //create formdata with it to be submitted with story
                 //check to see if its from the MIC or a FILE INPUT
+                //GUM should be true for browsers
                 formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
                 var af = document.getElementById('recorded-audio');
 
                 // formdata.append('user_data', user);
                 formdata.append('user_data', JSON.stringify(user));
-                formdata.append('audio_file', GUM ? audioInput.files[0] : af.getAttribute('src'));
+                formdata.append('audio_file', GUM ? af.getAttribute('src'): audioInput.files[0]);
                 formdata.append('audio_length', af.getAttribute('data-audio-length'));
                 // formdata.append('isFacebook', user.isFacebook || false);
 
