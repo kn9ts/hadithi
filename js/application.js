@@ -19,7 +19,7 @@
  */
 
 var recorder; //initialise this variable
-var formdata;
+var formdata = false;
 var GUM = Modernizr.getusermedia;
 
 //The DOM has began to be rendered
@@ -267,6 +267,10 @@ $(function() {
             console.log(audiofile);
             alert(JSON.stringify(audiofile));
 
+            //if not initialised to collect form data
+            if (!formdata) formdata = new FormData();
+            formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
+
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
             var audio = document.getElementById("recorded-audio");
 
@@ -275,6 +279,7 @@ $(function() {
                 // console.log(audio);
                 //duration of the audio/blob audio
                 audio.setAttribute('data-audio-length', audio.duration);
+                formdata.append('audio_length', audio.getAttribute('data-audio-length'));
 
                 //Show the upload button
                 if (audio.src.indexOf('false75') == -1) {
@@ -342,7 +347,7 @@ $(function() {
                         }
                     }).done(function(response) {
                         //do something
-                        if(response && response.result) {
+                        if (response && response.result) {
                             bootbox.alert(response.message);
                         }
                     }).fail(function(error) {
@@ -384,6 +389,9 @@ $(function() {
         }
     }
 
+
+    /* --------------------------- THE APPLICATION INITIALISES HERE ------------------------------ */
+
     // --------- FACEBOOK INTERGRATION ----------
     // The function assigned to window.fbAsyncInit is run as soon as the SDK has completed loading.
     // Any code that you want to run after the SDK is loaded should be placed within this function and after the call to FB.init.
@@ -391,8 +399,11 @@ $(function() {
     window.fbAsyncInit = function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
+        // https://developers.facebook.com/apps/
+        var APP_ID = ['213258518873900', '1425261494379816'] //local - KnightsLab, remote - Hadithi
+        //init FB auth
         FB.init({
-            appId: '1425261494379816',
+            appId: APP_ID[1],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
@@ -409,7 +420,7 @@ $(function() {
             "type": "video/*",
             capture: "camcorder"
         });
-        console.log("Mobile device detected -- " + device);
+        // console.log("Mobile device detected -- " + device);
         bootbox.alert("Mobile device detected -- " + device);
     }
 
@@ -530,29 +541,30 @@ $(function() {
         hadithi.checkIfUserExist(function(user) {
             if (user) { //a user exists
                 //create formdata with it to be submitted with story
-                //check to see if its from the MIC or a FILE INPUT
+                if (!formdata) formdata = new FormData();
+
                 //GUM should be true for browsers
-                formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
+                //check to see if its from the MIC or a FILE INPUT
+                // formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
                 var af = document.getElementById('recorded-audio');
 
                 // formdata.append('user_data', user);
                 formdata.append('user_data', JSON.stringify(user));
-                formdata.append('audio_file', GUM ? af.getAttribute('src'): audioInput.files[0]);
-                formdata.append('audio_length', af.getAttribute('data-audio-length'));
-                // formdata.append('isFacebook', user.isFacebook || false);
+                // formdata.append('audio_file', GUM ? af.getAttribute('src') : audioInput.files[0]);
+                // formdata.append('audio_length', af.getAttribute('data-audio-length'));
+                formdata.append('isFacebook', user.isFacebook || false);
 
-                //transfer to formdata global variable
-                // formdata = fd;
                 hadithi.uploadAudioFile(formdata);
+                hadithi.localStorage('hadithiUser', false); //erase his data, for debugging purposes
             } else {
                 hadithi.checkIfUserExist([], false);
             }
         }, true); //no FB checkin needed
         //reset the upload button
-        uploadEvent();
+        questionaireEvent();
     });
 
-    uploadEvent = function() {
+    var questionaireEvent = function() {
         // event to handle questionaire submission
         $('#qtnr-submit').on('click', function(event) {
             var el = $(this);
@@ -561,11 +573,11 @@ $(function() {
             //get the form
             var fd = document.getElementById('questionaire-form');
             //collect the user's data from the modal form
-            formdata = new FormData( /* fd -- previously */ );
+            // formdata = new FormData( /* fd -- previously */ );
             var fdata = $(fd).serializeArray();
 
-            //Flatten the fdata object array
-            formDataObject = {};
+            //Flatten the form data object array [fdata]
+            window.formDataObject = {};
             for (var key in fdata) {
                 formDataObject[fdata[key].name] = fdata[key].value;
             }
@@ -587,12 +599,20 @@ $(function() {
             //match for an email address in his formdata
             if (af.src.indexOf('false75') == -1 && /[\w._%+-]+\@[\w.-]+\.[a-zA-Z]{2,}$/.test(formDataObject.email)) {
                 // $('#questionaire').modal('hide');
-                console.log("tyring to upload it once more.");
-                formdata.append('audio_file', af.src, {
-                    type: af.type
-                });
-                formdata.append('audio_length', af.getAttribute('data-audio-length'));
-                if (formDataObject.email) hadithi.uploadAudioFile();
+                console.log("Found user has already recorded a story, trying to upload it once more.");
+
+                /*
+                    formdata.append('audio_file', af.src, {
+                        type: af.type
+                    });
+                    formdata.append('audio_length', af.getAttribute('data-audio-length'));
+                    if (formDataObject.email) hadithi.uploadAudioFile();
+                */
+
+                //user has already recorded a story, trying to trigger uploading
+                uploadbtn.trigger("click");
+            } else {
+                console.info("User has not recorded yet. So just hide the questionaire and let him/her record");
             }
 
             //Hide modal window
@@ -601,9 +621,11 @@ $(function() {
                 console.log("re-fixing the submit function");
                 el.on('click', el.func);
             }).modal('hide');
+
         });
+
     }
-    uploadEvent();
+    questionaireEvent();
 
     //Do not submit the form
     $('#questionaire-form').submit(function(event) {
@@ -613,11 +635,11 @@ $(function() {
 
     $('#applogout').click(function(event) {
         event.preventDefault();
+        hadithi.localStorage("hadithiUser", false); //remove his/her data from strorage
         hadithi.loginFacebook(false, function() {
-            hadithi.localStorage("hadithiUser", false); //remove his/her data from strorage
             console.log("User logged out.")
-        })
-    })
+        });
+    });
 
     //Set up the AUDIO TAG
     AudioJS.DOMReady(function() {
