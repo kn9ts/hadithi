@@ -324,7 +324,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata);
-                    var URI = "http://djotjog.com/hadithi/audiosave.php"; //c/saveaudio";
+                    var URI = "http://djotjog.com/hadithi/tellme/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
