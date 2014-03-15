@@ -323,8 +323,8 @@ $(function() {
             //use recorder to prompt uploading
             try {
                 if (formdata) {
-                    console.log('trying to upload...', formdata);
-                    var URI = "http://djotjog.com/hadithi/tellme/audiosave.php"; //c/saveaudio";
+                    console.log('trying to upload...', formdata.toString());
+                    var URI = "../tellme/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -334,19 +334,23 @@ $(function() {
                                 xhr.upload.addEventListener('progress', function(e) {
                                     if (e.lengthComputable) {
                                         //Show the uploading progress
-                                        $('.progress-bar-pink').css('width', function() {
-                                            return (e.loaded / e.total) * 100;
-                                        });
+                                        setTimeout(function() {
+                                            $('.progress-bar-pink').css('width', function() {
+                                                console.log(e.loaded / e.total);
+                                                return (e.loaded / e.total) * 100;
+                                            });
+                                            console.log(e.loaded, e.total);
+                                        }, 10);
                                     }
                                 }, false); // For handling the progress of the upload
                             }
                             return xhr;
                         },
                         data: formdata,
-                        // cache: false,
-                        // contentType: false,
-                        // processData: false,
-                        dataType: "text",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        // dataType: "text",
                         beforeSend: function(xhr) {
                             /*
                              * Prevent this error below because of CORS: 
@@ -700,7 +704,7 @@ $(function() {
 
     $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
         '<div class="loading-spinner" style="width: 250px; margin-left: -125px;">' +
-        '<h2 style="text-align: center; color: #fefefe; padding: 0.3em; background: #999">Just a moment...</h2>' +
+        '<h2 style="text-align: center; color: #fefefe; padding: 0.3em; background: #2ecc71">Just a moment...</h2>' +
         '<br />' +
         '<div class="progress progress-striped active">' +
         '<div class="progress-bar progress-bar-pink" style="width: 0%;"></div>' +
