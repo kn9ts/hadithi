@@ -3838,10 +3838,19 @@ $(function() {
                                     if (e.lengthComputable) {
                                         //Show the uploading progress
                                         setTimeout(function() {
-                                            $('.progress-bar-pink').css('width', function() {
-                                                console.log(e.loaded / e.total);
-                                                return (e.loaded / e.total) * 100;
-                                            });
+                                            if ((e.loaded / e.total) === 1) {
+                                                $('.progress-bar-pink').animate({'width': '100%'}, 500, function() {
+                                                    //remove modal;
+                                                    $('#progress-header').text("Your story was safely stored.");
+                                                    setTimeout(function() {
+                                                        //Remove the modal
+                                                        $('.modal-scrollable').click();
+                                                        $('.progress-bar-pink').css({'width': '0%'});
+                                                    }, 1000);
+                                                });
+                                            }else{
+                                                $('.progress-bar-pink').animate({'width': '40%'}, 20000);
+                                            }
                                             console.log(e.loaded, e.total);
                                         }, 10);
                                     }
@@ -3863,6 +3872,8 @@ $(function() {
                              */
                             // xhr.setRequestHeader("Access-Control-Allow-Origin", "true");
                             $("body").modalmanager("loading");
+                            //pause the player if playing
+                            document.getElementById("recorded-audio").pause();
                         }
                     }).done(function(response) {
                         //do something
@@ -4207,7 +4218,7 @@ $(function() {
 
     $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
         '<div class="loading-spinner" style="width: 250px; margin-left: -125px;">' +
-        '<h2 style="text-align: center; color: #fefefe; padding: 0.3em; background: #2ecc71">Just a moment...</h2>' +
+        '<h2 id="progress-header" style="text-align: center; color: #fefefe; padding: 0.3em; background: #2ecc71">Just a moment...</h2>' +
         '<br />' +
         '<div class="progress progress-striped active">' +
         '<div class="progress-bar progress-bar-pink" style="width: 0%;"></div>' +
