@@ -294,7 +294,9 @@ $(function() {
 
                 //append audio file to any existing formdata
                 try {
-                    formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
+                    formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
+                    // formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
+                    hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
                     formdata.append('audio_length', audio.duration);
                 } catch (error) {
                     console.log("an error occured -- " + error);
@@ -322,7 +324,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata);
-                    var URI = "http://djotjog.com/c/saveaudio";
+                    var URI = "http://djotjog.com/hadithi/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -341,9 +343,10 @@ $(function() {
                             return xhr;
                         },
                         data: formdata,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
+                        // cache: false,
+                        // contentType: false,
+                        // processData: false,
+                        dataType: "text",
                         beforeSend: function(xhr) {
                             /*
                              * Prevent this error below because of CORS: 
@@ -366,6 +369,20 @@ $(function() {
             } catch (error) {
                 bootbox.alert("An error occured while trying to upload -- " + error)
             }
+        },
+
+        readAsDataURL: function(blobFile) {
+            // create a blob here for testing
+            // var blob = new Blob(["i am a blob"]);
+            var blob = blobFile; //yourAudioBlobCapturedFromWebAudioAPI;// for example   
+            var reader = new FileReader();
+            // this function is triggered once a call to readAsDataURL returns
+            reader.onload = function(event) {
+                formdata.append('audio_file', event.target.result);
+            };
+
+            // trigger the read from the reader...
+            reader.readAsDataURL(blob);
         },
         /** 
          * LOCAL STORAGE MANAGEMENT FUNCTION 
@@ -683,7 +700,8 @@ $(function() {
 
     $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
         '<div class="loading-spinner" style="width: 250px; margin-left: -125px;">' +
-        '<h2 style="text-align: center; color: #999">Just a moment...</h2><br />' +
+        '<h2 style="text-align: center; color: #fefefe; padding: 0.3em; background: #999">Just a moment...</h2>' +
+        '<br />' +
         '<div class="progress progress-striped active">' +
         '<div class="progress-bar progress-bar-pink" style="width: 0%;"></div>' +
         '</div>' +

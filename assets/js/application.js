@@ -3531,9 +3531,9 @@ $(function() {
     $.support.cors = true;
 
     //rec control buttons
-    var recbtn = $('#record-story');
-    var stopbtn = $('#end-session');
-    var uploadbtn = $('#upload-story');
+    var recordButton = $('#record-story');
+    var stopRecordingBtn = $('#end-session');
+    var uploadRecordingBtn = $('#upload-story');
 
     //input tag 4 mc-api fallback
     var audioInput = document.getElementById('media-capture-api');
@@ -3784,20 +3784,22 @@ $(function() {
 
                 //Show the upload button
                 if (audio.src.indexOf('false75') == -1) {
-                    uploadbtn.show(500, function() {
+                    uploadRecordingBtn.show(500, function() {
                         // var audio = document.getElementById('recorded-audio');
                         $(audio).parent().removeClass('hidden');
                     });
                 }
 
                 //hide the stop button, give user option to re-record
-                stopbtn.hide().prev().removeClass("btn-success").addClass("btn-danger").html(function() {
+                stopRecordingBtn.hide().prev().removeClass("btn-success").addClass("btn-danger").html(function() {
                     return '<i class="icon-repeat">' //To encourage user to record again
                 }).removeAttr("disabled");
 
                 //append audio file to any existing formdata
                 try {
-                    formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
+                    formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
+                    // formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
+                    hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
                     formdata.append('audio_length', audio.duration);
                 } catch (error) {
                     console.log("an error occured -- " + error);
@@ -3825,13 +3827,29 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata);
-                    var URI = "http://djotjog.com/c/saveaudio";
+                    var URI = "http://djotjog.com/hadithi/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
-                        data: formdata,
-                        processData: false,
-                        contentType: false,
                         type: "POST",
+                        xhr: function() { // Custom XMLHttpRequest
+                            var xhr = $.ajaxSettings.xhr();
+                            if (xhr.upload) { // Check if upload property exists
+                                xhr.upload.addEventListener('progress', function(e) {
+                                    if (e.lengthComputable) {
+                                        //Show the uploading progress
+                                        $('.progress-bar-pink').css('width', function() {
+                                            return (e.loaded / e.total) * 100;
+                                        });
+                                    }
+                                }, false); // For handling the progress of the upload
+                            }
+                            return xhr;
+                        },
+                        data: formdata,
+                        // cache: false,
+                        // contentType: false,
+                        // processData: false,
+                        dataType: "text",
                         beforeSend: function(xhr) {
                             /*
                              * Prevent this error below because of CORS: 
@@ -3854,6 +3872,20 @@ $(function() {
             } catch (error) {
                 bootbox.alert("An error occured while trying to upload -- " + error)
             }
+        },
+
+        readAsDataURL: function(blobFile) {
+            // create a blob here for testing
+            // var blob = new Blob(["i am a blob"]);
+            var blob = blobFile; //yourAudioBlobCapturedFromWebAudioAPI;// for example   
+            var reader = new FileReader();
+            // this function is triggered once a call to readAsDataURL returns
+            reader.onload = function(event) {
+                formdata.append('audio_file', event.target.result);
+            };
+
+            // trigger the read from the reader...
+            reader.readAsDataURL(blob);
         },
         /** 
          * LOCAL STORAGE MANAGEMENT FUNCTION 
@@ -3922,7 +3954,7 @@ $(function() {
     }
 
     //disable the rec-btn until permission is granted to use microphone;
-    recbtn.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();
+    recordButton.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();
 
     //Does the device support the API, if doesnt fall back to Media Capture API
     if (GUM) {
@@ -3954,7 +3986,7 @@ $(function() {
                     // recorder.record();
 
                     $('#allow-mic').fadeOut(2000)
-                    recbtn.removeAttr("disabled");
+                    recordButton.removeAttr("disabled");
                 },
                 function(err) {
                     console.log("The following error occured: ", err);
@@ -3983,24 +4015,24 @@ $(function() {
         });
 
         //if the user begins to record the data
-        recbtn.click(function() {
+        recordButton.click(function() {
             if (recorder) { //If access was granted to use the microphone
-                // var recbtn = $(this);
-                recbtn.attr('disabled', 'disabled'); //remove recording event listener
+                // var recordButton = $(this);
+                recordButton.attr('disabled', 'disabled'); //remove recording event listener
                 //Access has been granted and the user is now live: microphone
-                recbtn.removeClass("btn-danger").addClass("btn-success").text("Recording...");
+                recordButton.removeClass("btn-danger").addClass("btn-success").text("Recording...");
                 //begin recording
                 recorder.record();
                 //Show the stop button and attach event if he ENDS the recording
-                stopbtn.fadeIn();
-                uploadbtn.hide(); //hide upload btn, if shown
+                stopRecordingBtn.fadeIn();
+                uploadRecordingBtn.hide(); //hide upload btn, if shown
             } else {
                 //Something went wrong, maybe the user denied the application access to the MIC
             }
         });
 
         //onclick of END recording button
-        stopbtn.on('click', function(event) {
+        stopRecordingBtn.on('click', function(event) {
             // event.preventDefault()
             //get the recording
             recorder.stop(); //1st stop it
@@ -4020,7 +4052,7 @@ $(function() {
         bootbox.alert("Browser does not support getUserMedia");
 
         // instead will act as handler for the file-picker input
-        recbtn.removeAttr("disabled").on('click', function(event) {
+        recordButton.removeAttr("disabled").on('click', function(event) {
             event.preventDefault();
             audioInput.click(); //will prompt user to record audio with phone
         });
@@ -4039,7 +4071,7 @@ $(function() {
      - upload to servers
      - track the uploading progress
     */
-    uploadbtn.click(function() {
+    uploadRecordingBtn.click(function() {
         hadithi.checkIfUserExist(function(user) {
             if (user) { //a user exists
                 //create formdata with it to be submitted with story
@@ -4123,7 +4155,7 @@ $(function() {
                 el.on('click', el.func);
             }).modal('hide');
 
-            // setTimeout(function() { if (formDataObject.upload) uploadbtn.trigger("click"); }, 100);
+            // setTimeout(function() { if (formDataObject.upload) uploadRecordingBtn.trigger("click"); }, 100);
         });
 
     }
@@ -4171,9 +4203,10 @@ $(function() {
 
     $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
         '<div class="loading-spinner" style="width: 250px; margin-left: -125px;">' +
-        '<h2 style="text-align: center; color: #999">Just a moment...</h2><br />' +
+        '<h2 style="text-align: center; color: #fefefe; padding: 0.3em; background: #999">Just a moment...</h2>' +
+        '<br />' +
         '<div class="progress progress-striped active">' +
-        '<div class="progress-bar progress-bar-pink" style="width: 100%;"></div>' +
+        '<div class="progress-bar progress-bar-pink" style="width: 0%;"></div>' +
         '</div>' +
         '</div>';
 
