@@ -523,7 +523,7 @@
 			"file": "index.jade",
 			"settings":
 			{
-				"buffer_size": 9402,
+				"buffer_size": 9401,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "index.min.jade",
 			"settings":
 			{
-				"buffer_size": 7517,
+				"buffer_size": 7516,
 				"line_ending": "Unix"
 			}
 		},
@@ -929,7 +929,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -937,15 +937,15 @@
 					"file": "index.jade",
 					"settings":
 					{
-						"buffer_size": 9402,
+						"buffer_size": 9401,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1396,
-								1396
+								5706,
+								5706
 							]
 						],
 						"settings":
@@ -1068,15 +1068,15 @@
 					"file": "index.min.jade",
 					"settings":
 					{
-						"buffer_size": 7517,
+						"buffer_size": 7516,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								645,
-								645
+								3832,
+								3832
 							]
 						],
 						"settings":
@@ -1188,8 +1188,8 @@
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": 364.0,
+						"translation.y": 1273.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1321,7 +1321,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 10881.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1453,7 +1453,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1667.0,
+						"translation.y": 1651.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
