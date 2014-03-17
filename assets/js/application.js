@@ -3947,7 +3947,7 @@ $(function() {
         var APP_ID = ['213258518873900', '1425261494379816'] //local - KnightsLab, remote - Hadithi
         //init FB auth
         FB.init({
-            appId: APP_ID[0],
+            appId: APP_ID[1],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
