@@ -6,7 +6,7 @@ MP3 audio + facebook storytelling collection tool, [Hadithi](http://djotjog.com/
 _(Coming soon)_
 
 ## Test Phase
-Want to try it out,[CLICK HERE](http://luvit.me/hadithiapp) or [HERE](http://djotjog.com/hadithi/tellme)
+Want to try it out, [CLICK HERE](http://luvit.me/hadithiapp) or [HERE](http://djotjog.com/hadithi/tellme)
 
 ## Release History
 _(Just a little patience)_

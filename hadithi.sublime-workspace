@@ -4,12 +4,56 @@
 		"selected_items":
 		[
 			[
-				"up",
-				"upload"
+				"pro",
+				"progress-header"
+			],
+			[
+				"tot",
+				"total"
+			],
+			[
+				"loa",
+				"loaded"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"audi",
+				"audiofile"
+			],
+			[
+				"djot",
+				"dir=/home/djotjog/webapps/s/hadithi"
+			],
+			[
+				"succe",
+				"successfully"
+			],
+			[
+				"Arra",
+				"ArrayObject  (class)"
+			],
+			[
+				"aud",
+				"audio_file"
 			],
 			[
 				"form",
-				"formDataObject"
+				"formdata"
+			],
+			[
+				"progress-b",
+				"progress-bar-pink"
+			],
+			[
+				"func",
+				"function"
+			],
+			[
+				"up",
+				"upload"
 			],
 			[
 				"hadi",
@@ -22,10 +66,6 @@
 			[
 				"res",
 				"response"
-			],
-			[
-				"audi",
-				"audiofile"
 			],
 			[
 				"user",
@@ -88,10 +128,6 @@
 				"successfuly"
 			],
 			[
-				"aud",
-				"audiofile"
-			],
-			[
 				"and",
 				"android"
 			],
@@ -106,10 +142,6 @@
 			[
 				"htt",
 				"http"
-			],
-			[
-				"pro",
-				"profileImage"
 			],
 			[
 				"had",
@@ -482,38 +514,6 @@
 			[
 				"moda",
 				"modal"
-			],
-			[
-				"mod",
-				"modal"
-			],
-			[
-				"bo",
-				"bootstrap"
-			],
-			[
-				"man",
-				"modalmanager"
-			],
-			[
-				"drop",
-				"dropdown"
-			],
-			[
-				"dropd",
-				"dropdown-menu"
-			],
-			[
-				"sp",
-				"span"
-			],
-			[
-				"dat",
-				"data-toggle"
-			],
-			[
-				"dropdow",
-				"dropdown-toggle"
 			]
 		]
 	},
@@ -539,7 +539,7 @@
 			"file": "js/application.js",
 			"settings":
 			{
-				"buffer_size": 29997,
+				"buffer_size": 33069,
 				"line_ending": "Unix"
 			}
 		},
@@ -572,6 +572,30 @@
 			"settings":
 			{
 				"buffer_size": 696,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tellme/audiosave.php",
+			"settings":
+			{
+				"buffer_size": 597,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/bootstrap-modalmanager.js",
+			"settings":
+			{
+				"buffer_size": 11391,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 515,
 				"line_ending": "Unix"
 			}
 		}
@@ -783,6 +807,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Hadithi",
+			"stop",
+			"animate",
+			"removeLoading",
+			"css",
+			"_POST",
+			"audiostory",
+			"audio_file",
+			"audio_file_data",
+			"blob",
+			"audio_file",
+			"fname",
+			"duration",
+			"audio_length",
+			"audio_file_data",
+			"data",
+			"uplo",
+			"999",
+			"uploadbtn",
+			"recbtn",
+			"stopbtn",
+			"style",
+			"myXhr",
+			"uploadAudioFile",
 			"src",
 			"script",
 			"true",
@@ -886,31 +934,7 @@
 			"split",
 			", ",
 			"picture",
-			"getUserFacebookInfo",
-			"loginFacebook",
-			"left",
-			"small",
-			"hr10",
-			"icon",
-			"play",
-			"glyphicon",
-			"bookmark",
-			"16384",
-			"4096",
-			"duration",
-			"processAudioFile",
-			"audio_file",
-			"duration",
-			"audio_file",
-			"duration",
-			"audio_file",
-			"recorded_length",
-			"audio_file",
-			"recording_length",
-			"recorded_file",
-			"exportMonoWAV",
-			"audio_conf",
-			"audioInput"
+			"getUserFacebookInfo"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -929,7 +953,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 9,
 			"sheets":
 			[
 				{
@@ -1075,8 +1099,8 @@
 						"selection":
 						[
 							[
-								3832,
-								3832
+								53,
+								53
 							]
 						],
 						"settings":
@@ -1188,8 +1212,8 @@
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 364.0,
-						"translation.y": 1273.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1199,15 +1223,15 @@
 					"file": "js/application.js",
 					"settings":
 					{
-						"buffer_size": 29997,
+						"buffer_size": 33069,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								28009,
-								28009
+								21076,
+								21076
 							]
 						],
 						"settings":
@@ -1321,7 +1345,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 7142.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1338,8 +1362,8 @@
 						"selection":
 						[
 							[
-								4811,
-								4418
+								1584,
+								1584
 							]
 						],
 						"settings":
@@ -1452,8 +1476,8 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 1651.0,
+						"translation.x": 1.0,
+						"translation.y": 263.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1585,7 +1609,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1277.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1602,8 +1626,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								1,
+								1
 							]
 						],
 						"settings":
@@ -1734,8 +1758,8 @@
 						"selection":
 						[
 							[
-								580,
-								580
+								101,
+								133
 							]
 						],
 						"settings":
@@ -1851,6 +1875,293 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "tellme/audiosave.php",
+					"settings":
+					{
+						"buffer_size": 597,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								591,
+								591
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "assets/js/bootstrap-modalmanager.js",
+					"settings":
+					{
+						"buffer_size": 11391,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9247,
+								9260
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5771.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 515,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								70,
+								70
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		}
@@ -1923,6 +2234,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 280.0,
+	"side_bar_width": 228.0,
 	"status_bar_visible": true
 }
