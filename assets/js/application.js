@@ -3878,10 +3878,10 @@ $(function() {
                     }).done(function(response) {
                         //do something
                         if (response && response.result) {
-                            bootbox.alert(response.message);
+                            alert(response.message);
                         }
                     }).fail(function(error) {
-                        bootbox.alert("An error occured -- " + JSON.stringify(error));
+                        alert("An error occured -- " + JSON.stringify(error));
                     });
                 }
             } catch (error) {
@@ -3947,7 +3947,7 @@ $(function() {
         var APP_ID = ['213258518873900', '1425261494379816'] //local - KnightsLab, remote - Hadithi
         //init FB auth
         FB.init({
-            appId: APP_ID[1],
+            appId: APP_ID[0],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
