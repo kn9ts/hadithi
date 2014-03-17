@@ -1,7 +1,10 @@
-node_modules
-docs
-lib
-test
+node_modules/
+docs/
+lib/
+test/
+
+#the documents files
+d/
 
 #font-files
 *.eot
