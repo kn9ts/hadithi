@@ -381,10 +381,12 @@ $(function() {
                     }).done(function(response) {
                         //do something
                         if (response && response.result) {
+                            $('.modal-scrollable').click();
                             alert(response.message);
                         }
                     }).fail(function(error) {
                         alert("An error occured -- " + JSON.stringify(error));
+                        $('.modal-scrollable').click();
                     });
                 }
             } catch (error) {
@@ -603,6 +605,19 @@ $(function() {
                 //check to see if its from the MIC or a FILE INPUT
                 // formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
                 var af = document.getElementById('recorded-audio');
+
+                //These fields are not given in Personal forms
+                if(!user.isFacebook) { // == false
+                    user.id = undefined;
+                    user.username = undefined;
+                    user.first_name = undefined;
+                    user.last_name = undefined;
+                    user.link = undefined;
+                    user.hometown = undefined;
+                    user.location = undefined;
+                    user.locale = 'en_GB';
+                    user.birthday = undefined;
+                }
 
                 // formdata.append('user_data', user);
                 formdata.append('user_data', JSON.stringify(user));
