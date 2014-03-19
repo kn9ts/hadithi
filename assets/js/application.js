@@ -3827,7 +3827,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata.toString());
-                    var URI = "../tellme/audiosave.php"; //c/saveaudio";
+                    var URI = "/c/saveaudio"//"../tellme/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -3839,17 +3839,23 @@ $(function() {
                                         //Show the uploading progress
                                         setTimeout(function() {
                                             if ((e.loaded / e.total) === 1) {
-                                                $('.progress-bar-pink').animate({'width': '100%'}, 500, function() {
+                                                $('.progress-bar-pink').animate({
+                                                    'width': '100%'
+                                                }, 500, function() {
                                                     //remove modal;
                                                     $('#progress-header').text("Your story was safely stored.");
                                                     setTimeout(function() {
                                                         //Remove the modal
                                                         $('.modal-scrollable').click();
-                                                        $('.progress-bar-pink').css({'width': '0%'});
+                                                        $('.progress-bar-pink').css({
+                                                            'width': '0%'
+                                                        });
                                                     }, 1000);
                                                 });
-                                            }else{
-                                                $('.progress-bar-pink').animate({'width': '40%'}, 20000);
+                                            } else {
+                                                $('.progress-bar-pink').animate({
+                                                    'width': '40%'
+                                                }, 20000);
                                             }
                                             console.log(e.loaded, e.total);
                                         }, 10);
@@ -3944,10 +3950,14 @@ $(function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
         // https://developers.facebook.com/apps/
-        var APP_ID = ['213258518873900', '1425261494379816'] //local - KnightsLab, remote - Hadithi
+        var APP_ID = {
+            "local": '213258518873900',
+            "remote": '1425261494379816'
+        } //local - KnightsLab, remote - Hadithi
+
         //init FB auth
         FB.init({
-            appId: APP_ID[1],
+            appId: APP_ID["remote"],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML

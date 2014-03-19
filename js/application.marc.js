@@ -1,23 +1,3 @@
-/**
- *
- *@Author - Eugene Mutai
- *@Twitter - JheneKnights
- *@Email - eugenemutai@gmail.com
- *@ShortURL - http://bit.ly/hadithi-tellme
- *
- * Date: 29/01/14
- * Time: 4:02 PM
- * Description:
- *
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.opensource.org/licenses/gpl-2.0.php
- *
- * Copyright (C) 2013
- * @Version -
- *
- */
-
 var recorder; //initialise this variable
 var formdata = false;
 var GUM = Modernizr.getusermedia;
@@ -67,51 +47,6 @@ $(function() {
             return bool;
         },
 
-        checkIfUserExist: function(cb, bool) {
-            var user = this.localStorage('hadithiUser');
-            console.log("does the user exit?? --- ", user);
-            if (user) { //exists
-                if (user.isFacebook !== "false") {
-                    //if bool is false, the function will run
-                    if (!bool) hadithi.getUserFacebookInfo("facebook-opengraph-api");
-                } else {
-                    //do nothing, the data is safe where it is;
-                    //localstorage
-                }
-            } else {
-                //user does not exist;
-                $('#questionaire').modal('show');
-                //Ensure the FB button is working
-                $('#facebookInit').click(function(event) {
-                    event.preventDefault();
-                    //initialise the login phase
-                    hadithi.loginFacebook(true, function(response) {
-                        //Hide the modal window
-                        $('#questionaire').on('hidden.bs.modal', function() {
-                            console.log("questionaire has been hidden.")
-                        }).modal('hide');
-
-                        //work with the response from FB
-                        if (response.authResponse) {
-                            // The person logged into your app
-                            hadithi.getUserFacebookInfo("facebook-opengraph-api"); // get his info -- opengraph api
-                        } else {
-                            // The person cancelled the login dialog -- handle error
-                        }
-                    });
-                }).css('color', function() {
-                    if (bool) { //If boolean is set, then hide the Facebook auth well
-                        $(this).parent().hide();
-                        $('#record-first').attr('disabled', true);
-                    }
-                    return $(this).css("color");
-                });
-            }
-
-            //run the callback
-            if (typeof cb == "function") cb(user); //undefined if no user
-        },
-
         initApplication: function() {
             // FB App check
             FB.getLoginStatus(function(response) {
@@ -123,135 +58,8 @@ $(function() {
                     var uid = response.authResponse.userID;
                     var accessToken = response.authResponse.accessToken;
                     var expires = response.authResponse.expiresIn; //UTC time
-
-                    //get user info, refresh it if it existed before
-                    hadithi.getUserFacebookInfo("facebook-opengraph-api");
-                } else if (response.status === 'not_authorized') {
-                    // In this case, the person is logged into Facebook, but not into the app, so we call
-                    // FB.login() to prompt them to do so. 
-                    // In real-life usage, you wouldn't want to immediately prompt someone to login 
-                    // like this, for two reasons:
-                    // (1) JavaScript created popup windows are blocked by most browsers unless they 
-                    // result from direct interaction from people using the app (such as a mouse click)
-                    // (2) it is a bad experience to be continually prompted to login upon page load.
-                    console.log("The person is logged into Facebook, but not into the app.")
-                    hadithi.checkIfUserExist(function(response) {
-                        if (response && response.isFacebook == "false") {
-                            console.log("user exist without facebook auth...", response);
-                            // hadithi.localStorage('hadithiUser', false);
-                        } else {
-                            hadithi.checkIfUserExist();
-                        }
-                    }, false); //ask for info
-                } else {
-                    // In this case, the person is not logged into Facebook, so we call the login() 
-                    // function to prompt them to do so. Note that at this stage there is no indication
-                    // of whether they are logged into the app. If they aren't then they'll see the Login
-                    // dialog right after they log in to Facebook. 
-                    // The same caveats as above apply to the FB.login() call here.
-                    console.log("The person is not logged into Facebook")
-                    hadithi.checkIfUserExist(function(response) {
-                        if (response && response.isFacebook == "false") {
-                            console.log("user exist without facebook auth...", response);
-                            // hadithi.localStorage('hadithiUser', false);
-                        } else {
-                            hadithi.checkIfUserExist();
-                            // hadithi.localStorage('hadithiUser', false);
-                            console.log("user exist is not saved anywhere or anyhow!!!", response);
-                        }
-                    }, false); //ask for info
                 }
             }, true);
-        },
-
-        loginFacebook: function(bool, cb) { //boolean, callback
-            if (!cb) cb = function() {}; //assign an empty function if no callback is defined.
-
-            // if undefined or true -- login in user to app
-            if (bool || bool === undefined) {
-                FB.login(cb, {
-                    scope: "email, user_birthday, user_hometown, user_location"
-                });
-                //note: will acquire profil pic after loggin
-            } else { //anything else
-                FB.logout(function(response) {
-                    // Person is now logged out
-                    cb(response); //run callback, passing the FB response
-                    console.log("User logged out successfuly...");
-                    $('#fbpicture').attr('src', '../assets/10.jpg').parent().find('#fbusername').text('Storyteller');
-                });
-            }
-        },
-
-        getUserFacebookInfo: function() {
-            console.log('Welcome! Fetching your information.... ');
-            FB.api('/me', function(response) {
-                if (response && !response.error) {
-                    var r = response
-                    /* handle the result */
-                    console.log('Good to see you, -- ' + r.first_name)
-                    // console.log(JSON.stringify(r));
-                    r.isFacebook = true; //from facebook;
-
-                    var userdata = {
-                        id: r.id,
-                        first_name: r.first_name,
-                        last_name: r.last_name,
-                        link: r.link,
-                        username: r.username,
-                        gender: r.gender,
-                        locale: r.locale,
-                        location: r.location.name,
-                        // age_range: r.age_range
-                        hometown: r.hometown.name,
-                        birthday: r.birthday,
-                        email: r.email
-                    }
-                    console.log(userdata);
-
-                    //store this data
-                    hadithi.localStorage('hadithiUser', {
-                        content: userdata,
-                        local: false
-                    });
-
-                    try {
-                        $('#fbusername').text(r.first_name);
-                        // $('#fbpicture').attr("src", r.picture.data.url);
-                        hadithi.getProfilePic();
-                    } catch (error) {
-                        //do nothing
-                        console.log("error occured -- " + error);
-                    }
-                } else {
-                    // something went wrong, get the error
-                    console.log(response.error);
-                }
-            });
-        },
-
-        getProfilePic: function() {
-            /* make the API call */
-            FB.api(
-                "/me/picture", {
-                    "redirect": false,
-                    "height": "200",
-                    "type": "normal",
-                    "width": "200"
-                },
-                function(response) {
-                    if (response && !response.error) {
-                        /* handle the result */
-                        console.log(JSON.stringify(response));
-                        var profileImage = response.data.url.replace('https', 'http'), //remove https to avoid any cert issues
-                            randomNumber = Math.floor(Math.random() * 256);
-
-                        //remove if there and add image element to dom to show without refresh
-                        //add random number to reduce the frequency of cached images showing
-                        $('#fbpicture').attr("src", profileImage + '?' + randomNumber);
-                    }
-                }
-            );
         },
 
         /*
@@ -304,7 +112,7 @@ $(function() {
                 }
 
                 //The audio was added successfully
-                bootbox.alert('Your recording has been added successfully. Now press OK and upload your story.')
+                //bootbox.alert('Your recording has been added successfully. Now press OK and upload your story.')
             });
 
             //set stuff
@@ -324,7 +132,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata.toString());
-                    var URI = "/c/saveaudio"//"../tellme/audiosave.php"; //c/saveaudio";
+                    var URI = "/c/saveaudio"; //"../tellme/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -381,10 +189,10 @@ $(function() {
                     }).done(function(response) {
                         //do something
                         if (response && response.result) {
-                            alert(response.message);
+                            bootbox.alert(response.message);
                         }
                     }).fail(function(error) {
-                        alert("An error occured -- " + JSON.stringify(error));
+                        bootbox.alert("An error occured -- " + JSON.stringify(error));
                     });
                 }
             } catch (error) {
@@ -447,14 +255,10 @@ $(function() {
         // Setting status & xfbml to false can improve page load times, 
         // but you'll need to manually check for login status using FB.getLoginStatus.
         // https://developers.facebook.com/apps/
-        var APP_ID = {
-            "local": '213258518873900',
-            "remote": '1425261494379816'
-        } //local - KnightsLab, remote - Hadithi
-
+        var APP_ID = ['213258518873900', '1425261494379816'] //local - KnightsLab, remote - Hadithi
         //init FB auth
         FB.init({
-            appId: APP_ID["remote"],
+            appId: APP_ID[1],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
@@ -594,30 +398,20 @@ $(function() {
      - track the uploading progress
     */
     uploadRecordingBtn.click(function() {
-        hadithi.checkIfUserExist(function(user) {
-            if (user) { //a user exists
-                //create formdata with it to be submitted with story
-                if (!formdata) formdata = new FormData();
-
-                //GUM should be true for browsers
-                //check to see if its from the MIC or a FILE INPUT
-                // formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
-                var af = document.getElementById('recorded-audio');
-
-                // formdata.append('user_data', user);
-                formdata.append('user_data', JSON.stringify(user));
-                // formdata.append('audio_file', GUM ? af.getAttribute('src') : audioInput.files[0]);
-                // formdata.append('audio_length', af.getAttribute('data-audio-length'));
-                formdata.append('isFacebook', user.isFacebook || false);
-
-                hadithi.uploadAudioFile(formdata);
-                hadithi.localStorage('hadithiUser', false); //erase his data, for debugging purposes
-            } else {
-                hadithi.checkIfUserExist([], false);
-            }
-        }, true); //no FB checkin needed
+        if (!formdata) formdata = new FormData();
+        //GUM should be true for browsers
+        //check to see if its from the MIC or a FILE INPUT
+        // formdata = GUM ? new FormData() : new FormData(document.forms.namedItem("recorded-file"));
+        var af = document.getElementById('recorded-audio');
+        console.log(af);
+        // formdata.append('user_data', user);
+        formdata.append('user_data', {}); //JSON.stringify(user));        
+        // formdata.append('audio_file', GUM ? af.getAttribute('src') : audioInput.files[0]);
+        // formdata.append('audio_length', af.getAttribute('data-audio-length'));
+        hadithi.uploadAudioFile(formdata);
         //reset the upload button
         questionaireEvent();
+
     });
 
     var questionaireEvent = function() {
