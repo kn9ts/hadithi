@@ -3827,7 +3827,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata.toString());
-                    var URI = "/c/saveaudio"//"../tellme/audiosave.php"; //c/saveaudio";
+                    var URI = "/c/saveaudio" //"../tellme/audiosave.php"; //c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -3853,11 +3853,11 @@ $(function() {
                                                     }, 1000);
                                                 });
                                             } else {
-                                                $('.progress-bar-pink').animate({
-                                                    'width': '40%'
-                                                }, 20000);
+                                                $('.progress-bar-pink').css({
+                                                    'width': ((e.loaded / e.total) * 100) + "%"
+                                                });
                                             }
-                                            console.log(e.loaded, e.total);
+                                            console.log("uploaded -- " + ((e.loaded / e.total) * 100) + "%");
                                         }, 10);
                                     }
                                 }, false); // For handling the progress of the upload
@@ -4110,7 +4110,7 @@ $(function() {
                 var af = document.getElementById('recorded-audio');
 
                 //These fields are not given in Personal forms
-                if(!user.isFacebook) { // == false
+                if (!user.isFacebook) { // == false
                     user.id = undefined;
                     user.username = undefined;
                     user.first_name = undefined;
