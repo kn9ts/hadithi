@@ -2130,7 +2130,7 @@ DEALINGS IN THE SOFTWARE.
 
     var Recorder = function(source, cfg) {
         var config = cfg || {};
-        var bufferLen = config.bufferLen || 2048;
+        var bufferLen = config.bufferLen || 4096;
         this.context = source.context;
         if (!this.context.createScriptProcessor) {
             this.node = this.context.createJavaScriptNode(bufferLen, 2, 2);
@@ -2142,7 +2142,7 @@ DEALINGS IN THE SOFTWARE.
         var audioStart = {
             command: 'init',
             config: {
-                sampleRate: 22050 //this.context.sampleRate //restored to orginal, changing is just messed up
+                sampleRate: 44100 //this.context.sampleRate //restored to orginal, changing is just messed up
             }
         }
         console.log("The sample rate is set at (in KHz)-- " + audioStart.config.sampleRate);
