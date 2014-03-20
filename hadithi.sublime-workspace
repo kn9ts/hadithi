@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"use",
+				"username"
+			],
+			[
+				"loc",
+				"location"
+			],
+			[
+				"rem",
+				"remote"
+			],
+			[
 				"pro",
 				"progress-header"
 			],
@@ -70,10 +82,6 @@
 			[
 				"user",
 				"userdata"
-			],
-			[
-				"loc",
-				"location	jsWindow"
 			],
 			[
 				"last",
@@ -506,14 +514,6 @@
 			[
 				"C",
 				"Confirm"
-			],
-			[
-				"act",
-				"active"
-			],
-			[
-				"moda",
-				"modal"
 			]
 		]
 	},
@@ -539,7 +539,7 @@
 			"file": "js/application.js",
 			"settings":
 			{
-				"buffer_size": 33053,
+				"buffer_size": 34169,
 				"line_ending": "Unix"
 			}
 		},
@@ -639,10 +639,7 @@
 	},
 	"console":
 	{
-		"height": 139.0,
-		"history":
-		[
-		]
+		"height": 139.0
 	},
 	"distraction_free":
 	{
@@ -655,6 +652,7 @@
 	},
 	"file_history":
 	[
+		"/Users/mac/Applab/hadithi/js/application.marc.js",
 		"/Users/mac/Applab/hadithi/tellme/audiosave.php",
 		"/Users/mac/Applab/hadithi/assets/js/bootstrap-modalmanager.js",
 		"/Users/mac/Applab/hadithi/README.md",
@@ -781,8 +779,7 @@
 		"/Users/mac/Apps/lab/valuraha/views/market.jade",
 		"/Users/mac/Apps/lab/valuraha/views/containers/dashboard.jade",
 		"/Users/mac/Apps/lab/valuraha/views/trading.jade",
-		"/Users/mac/Apps/lab/valuraha/views/containers/market",
-		"/Users/mac/Apps/lab/valuraha/views/leagues.jade"
+		"/Users/mac/Apps/lab/valuraha/views/containers/market"
 	],
 	"find":
 	{
@@ -802,6 +799,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"local",
+			"undefined",
+			"append",
+			"undefined",
+			"location",
+			"undefined",
+			"location",
+			"hometown",
+			"first_name",
+			")\n",
+			"remote",
+			"local",
+			"live",
+			"test",
+			"dev",
+			"la",
+			"test",
+			"lab",
 			"json_decode",
 			"Hadithi",
 			"stop",
@@ -911,25 +926,7 @@
 			"video",
 			"application",
 			"qtnr",
-			"record-story",
-			"recording",
-			"audioBlob",
-			"userAgent",
-			"useragent",
-			"video",
-			"iphone",
-			"android",
-			"iphone",
-			"Android",
-			"true",
-			"false",
-			"Bitly",
-			"processAudioFile",
-			"4096",
-			"loginFacebook",
-			"split",
-			", ",
-			"picture"
+			"record-story"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -948,13 +945,12 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "index.jade",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 9401,
@@ -1081,13 +1077,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
 					"file": "index.min.jade",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 7516,
@@ -1214,24 +1208,22 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
 					"file": "js/application.js",
-					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 33053,
+						"buffer_size": 34169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21060,
-								21060
+								16773,
+								16773
 							]
 						],
 						"settings":
@@ -1345,16 +1337,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7223.0,
+						"translation.y": 1218.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
 					"file": "js/recorder.js",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 4857,
@@ -1364,8 +1354,8 @@
 						"selection":
 						[
 							[
-								1584,
-								1584
+								1588,
+								1588
 							]
 						],
 						"settings":
@@ -1478,17 +1468,15 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 1.0,
-						"translation.y": 0.0,
+						"translation.x": 0.0,
+						"translation.y": 243.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
 					"file": "Gruntfile.js",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 4575,
@@ -1616,13 +1604,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
 					"file": "package.json",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 1117,
@@ -1750,13 +1736,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
 					"file": "docs/djotjog.txt",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 696,
@@ -1882,13 +1866,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 7,
 					"file": "tellme/audiosave.php",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 607,
@@ -2015,13 +1997,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
 					"type": "text"
 				},
 				{
 					"buffer": 8,
 					"file": ".gitignore",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 535,
@@ -2147,7 +2127,6 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -2188,7 +2167,6 @@
 	{
 		"height": 0.0
 	},
-	"project": "hadithi.sublime-project",
 	"replace":
 	{
 		"height": 64.0
@@ -2222,24 +2200,10 @@
 		],
 		"width": 380.0
 	},
-	"select_symbol":
-	{
-		"height": 0.0,
-		"selected_items":
-		[
-		],
-		"width": 0.0
-	},
-	"settings":
-	{
-	},
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 228.0,
-	"status_bar_visible": true,
-	"template_settings":
-	{
-	}
+	"status_bar_visible": true
 }

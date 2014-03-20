@@ -265,7 +265,7 @@ $(function() {
             var audiofile = af; //audioInput.files[0]; //its just one
             // Recorder.forceDownload(audiofile, "hadithi-recording.wav");
             console.log(audiofile);
-            alert(JSON.stringify(audiofile));
+            // alert(JSON.stringify(audiofile));
 
             //if not initialised to collect form data
             if (!formdata) formdata = new FormData();
@@ -294,7 +294,9 @@ $(function() {
 
                 //append audio file to any existing formdata
                 try {
-                    formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
+                    //If I am sending a ZIP file
+                    formdata.append('audio_name', "hadithi-recording.zip");
+                    // formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
                     // formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
                     hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
                     formdata.append('audio_length', audio.duration);
@@ -303,8 +305,8 @@ $(function() {
                     // hadithi.checkIfUserExist(); //the upload button will do that for us
                 }
 
-                //The audio was added successfully
-                bootbox.alert('Your recording has been added successfully. Now press OK and upload your story.')
+                //The audio was added successfully (**bootbox.alert)
+                console.log('Your recording has been added successfully. Now press OK and upload your story.')
             });
 
             //set stuff
@@ -324,7 +326,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata.toString());
-                    var URI = "/c/saveaudio" //"../tellme/audiosave.php"; //c/saveaudio";
+                    var URI = "../tellme/audiosave.php"; // "/c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -347,15 +349,16 @@ $(function() {
                                                         $('.progress-bar-pink').css({
                                                             'width': '0%'
                                                         });
-                                                    }, 1000);
+                                                    }, 2000);
                                                 });
                                             } else {
                                                 $('.progress-bar-pink').css({
                                                     'width': ((e.loaded / e.total) * 100) + "%"
                                                 });
                                             }
-                                            console.log("uploaded -- " + ((e.loaded / e.total) * 100) + "%");
+                                            // console.log("uploaded -- " + ((e.loaded / e.total) * 100) + "%");
                                         }, 10);
+                                        console.log("Total data size -- " + (e.total / 1024) + " Kbs");
                                     }
                                 }, false); // For handling the progress of the upload
                             }
@@ -401,12 +404,36 @@ $(function() {
             var reader = new FileReader();
             // this function is triggered once a call to readAsDataURL returns
             reader.onload = function(event) {
-                formdata.append('audio_file', event.target.result);
+                formdata.append('audio_file', hadithi.zipAudioData(event.target.result, "jszip"));
             };
 
             // trigger the read from the reader...
             reader.readAsDataURL(blob);
         },
+
+        //Gets the base64 audio data and ZIPs it
+        zipAudioData: function(audioData, compressionType) {
+            //If no compression type is defined, available: jszip, ljzb
+            if (compressionType == "jszip") {
+                var zip = new JSZip();
+                zip.file("hadithi-recording.wav", audioData, {
+                    base64: true
+                });
+
+                var content = zip.generate() //({compression: "DEFLATE"});
+                content = "data:application/zip;base64," + content;
+                console.log("Audio file size after compression(est.) -- " + (content.length / 1024) + " Kbs");
+                return content;
+            } else {
+                // then utf8 - you  don't want to go utf-8 directly
+                var data = audioData; //new Buffer(audioData, "utf8");
+                // now compress
+                var compressed = LJZB.compress(data, null, 9); //9 - hightest compression rate
+                console.log("Audio file size after compression -- " + (compressed.length / 1024) + " Kbs");
+                return compressed;
+            }
+        },
+
         /** 
          * LOCAL STORAGE MANAGEMENT FUNCTION 
          * @param options - local(bool), content(object), backup(bool)

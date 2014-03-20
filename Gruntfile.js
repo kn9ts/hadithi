@@ -16,8 +16,8 @@ module.exports = function(grunt) {
                 options: {
                     seperator: ';'
                 },
-                // src: ['assets/**/*.js', 'js/**/*.js'],
-                src: ["assets/js/ace-extra.min.js", "assets/js/jquery-1.10.2.min.js", "assets/js/bootstrap.min.js", "assets/js/ace-elements.min.js", "assets/js/ace.min.js", "assets/js/bootstrap-modal.js", "assets/js/bootstrap-modalmanager.js", "js/bootbox.min.js", "js/modernizr.custom.96386.js", "js/recorder.js", "audiojs/audio.js", "js/application.js"],
+                // src: ['assets/**/*.js', 'js/**/*.js'], ljzb -- "js/LJZB.lib.js",
+                src: ["js/jszip.min.js", "assets/js/ace-extra.min.js", "assets/js/jquery-1.10.2.min.js", "assets/js/bootstrap.min.js", "assets/js/ace-elements.min.js", "assets/js/ace.min.js", "assets/js/bootstrap-modal.js", "assets/js/bootstrap-modalmanager.js", "js/bootbox.min.js", "js/modernizr.custom.96386.js", "js/recorder.js", "audiojs/audio.js", "js/application.js"],
                 dest: 'assets/js/application.js'
             }
         },
