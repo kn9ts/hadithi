@@ -3538,7 +3538,7 @@ window.AudioJS = window._A_ = AudioJS;
 var recorder; //initialise this variable
 var formdata = false;
 var GUM = Modernizr.getusermedia;
-var hadithi;    
+var hadithi;
 
 //The DOM has began to be rendered
 $(function() {
@@ -4018,7 +4018,7 @@ $(function() {
 
         //init FB auth
         FB.init({
-            appId: APP_ID["local"],
+            appId: APP_ID["remote"],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
