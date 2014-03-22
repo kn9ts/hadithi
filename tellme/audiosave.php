@@ -13,9 +13,7 @@ if(isset($_REQUEST['audio_file'])) {
 	$fp = fopen('../audiofiles/'.$filename, 'wb');
 	fwrite($fp, $decodedData);
 	fclose($fp);
-	echo json_encode(array(
-		"status"=>200, 
-		"message"=>"Audio file was recieved and stored successfully at http://djotjog.com/hadithi/audiofiles/".$filename));
+	echo json_encode(array("status"=>200, "message"=>"Audio file was recieved and stored successfully at http://djotjog.com/hadithi/audiofiles/".$filename));
 }
 
 ?>

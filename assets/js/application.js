@@ -3538,6 +3538,7 @@ window.AudioJS = window._A_ = AudioJS;
 var recorder; //initialise this variable
 var formdata = false;
 var GUM = Modernizr.getusermedia;
+var hadithi;    
 
 //The DOM has began to be rendered
 $(function() {
@@ -3552,7 +3553,7 @@ $(function() {
     //input tag 4 mc-api fallback
     var audioInput = document.getElementById('media-capture-api');
 
-    var hadithi = {
+    hadithi = {
 
         hasGetUserMedia: function() {
             return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -3812,7 +3813,11 @@ $(function() {
                 //append audio file to any existing formdata
                 try {
                     //If I am sending a ZIP file
-                    formdata.append('audio_name', "hadithi-recording.zip");
+                    if (hadithi.checkEnableZipping())
+                        formdata.append('audio_name', "hadithi-recording.zip");
+                    else
+                        formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
+
                     // formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
                     // formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
                     hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
@@ -3843,7 +3848,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.log('trying to upload...', formdata.toString());
-                    var URI = "../tellme/audiosave.php"; // "/c/saveaudio";
+                    var URI = "/c/saveaudio"; // "../tellme/audiosave.php"; // "/c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -3921,9 +3926,15 @@ $(function() {
             var reader = new FileReader();
             // this function is triggered once a call to readAsDataURL returns
             reader.onload = function(event) {
-                formdata.append('audio_file', hadithi.zipAudioData(event.target.result, "jszip"));
+                function ZIP_FILE() {
+                    if (hadithi.checkEnableZipping()) {
+                        return hadithi.zipAudioData(event.target.result, "jszip");
+                    } else {
+                        return event.target.result;
+                    }
+                }
+                formdata.append('audio_file', ZIP_FILE());
             };
-
             // trigger the read from the reader...
             reader.readAsDataURL(blob);
         },
@@ -3936,7 +3947,6 @@ $(function() {
                 zip.file("hadithi-recording.wav", audioData, {
                     base64: true
                 });
-
                 var content = zip.generate() //({compression: "DEFLATE"});
                 content = "data:application/zip;base64," + content;
                 console.log("Audio file size after compression(est.) -- " + (content.length / 1024) + " Kbs");
@@ -3948,6 +3958,14 @@ $(function() {
                 var compressed = LJZB.compress(data, null, 9); //9 - hightest compression rate
                 console.log("Audio file size after compression -- " + (compressed.length / 1024) + " Kbs");
                 return compressed;
+            }
+        },
+
+        checkEnableZipping: function() {
+            if (location.href.indexOf("zip_file") > -1 || location.hash.indexOf("zip_file") > -1) {
+                return true;
+            } else {
+                return false;
             }
         },
 
@@ -4000,7 +4018,7 @@ $(function() {
 
         //init FB auth
         FB.init({
-            appId: APP_ID["remote"],
+            appId: APP_ID["local"],
             status: false, // check login status on SDK load
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: false // parse XFBML
@@ -4020,6 +4038,7 @@ $(function() {
         // console.log("Mobile device detected -- " + device);
         bootbox.alert("Mobile device detected -- " + device);
     }
+    if (hadithi.checkEnableZipping()) console.log("Will ZIP with the audio file generated.");
 
     //disable the rec-btn until permission is granted to use microphone;
     recordButton.attr('disabled', 'disabled').next('#end-session').hide().next('#upload-story').hide();

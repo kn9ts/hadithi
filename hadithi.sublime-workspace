@@ -528,6 +528,14 @@
 			}
 		},
 		{
+			"file": "tellme/index.html",
+			"settings":
+			{
+				"buffer_size": 10876,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "index.min.jade",
 			"settings":
 			{
@@ -783,6 +791,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"audio_file",
 			"local",
 			"content",
 			"compressed",
@@ -909,8 +918,7 @@
 			"jshint",
 			"index",
 			"jade",
-			"all",
-			"css"
+			"all"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -929,7 +937,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1057,14 +1065,42 @@
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 630.0,
+						"translation.x": 6.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "tellme/index.html",
+					"settings":
+					{
+						"buffer_size": 10876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 569.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "index.min.jade",
 					"settings":
 					{
@@ -1195,7 +1231,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "js/application.js",
 					"settings":
 					{
@@ -1206,8 +1242,8 @@
 						"selection":
 						[
 							[
-								19960,
-								19984
+								26172,
+								26585
 							]
 						],
 						"settings":
@@ -1321,13 +1357,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6947.0,
+						"translation.y": 9269.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "tellme/audiounzip.php",
 					"settings":
 					{
@@ -1459,7 +1495,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "tellme/audiosave.php",
 					"settings":
 					{
@@ -1590,7 +1626,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "Gruntfile.js",
 					"settings":
 					{
@@ -1722,7 +1758,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "docs/djotjog.txt",
 					"settings":
 					{
