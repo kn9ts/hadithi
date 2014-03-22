@@ -3697,6 +3697,11 @@ $(function() {
                     cb(response); //run callback, passing the FB response
                     console.log("User logged out successfuly...");
                     $('#fbpicture').attr('src', '../assets/10.jpg').parent().find('#fbusername').text('Storyteller');
+                    //reload page
+                    window.location.reload(false);
+                    // If we needed to pull the document from
+                    //  the web-server again (such as where the document contents
+                    //  change dynamically) we would pass the argument as 'true'.
                 });
             }
         },
@@ -3723,14 +3728,15 @@ $(function() {
                         // age_range: r.age_range
                         hometown: r.hometown.name,
                         birthday: r.birthday,
-                        email: r.email
+                        email: r.email,
+                        isFacebook: true
                     }
                     console.log(userdata);
 
                     //store this data
                     hadithi.localStorage('hadithiUser', {
-                        content: userdata,
-                        local: false
+                        content: userdata
+                        // local: false
                     });
 
                     try {
@@ -4170,17 +4176,18 @@ $(function() {
                 var af = document.getElementById('recorded-audio');
 
                 //These fields are not given in Personal forms
-                if (!user.isFacebook) { // == false
-                    user.id = undefined;
-                    user.username = undefined;
-                    user.first_name = undefined;
-                    user.last_name = undefined;
-                    user.link = undefined;
-                    user.hometown = undefined;
-                    user.location = undefined;
+                if (user.isFacebook == "false") { // == false
+                    user.id = "null";
+                    user.username = "null";
+                    user.first_name = "null";
+                    user.last_name = "null";
+                    user.link = "null";
+                    user.hometown = "null";
+                    user.location = "null";
                     user.locale = 'en_GB';
-                    user.birthday = undefined;
+                    user.birthday = "null";
                 }
+                console.log("User data before uploading -- ", user);
 
                 // formdata.append('user_data', user);
                 formdata.append('user_data', JSON.stringify(user));
@@ -4220,7 +4227,7 @@ $(function() {
 
             //correct the sex toggled -- 'on' for male
             formDataObject.sex = formDataObject.sex === "on" ? "male" : "female";
-            formdata.append('user_data', formDataObject);
+            // formdata.append('user_data', formDataObject);
             formDataObject.upload = false;
 
             //save to local storage
@@ -4234,7 +4241,7 @@ $(function() {
             //match for an email address in his formdata
             if (af.src.indexOf('false75') == -1 && /[\w._%+-]+\@[\w.-]+\.[a-zA-Z]{2,}$/.test(formDataObject.email)) {
                 // $('#questionaire').modal('hide');
-                console.log("Found user has already recorded a story, trying to upload it once more.");
+                console.info("Found user has already recorded a story, trying to upload it once more.");
 
                 /*
                     formdata.append('audio_file', af.src, {
@@ -4243,6 +4250,7 @@ $(function() {
                     formdata.append('audio_length', af.getAttribute('data-audio-length'));
                     if (formDataObject.email) hadithi.uploadAudioFile();
                 */
+
                 formDataObject.upload = true;
             } else {
                 console.info("User has not recorded yet. So just hide the questionaire and let him/her record");
