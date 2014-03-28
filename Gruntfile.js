@@ -2,6 +2,12 @@
 
 module.exports = function(grunt) {
 
+    // load all grunt tasks matching the `grunt-*` pattern
+    require('load-grunt-tasks')(grunt); 
+    //Equivalent to
+    // require('load-grunt-tasks')(grunt, {pattern: 'grunt-*'});
+    // require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks); //using matchdep
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -60,12 +66,33 @@ module.exports = function(grunt) {
         },
         jshint: {
             options: {
-                jshintrc: '.jshintrc'
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
             },
             gruntfile: {
                 src: 'Gruntfile.js'
             },
             afterconcat: ['Gruntfile.js', 'js/application.js']
+        },
+        // grunt-open will open your browser at the project's URL
+        // https://www.npmjs.org/package/grunt-open
+        express: {
+            server: {
+                options: {
+                    port: 1515,
+                    bases: ['assets', 'audiojs', 'js'],
+                    hostname: "localhost",
+                    livereload: true
+                    // serverreload: true
+                }
+            }
+        },
+        // grunt-open will open your browser at the project's URL
+        // https://www.npmjs.org/package/grunt-open
+        open: {
+            server: {
+                path: 'http://localhost:1515/tellme/index.html'
+            }
         },
         // Wouldn't it be awesome if grunt did all of this automatically every time we changed a file?
         // Watch is a grunt plugin written to do just that.
@@ -77,7 +104,7 @@ module.exports = function(grunt) {
                 tasks: ['concat:css', 'cssmin:css']
             },
             scripts: {
-                files: ['js/**/*.js', '!js/libmp3lame.min.js'],
+                files: ['js/**/*.js', '!js/libmp3lame.min.js'], //dont watch the libmp3lame.min.js
                 tasks: ['concat:js', 'jshint', 'uglify']
             },
             jade: {
@@ -87,6 +114,12 @@ module.exports = function(grunt) {
             gruntfile: {
                 files: ['Gruntfile.js'],
                 tasks: ['jshint', 'concat:js', 'jshint', 'uglify']
+            },
+            server: {
+                files: ["**/*.js", '!js/libmp3lame.min.js'],
+                options: {
+                    livereload: true
+                }
             }
         }
     });
@@ -96,15 +129,17 @@ module.exports = function(grunt) {
         // grunt.config(['jshint', 'all'], filepath);
     });
 
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-jade');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jade');
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.registerTask('serve', ['express', 'open', 'watch:server']);
+
+    // These plugins provide necessary tasks. -- loading grunt plugins
+    // grunt.loadNpmTasks('grunt-contrib-concat');
+    // grunt.loadNpmTasks('grunt-contrib-cssmin');
+    // grunt.loadNpmTasks('grunt-contrib-jade');
+    // grunt.loadNpmTasks('grunt-contrib-uglify');
+    // grunt.loadNpmTasks('grunt-contrib-jade');
+    // grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    // grunt.loadNpmTasks('grunt-contrib-jshint');
+    // grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
     // grunt.registerTask('default', ['jshint', 'nodeunit']);

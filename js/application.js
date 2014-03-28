@@ -307,7 +307,7 @@ $(function() {
                     else
                         formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
 
-                    // formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
+                    // formdata.append('audio_name', "hadithi-" + new Date().getTime() + ".wav");
                     // formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
                     hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
                     formdata.append('audio_length', audio.duration);

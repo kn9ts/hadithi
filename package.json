@@ -26,6 +26,7 @@
         "test": "grunt nodeunit"
     },
     "devDependencies": {
+        "grunt": "~0.4.4",
         "grunt-contrib-jshint": "~0.6.4",
         "grunt-contrib-nodeunit": "~0.2.0",
         "grunt-contrib-watch": "~0.5.3",
@@ -33,7 +34,11 @@
         "grunt-contrib-concat": "latest",
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-cssmin": "latest",
-        "grunt": "~0.4.2"
+        "load-grunt-tasks": "~0.4.0",
+        "jshint-stylish": "~0.1.5",
+        "matchdep": "~0.3.0",
+        "grunt-express": "~1.2.1",
+        "grunt-open": "~0.2.3"
     },
     "keywords": []
 }
