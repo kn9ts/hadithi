@@ -2,6 +2,9 @@ node_modules/
 lib/
 test/
 
+#the html recording created, used in test
+test-records/
+
 #the documents files
 docs/
 
