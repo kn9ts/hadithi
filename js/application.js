@@ -348,7 +348,7 @@ $(function() {
             try {
                 if (formdata) {
                     console.info('trying to upload...', formdata.toString());
-                    var URI = "../tellme/audiosave.php"; // "/c/saveaudio";
+                    var URI = "/c/saveaudio"; //"../tellme/audiosave.php"; // "/c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",

@@ -110,7 +110,7 @@ html(lang='en')
 							div.col-sm-8.col-sm-offset-2
 								div.alert.alert-info.alert-dismissable#allow-mic
 									//- button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
-									//- button.btn.btn-xs.btn-primary.pull-right(data-toggle="modal", data-target="#questionaire") Modal
+									//- button.btn.btn-xs.btn-primary.pull-right(data-toggle="tab", data-target="#user-questionaire") Modal
 									strong Heads Up! 
 									| Please allow 
 									strong "Hadithi" 
@@ -133,7 +133,7 @@ html(lang='en')
 										.widget-main
 											div.tab-content
 
-												//Login tab
+												//Recording tab
 												div#user-record.tab-pane.in.active
 													//- div.jumbotron
 													h3 Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.
@@ -229,5 +229,6 @@ html(lang='en')
 								//- The audio-player plugin
 								div.hidden.audio-js-box.tube-css#audio-player
 									audio#recorded-audio(src, controls, preload="none", type="audio/wav")
+
 
 
