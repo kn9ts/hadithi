@@ -31,7 +31,7 @@ this.onmessage = function(e) {
             record(e.data.buffer);
             break;
         case 'exportWAV':
-            exportWAV(e.data.type);
+            exportWAV(e.data.type, e.data.encodeTo);
             break;
         case 'exportMonoWAV':
             exportMonoWAV(e.data.type);
@@ -55,7 +55,7 @@ function record(inputBuffer) {
     recLength += inputBuffer[0].length;
 }
 
-function exportWAV(type) {
+function exportWAV(type, encodeTo) {
     var bufferL = mergeBuffers(recBuffersL, recLength);
     var bufferR = mergeBuffers(recBuffersR, recLength);
     var interleaved = interleave(bufferL, bufferR);
@@ -63,8 +63,8 @@ function exportWAV(type) {
     var audioBlob = new Blob([dataview], {
         type: type
     });
-
-    this.postMessage(audioBlob);
+    //encodeTo -- default: 'wav'
+    this.postMessage({cmd: encodeTo, buf: audioBlob});
 }
 
 function exportMonoWAV(type) {
@@ -100,19 +100,24 @@ function mergeBuffers(recBuffers, recLength) {
     return result;
 }
 
+
 function interleave(inputL, inputR) {
-    var length = inputL.length + inputR.length;
+    var length = inputL.length / 4;
     var result = new Float32Array(length);
 
     var index = 0,
-        inputIndex = 0;
+        inputIndex = 0,
+        sliceValue = 0.25;
 
     while (index < length) {
-        result[index++] = inputL[inputIndex];
-        result[index++] = inputR[inputIndex];
-        inputIndex++;
+        result[index++] = sliceValue * (inputL[inputIndex++] + inputL[inputIndex++] +
+            inputL[inputIndex++] + inputL[inputIndex++]);
     }
     return result;
+    // http://stackoverflow.com/questions/16296645/decrease-bitrate-on-wav-file-created-with-recorderjs
+    // This takes only the left channel and turns every 4 buffer samples into 1 in the result so it takes up less memory.
+    // if the bit rate is changed by the same ratio (divided by 4 e.g. 11025),
+    // the file will sound the same but will be much smaller.
 }
 
 function floatTo16BitPCM(output, offset, input) {
@@ -145,7 +150,8 @@ function encodeWAV(samples, mono) {
     /* sample format (raw) */
     view.setUint16(20, 1, true);
     /* channel count */
-    view.setUint16(22, mono ? 1 : 2, true);
+    view.setUint16(22, 1, true); // The recording will be 1/8 in size compared to originally produced file.
+    // view.setUint16(22, mono ? 1 : 2, true);
     /* sample rate */
     view.setUint32(24, sampleRate, true);
     /* byte rate (sample rate * block align) */

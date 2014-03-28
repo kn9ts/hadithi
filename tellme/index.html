@@ -30,11 +30,8 @@
     <script type="text/javascript" src="../assets/js/jquery-2.0.3.min.js"></script>
     <!--if [IE]script(type='text/javascript', src='../assets/js/jquery-1.10.2.min.js')
     -->
-    <script type="text/javascript">//- if ("ontouchend" in document) $.getScript('../assets/js/jquery.mobile.custom.min.js');</script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <!-- ace scripts-->
-    <script src="../assets/js/ace-elements.min.js"></script>
-    <script src="../assets/js/ace.min.js"></script>
     <!--for bootstrap modal manager - to overide default modal limitations-->
     <link rel="stylesheet" href="../assets/css/bootstrap-modal.css">
     <script src="../assets/js/bootstrap-modal.js"></script>
@@ -47,9 +44,8 @@
     <link rel="stylesheet" href="../audiojs/skins/tube.css">
     <script src="../audiojs/audio.js"></script>
     <!--JS Zipping utility library-->
-    <script src="../js/jszip.min.js"></script>
+    <script src="../js/lib/zip.js"></script>
     <!--Application script-->
-    <script src="../js/hadithi.js"></script>
     <script src="../js/application.js"></script>
   </head>
   <body class="skin-2">
@@ -79,17 +75,86 @@
                 <div id="allow-mic" class="alert alert-info alert-dismissable"><strong>Heads Up! </strong>Please allow <strong>"Hadithi" </strong>application to use your microphone
                 </div>
                 <div class="hr10"></div>
-                <div class="jumbotron">
-                  <h3>Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.</h3>
-                  <p>What happened? How were you affected or involved?</p>
-                  <p>
-                    <button id="record-story" type="button" data-loading-text="Recording..." class="btn btn-danger btn-md"><i class="icon-circle"></i> Start Recording</button>
-                    <button type="button" id="end-session" class="btn btn-danger btn-md"><i class="icon-stop"></i> End</button>
-                    <button type="button" id="upload-story" class="btn btn-info btn-md"><i class="icon-cloud-upload"></i> Upload Your Story</button>
-                  </p>
-                  <h3><small>
-                      <strong>NOTE:</strong> Maximum length is 3 minutes.
-                      Afterwards, we will fetch your age, sex, and location directly from Facebook if you give us permission. (Or you can enter it yourself, if you like.)</small></h3>
+                <div id="hadithi-app" class="widget-box light-border visible login-box">
+                  <div class="widget-header widget-header-flat header-color-orange no-padding">
+                    <div id="questionaire" class="tabbable tabs left">
+                      <ul id="myTabs" class="nav nav-tabs tab-color-blue padding-10 background-blue orange">
+                        <li class="active"><a data-toggle="tab" href="#user-record"><i class="orange icon-lock bigger-110"></i> Record Story</a></li>
+                        <li><a data-toggle="tab" href="#user-questionaire"><i class="green icon-rocket bigger-110"></i> Your Info</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="widget-body">
+                    <div class="widget-main">
+                      <div class="tab-content">
+                        <!--Login tab-->
+                        <div id="user-record" class="tab-pane in active">
+                          <h3>Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.</h3>
+                          <p>What happened? How were you affected or involved?</p>
+                          <p>
+                            <button id="record-story" type="button" data-loading-text="Recording..." class="btn btn-danger btn-md"><i class="icon-circle"></i> Start Recording</button>
+                            <button type="button" id="end-session" class="btn btn-danger btn-md"><i class="icon-stop"></i> End</button>
+                            <button type="button" id="upload-story" class="btn btn-info btn-md"><i class="icon-cloud-upload"></i> Upload Your Story</button>
+                          </p>
+                          <h3><small>
+                              <strong>NOTE:</strong> Maximum length is 3 minutes.
+                              Afterwards, we will fetch your age, sex, and location directly from Facebook if you give us permission. (Or you can enter it yourself, if you like.)</small></h3>
+                        </div>
+                        <div id="user-questionaire" class="tab-pane">
+                          <div class="alert alert-info">
+                            <h5><strong class="bigger">We need a little info about you before uploading your awesome story.</strong></h5><small>Thank you for your time. - Marc Maxson.</small>
+                          </div><a id="facebookInit" href="#" class="btn btn-primary btn-md btn-block"><i style="padding-left: 1em" class="icon-facebook bigger-130 pull-left"></i>Connect with Facebook </a>
+                          <h4 class="grey center smaller">or fill in the form below:</h4>
+                          <!--The form-->
+                          <form id="questionaire-form" role="form" style="padding: 5% 0" class="form-horizontal">
+                            <div class="form-group">
+                              <label for="email" class="control-label col-xs-12 col-sm-3 no-padding-right">Email Addr.:</label>
+                              <div class="col-xs-12 col-sm-7">
+                                <input id="email" type="email" name="email" placeholder="Your email address..." required class="form-control">
+                                <input id="hidden" type="hidden" name="isFacebook" value="false">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="the-story" class="control-label col-xs-12 col-sm-3 no-padding-right">Where did this story take place?</label>
+                              <div class="col-xs-12 col-sm-7">
+                                <input id="the-story-signup" type="text" name="location" placeholder="the location..." required class="form-control">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="age_range" class="control-label col-xs-12 col-sm-3 no-padding-right">Age Range:</label>
+                              <div class="col-xs-12 col-sm-7">
+                                <select name="age_range">
+                                  <option>17-21</option>
+                                  <option>22-30</option>
+                                  <option>31-45</option>
+                                  <option>46-60</option>
+                                  <option>Over 60</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="age_range" class="control-label col-xs-12 col-sm-3 no-padding-right">Gender: </label>
+                              <div class="col-xs-12 col-sm-7">
+                                <label>
+                                  <input id="user-sex" type="checkbox" name="sex" required class="ace ace-switch ace-switch-7"><span class="lbl"></span>
+                                </label><span class="help-line"><span class="middle grey smaller">Tap to select gender.</span></span>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="col-sm-offset-3 col-sm-9">
+                                <div class="btn-group">
+                                  <button type="button" id="qtnr-submit" class="btn btn-primary btn-md"><i class="icon-ok bigger-110"></i> Submit</button>
+                                </div>
+                                <div class="btn-group">
+                                  <button type="button" data-dismiss="modal" id="record-first" class="btn btn-default btn-md">Record first?!<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!--Audio handler hidden below-->
@@ -98,7 +163,7 @@
                   <form name="recorded-file" enctype="multipart/form-data" method="post" action="server.cgi" role="form" class="form-horizontal submit-story">
                     <div class="form-group">
                       <div class="ace-file-input">
-                        <input id="media-capture-api" type="file" name="audio_file" accept="audio/*" capture="microphone">
+                        <input id="media-capture-api" type="file" name="recording" accept="audio/*" capture="microphone">
                         <label data-title="choose" class="file-label"><span data-title="recording" class="file-name"><i class="icon-play"></i></span></label>
                       </div>
                       <button id="submit-rec-mobile" type="submit" role="button" class="btn btn-sm btn-info">Upload</button>
@@ -106,75 +171,7 @@
                   </form>
                 </div>
                 <div id="audio-player" class="hidden audio-js-box tube-css">
-                  <audio id="recorded-audio" src="false75" controls preload="none" type="audio/wav"></audio>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Facebook auth or sign up model-->
-    <div id="questionaire" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-hidden="true" role="dialog" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="alert alert-info">
-              <h5><strong class="bigger">We need a little info about you before recording your awesome story.</strong></h5><small>Thank you for your time. - Marc Maxson.</small>
-            </div>
-          </div>
-          <div class="model-body">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="container">
-                  <div class="well well-sm center"><a id="facebookInit" href="#" class="btn btn-primary btn-md btn-block"><i style="padding-left: 1em" class="icon-facebook bigger-130 pull-left"></i>Connect with Facebook </a></div>
-                  <h4 class="grey center bigger">or fill in the form below:</h4>
-                  <!--The form-->
-                  <form id="questionaire-form" role="form" style="padding: 5% 0" class="form-horizontal">
-                    <div class="form-group">
-                      <label for="email" class="control-label col-xs-12 col-sm-3 no-padding-right">Email Addr.:</label>
-                      <div class="col-xs-12 col-sm-7">
-                        <input id="email" type="email" name="email" placeholder="Your email address..." required class="form-control">
-                        <input id="hidden" type="hidden" name="isFacebook" value="false">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="the-story" class="control-label col-xs-12 col-sm-3 no-padding-right">Where did this story take place?</label>
-                      <div class="col-xs-12 col-sm-7">
-                        <input id="the-story-signup" type="text" name="location" placeholder="the location..." required class="form-control">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="age_range" class="control-label col-xs-12 col-sm-3 no-padding-right">Age Range:</label>
-                      <div class="col-xs-12 col-sm-7">
-                        <select name="age_range">
-                          <option>17-21</option>
-                          <option>22-30</option>
-                          <option>31-45</option>
-                          <option>46-60</option>
-                          <option>Over 60</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="age_range" class="control-label col-xs-12 col-sm-3 no-padding-right">Gender: </label>
-                      <div class="col-xs-12 col-sm-7">
-                        <label>
-                          <input id="user-sex" type="checkbox" name="sex" required class="ace ace-switch ace-switch-7"><span class="lbl"></span>
-                        </label><span class="help-line"><span class="middle grey smaller">Tap to select gender.</span></span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-3 col-sm-9">
-                        <div class="btn-group">
-                          <button type="button" id="qtnr-submit" class="btn btn-primary btn-md"><i class="icon-ok bigger-110"></i> Submit</button>
-                        </div>
-                        <div class="btn-group">
-                          <button type="button" data-dismiss="modal" id="record-first" class="btn btn-default btn-md">Record first?!<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
+                  <audio id="recorded-audio" src controls preload="none" type="audio/wav"></audio>
                 </div>
               </div>
             </div>

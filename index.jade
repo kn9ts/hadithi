@@ -31,14 +31,14 @@ html(lang='en')
 		script(type='text/javascript', src='../assets/js/jquery-2.0.3.min.js')
 		//if [IE]
 			script(type='text/javascript', src='../assets/js/jquery-1.10.2.min.js')
-		script(type='text/javascript').
+		//- script(type='text/javascript').
 			//- if ("ontouchend" in document) $.getScript('../assets/js/jquery.mobile.custom.min.js');
 		script(src='../assets/js/bootstrap.min.js')
 		//- script(src='../assets/js/typeahead-bs2.min.js')
 
 		// ace scripts
-		script(src='../assets/js/ace-elements.min.js')
-		script(src='../assets/js/ace.min.js')
+		//- script(src='../assets/js/ace-elements.min.js')
+		//- script(src='../assets/js/ace.min.js')
 
 		//- script(src='../assets/js/jquery-ui-1.10.3.custom.min.js')
 		//- script(src='../assets/js/jquery.ui.touch-punch.min.js')
@@ -49,7 +49,7 @@ html(lang='en')
 		link(rel="stylesheet", href="../assets/css/bootstrap-modal.css")
 		script(src="../assets/js/bootstrap-modal.js")
 		script(src="../assets/js/bootstrap-modalmanager.js")
-		script(src="../js/bootbox.min.js")
+		//- script(src="../js/bootbox.min.js")
 
 		//Additional scripts
 		script(src='../js/modernizr.custom.96386.js')
@@ -60,13 +60,14 @@ html(lang='en')
 		script(src='../audiojs/audio.js')
 
 		//JS Zipping utility library
-		script(src="../js/jszip.min.js")
+		//- script(src="../js/jszip.min.js")
 		//- script(src="../js/LJZB.lib.js")
+		//- script(src="../js/lib/zip.js")
 
 		//Application script
-		script(src='../js/hadithi.js')
+		//- script(src='../js/hadithi.js')
 		script(src='../js/application.js')
-			
+
 	body.skin-2
 		// The HEADER BAR
 		nav.navbar.navbar-default.navbar-container(role='navigation')
@@ -116,22 +117,97 @@ html(lang='en')
 									| application to use your microphone
 									
 								div.hr10
-								div.jumbotron
-									h3 Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.
-									p What happened? How were you affected or involved?
-									p
-										button.btn.btn-danger.btn-md(id="record-story", type="button", data-loading-text="Recording...")
-											i.icon-circle
-											|  Start Recording
-										button.btn.btn-danger.btn-md(type="button", id="end-session")
-											i.icon-stop
-											|  End
-										button.btn.btn-info.btn-md(type="button", id="upload-story")
-											i.icon-cloud-upload
-											|  Upload Your Story
-									h3: small 
-										| <strong>NOTE:</strong> Maximum length is 3 minutes.
-										| Afterwards, we will fetch your age, sex, and location directly from Facebook if you give us permission. (Or you can enter it yourself, if you like.)
+
+								div#hadithi-app.widget-box.light-border.visible.login-box
+									.widget-header.widget-header-flat.header-color-orange.no-padding
+										div#questionaire.tabbable.tabs.left
+											ul.nav.nav-tabs.tab-color-blue.padding-10.background-blue.orange#myTabs
+												li.active: a(data-toggle="tab", href="#user-record") 
+													i.orange.icon-lock.bigger-110
+													|  Record Story
+												li: a(data-toggle="tab", href="#user-questionaire") 
+													i.green.icon-rocket.bigger-110 
+													|  Your Info
+
+									.widget-body
+										.widget-main
+											div.tab-content
+
+												//Login tab
+												div#user-record.tab-pane.in.active
+													//- div.jumbotron
+													h3 Please use the microphone on your phone, tablet, or computer to tell a story about a time when a person or an organization tried to change something in your community in the last six months.
+													p What happened? How were you affected or involved?
+													p
+														button.btn.btn-danger.btn-md(id="record-story", type="button", data-loading-text="Recording...")
+															i.icon-circle
+															|  Start Recording
+														button.btn.btn-danger.btn-md(type="button", id="end-session")
+															i.icon-stop
+															|  End
+														button.btn.btn-info.btn-md(type="button", id="upload-story")
+															i.icon-cloud-upload
+															|  Upload Your Story
+													h3: small 
+														| <strong>NOTE:</strong> Maximum length is 3 minutes.
+														| Afterwards, we will fetch your age, sex, and location directly from Facebook if you give us permission. (Or you can enter it yourself, if you like.)
+
+												div#user-questionaire.tab-pane
+													//- The form will go in here
+													div.alert.alert-info
+														h5: strong.bigger We need a little info about you before uploading your awesome story.
+														small Thank you for your time. - Marc Maxson.
+
+													a.btn.btn-primary.btn-md.btn-block#facebookInit(href="#")
+														i.icon-facebook.bigger-130.pull-left(style="padding-left: 1em")
+														| Connect with Facebook 
+													
+													h4.grey.center.smaller or fill in the form below:
+
+													//The form
+													form#questionaire-form(role="form", style="padding: 5% 0").form-horizontal
+														.form-group
+															label.control-label.col-xs-12.col-sm-3.no-padding-right(for="email") 
+																| Email Addr.:
+															div.col-xs-12.col-sm-7
+																input#email.form-control(type="email", name="email", placeholder="Your email address...", required)
+																input#hidden(type="hidden", name="isFacebook", value="false")
+
+														.form-group
+															label.control-label.col-xs-12.col-sm-3.no-padding-right(for="the-story") 
+																| Where did this story take place?
+															div.col-xs-12.col-sm-7
+																input#the-story-signup.form-control(type="text", name="location", placeholder="the location...", required)
+
+														.form-group
+															label.control-label.col-xs-12.col-sm-3.no-padding-right(for="age_range") 
+																| Age Range:
+															div.col-xs-12.col-sm-7
+																select(name="age_range")
+																	- var agerange = ['17-21', '22-30', '31-45', '46-60', 'Over 60'];
+																	- for(x=0; x<agerange.length;x++) {
+																	option #{agerange[x]}
+																	- }
+
+														.form-group
+															label.control-label.col-xs-12.col-sm-3.no-padding-right(for="age_range") 
+																| Gender: 
+															div.col-xs-12.col-sm-7
+																label
+																	input#user-sex(type="checkbox", name="sex", required).ace.ace-switch.ace-switch-7
+																	span.lbl
+																span.help-line: span.middle.grey.smaller Tap to select gender.
+
+														.form-group
+															div.col-sm-offset-3.col-sm-9
+																div.btn-group
+																	button(type="button")#qtnr-submit.btn.btn-primary.btn-md
+																		i.icon-ok.bigger-110
+																		|  Submit
+																div.btn-group
+																	button(type="button", data-dismiss="modal")#record-first.btn.btn-default.btn-md
+																		| Record first?!
+																		i.icon-arrow-right.icon-on-right.bigger-110
 
 							//Audio handler hidden below
 							div.col-sm-8.col-sm-offset-2.padding-10
@@ -142,7 +218,7 @@ html(lang='en')
 											//- .col-sm-offset-2.col-sm-10
 											.ace-file-input
 												//- The old media capture api, new one -- should not define "microphone", just empty
-												input#media-capture-api(type="file", name="audio_file", accept="audio/*" capture="microphone")
+												input#media-capture-api(type="file", name="recording", accept="audio/*" capture="microphone")
 												label.file-label(data-title="choose")
 													span.file-name(data-title="recording")
 														i.icon-play
@@ -152,74 +228,6 @@ html(lang='en')
 
 								//- The audio-player plugin
 								div.hidden.audio-js-box.tube-css#audio-player
-									audio#recorded-audio(src="false75", controls, preload="none", type="audio/wav")
+									audio#recorded-audio(src, controls, preload="none", type="audio/wav")
 
-
-		//Facebook auth or sign up model
-		//- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-		div.modal.fade#questionaire(tabindex="-1", data-backdrop="static", data-keyboard="false", aria-hidden="true", role="dialog")
-			.modal-dialog
-				//- (style="background: white")
-				.modal-content
-					.modal-header
-						div.alert.alert-info
-							h5: strong.bigger We need a little info about you before recording your awesome story.
-							small Thank you for your time. - Marc Maxson.
-
-					.model-body
-						//- The form will go in here
-						div.row
-							div.col-xs-12
-								.container
-									.well.well-sm.center
-										a.btn.btn-primary.btn-md.btn-block#facebookInit(href="#")
-											i.icon-facebook.bigger-130.pull-left(style="padding-left: 1em")
-											| Connect with Facebook 
-									
-									h4.grey.center.bigger or fill in the form below:
-
-									//The form
-									form#questionaire-form(role="form", style="padding: 5% 0").form-horizontal
-										.form-group
-											label.control-label.col-xs-12.col-sm-3.no-padding-right(for="email") 
-												| Email Addr.:
-											div.col-xs-12.col-sm-7
-												input#email.form-control(type="email", name="email", placeholder="Your email address...", required)
-												input#hidden(type="hidden", name="isFacebook", value="false")
-
-										.form-group
-											label.control-label.col-xs-12.col-sm-3.no-padding-right(for="the-story") 
-												| Where did this story take place?
-											div.col-xs-12.col-sm-7
-												input#the-story-signup.form-control(type="text", name="location", placeholder="the location...", required)
-
-										.form-group
-											label.control-label.col-xs-12.col-sm-3.no-padding-right(for="age_range") 
-												| Age Range:
-											div.col-xs-12.col-sm-7
-												select(name="age_range")
-													- var agerange = ['17-21', '22-30', '31-45', '46-60', 'Over 60'];
-													- for(x=0; x<agerange.length;x++) {
-													option #{agerange[x]}
-													- }
-
-										.form-group
-											label.control-label.col-xs-12.col-sm-3.no-padding-right(for="age_range") 
-												| Gender: 
-											div.col-xs-12.col-sm-7
-												label
-													input#user-sex(type="checkbox", name="sex", required).ace.ace-switch.ace-switch-7
-													span.lbl
-												span.help-line: span.middle.grey.smaller Tap to select gender.
-
-										.form-group
-											div.col-sm-offset-3.col-sm-9
-												div.btn-group
-													button(type="button")#qtnr-submit.btn.btn-primary.btn-md
-														i.icon-ok.bigger-110
-														|  Submit
-												div.btn-group
-													button(type="button", data-dismiss="modal")#record-first.btn.btn-default.btn-md
-														| Record first?!
-														i.icon-arrow-right.icon-on-right.bigger-110
 

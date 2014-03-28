@@ -23,6 +23,9 @@ var formdata = false;
 var GUM = Modernizr.getusermedia;
 var hadithi;
 
+//Will be used to carry generated formdata, and for validation on upload
+window.formDataObject = {};
+
 //The DOM has began to be rendered
 $(function() {
     //CORS support
@@ -81,16 +84,16 @@ $(function() {
                 }
             } else {
                 //user does not exist;
-                $('#questionaire').modal('show');
+                $('a[href="#user-questionaire"]').click();
                 //Ensure the FB button is working
                 $('#facebookInit').click(function(event) {
                     event.preventDefault();
                     //initialise the login phase
                     hadithi.loginFacebook(true, function(response) {
                         //Hide the modal window
-                        $('#questionaire').on('hidden.bs.modal', function() {
+                        $('a[href="#user-record"]').on('shown.bs.tab', function() {
                             console.log("questionaire has been hidden.")
-                        }).modal('hide');
+                        }).click(); //.tab('show');
 
                         //work with the response from FB
                         if (response.authResponse) {
@@ -98,18 +101,21 @@ $(function() {
                             hadithi.getUserFacebookInfo("facebook-opengraph-api"); // get his info -- opengraph api
                         } else {
                             // The person cancelled the login dialog -- handle error
+                            // So maybe he doesnt want to use FB, so just hide FB auth and show normal form.
+                            hadithi.checkIfUserExist([], true);
                         }
                     });
                 }).css('color', function() {
                     if (bool) { //If boolean is set, then hide the Facebook auth well
-                        $(this).parent().hide();
+                        $(this).hide();
                         $('#record-first').attr('disabled', true);
                     }
+                    //dummy return
                     return $(this).css("color");
                 });
             }
 
-            //run the callback
+            //run the callback if it's a function
             if (typeof cb == "function") cb(user); //undefined if no user
         },
 
@@ -193,7 +199,7 @@ $(function() {
             console.log('Welcome! Fetching your information.... ');
             FB.api('/me', function(response) {
                 if (response && !response.error) {
-                    var r = response
+                    var r = response;
                     /* handle the result */
                     console.log('Good to see you, -- ' + r.first_name)
                     // console.log(JSON.stringify(r));
@@ -267,12 +273,18 @@ $(function() {
         - prompt user to upload
         - upload recording
         */
-        processAudioFile: function(af) {
+        processAudioFile: function(af, blobType) {
             //get the file
             var audiofile = af; //audioInput.files[0]; //its just one
+            if (!blobType) blobType = 'audio/wav'; //if blobType not defined
             // Recorder.forceDownload(audiofile, "hadithi-recording.wav");
-            console.log(audiofile);
+            console.log("Size of the audio file -- " + audiofile.size / 1024 + " Kbs");
             // alert(JSON.stringify(audiofile));
+
+            //Remove overlay
+            $('#progress-header').text("Just a moment...");
+            //Remove the modal
+            $('.modal-scrollable').click();
 
             //if not initialised to collect form data
             if (!formdata) formdata = new FormData();
@@ -305,10 +317,9 @@ $(function() {
                     if (hadithi.checkEnableZipping())
                         formdata.append('audio_name', "hadithi-recording.zip");
                     else
-                        formdata.append('audio_name', "hadithi-" + new Date() + ".wav");
+                    //it either an mp3 or wav file
+                        formdata.append('audio_name', "hadithi-" + new Date().getTime() + "." + blobType.split('/')[1]);
 
-                    // formdata.append('audio_name', "hadithi-" + new Date().getTime() + ".wav");
-                    // formdata.append('audio_file', audiofile /* , 'hadithi-recording.wav' */ );
                     hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
                     formdata.append('audio_length', audio.duration);
                 } catch (error) {
@@ -316,7 +327,7 @@ $(function() {
                     // hadithi.checkIfUserExist(); //the upload button will do that for us
                 }
 
-                //The audio was added successfully (**bootbox.alert)
+                //The audio was added successfully (alert)
                 console.log('Your recording has been added successfully. Now press OK and upload your story.')
             });
 
@@ -336,8 +347,8 @@ $(function() {
             //use recorder to prompt uploading
             try {
                 if (formdata) {
-                    console.log('trying to upload...', formdata.toString());
-                    var URI = "/c/saveaudio"; // "../tellme/audiosave.php"; // "/c/saveaudio";
+                    console.info('trying to upload...', formdata.toString());
+                    var URI = "../tellme/audiosave.php"; // "/c/saveaudio";
                     $.ajax({
                         url: URI,
                         type: "POST",
@@ -371,6 +382,8 @@ $(function() {
                                         }, 10);
                                         console.log("Total data size -- " + (e.total / 1024) + " Kbs");
                                     }
+                                    //Erase all form data for refresh uploading
+                                    formdata = undefined;
                                 }, false); // For handling the progress of the upload
                             }
                             return xhr;
@@ -395,7 +408,7 @@ $(function() {
                     }).done(function(response) {
                         //do something
                         if (response && response.result) {
-                            $('.modal-scrollable').click();
+                            $('.modal-scrollable').click(); //close overlay
                             alert(response.message);
                         }
                     }).fail(function(error) {
@@ -404,7 +417,7 @@ $(function() {
                     });
                 }
             } catch (error) {
-                bootbox.alert("An error occured while trying to upload -- " + error)
+                alert("An error occured while trying to upload -- " + error)
             }
         },
 
@@ -415,14 +428,18 @@ $(function() {
             var reader = new FileReader();
             // this function is triggered once a call to readAsDataURL returns
             reader.onload = function(event) {
-                function ZIP_FILE() {
+                //none for now, it sucks bigtime!!
+                var which_zip_handler = "NONE"; //"jszip", "ljzb", "zipjs";
+
+                function ZIP_FILE(bool) {
                     if (hadithi.checkEnableZipping()) {
-                        return hadithi.zipAudioData(event.target.result, "jszip");
+                        return hadithi.zipAudioData(event.target.result, which_zip_handler);
                     } else {
                         return event.target.result;
                     }
                 }
-                formdata.append('audio_file', ZIP_FILE());
+                //check to see if it "zipjs" -- works differently
+                if (which_zip_handler !== "zipjs") formdata.append('audio_file', ZIP_FILE(true));
             };
             // trigger the read from the reader...
             reader.readAsDataURL(blob);
@@ -430,31 +447,85 @@ $(function() {
 
         //Gets the base64 audio data and ZIPs it
         zipAudioData: function(audioData, compressionType) {
+            var zipped_audio = true; //incase nothing is returned
             //If no compression type is defined, available: jszip, ljzb
-            if (compressionType == "jszip") {
-                var zip = new JSZip();
-                zip.file("hadithi-recording.wav", audioData, {
-                    base64: true
-                });
-                var content = zip.generate() //({compression: "DEFLATE"});
-                content = "data:application/zip;base64," + content;
-                console.log("Audio file size after compression(est.) -- " + (content.length / 1024) + " Kbs");
-                return content;
-            } else {
-                // then utf8 - you  don't want to go utf-8 directly
-                var data = audioData; //new Buffer(audioData, "utf8");
-                // now compress
-                var compressed = LJZB.compress(data, null, 9); //9 - hightest compression rate
-                console.log("Audio file size after compression -- " + (compressed.length / 1024) + " Kbs");
-                return compressed;
+            switch (compressionType) {
+                case 'jszip':
+                    var zip = new JSZip();
+                    zip.file("hadithi-recording.wav", audioData, {
+                        base64: true
+                    });
+                    var content = zip.generate({
+                        compression: "DEFLATE"
+                    });
+                    zipped_audio = "data:application/zip;base64," + content;
+                    console.log("Audio file size after compression(est.) -- " + (zipped_audio.length / 1024) + " Kbs");
+                    // return zipped_audio;
+                    break;
+
+                case 'ljzb':
+                    // then utf8 - you  don't want to go utf-8 directly
+                    var data = audioData; //new Buffer(audioData, "utf8");
+                    // now compress
+                    zipped_audio = LJZB.compress(data, null, 9); //9 - hightest compression rate
+                    console.log("Audio file size after compression -- " + (zipped_audio.length / 1024) + " Kbs");
+                    // return zipped_audio;
+                    break;
+
+                case 'zipjs':
+                    // use a zip.BlobWriter object to write zipped data into a Blob object
+                    zip.createWriter(new zip.Data64URIWriter("application/zip"), function(writer) {
+                        // use a Data64URIReader object to read the data stored into blob variable
+                        writer.add("hadithi-" + new Date().getTime() + ".wav", new zip.Data64URIReader(audioData), function() {
+                            // close the writer and calls callback function
+                            zipWriter.close(function(zippedData) {
+                                zipped_audio = zippedData;
+                                //These functions are asychronous, thus wudnt get back this audioblob
+                                formdata.append('audio_file', zipped_audio);
+                                hadithi.zipped_audio = zipped_audio;
+                                console.info("finished Zipping, using zip.js", zipped_audio);
+                            });
+                            console.info("ZIPPING HAS BEGAN.");
+                        }, function(currentIndex, totalIndex) {
+                            // onprogress callback
+                        }, function(message) {
+                            //error callback
+                            console.error(message);
+                        });
+                    }, function onerror(message) {
+                        console.error(message);
+                    });
+                    break;
             }
+
+            //get back the audio;
+            return zipped_audio;
         },
 
         checkEnableZipping: function() {
-            if (location.href.indexOf("zip_file") > -1 || location.hash.indexOf("zip_file") > -1) {
-                return true;
+            // if (location.href.indexOf("zip_file") > -1 || location.hash.indexOf("zip_file") > -1) {
+            //     return true;
+            // } else {
+            //     return false;
+            // }
+            return false; //do not zip
+        },
+
+        audioIsWAVorMp3: function() {
+            // will check if user needs MP3 or WAV encoding
+            // WAV -- fastest for now
+            // function to be moded soon...
+            if (location.href.indexOf("save_mp3") > -1 || location.hash.indexOf("save_mp3") > -1) {
+                console.log("Mp3 audio encoding chosen, please be aware more Processing resource is needed and your patience while processing the mp3");
+                return {
+                    type: 'mp3',
+                    mimeType: 'audio/mp3'
+                };
             } else {
-                return false;
+                return {
+                    type: 'wav',
+                    mimeType: 'audio/wav'
+                };
             }
         },
 
@@ -525,7 +596,7 @@ $(function() {
             capture: "camcorder"
         });
         // console.log("Mobile device detected -- " + device);
-        bootbox.alert("Mobile device detected -- " + device);
+        alert("Mobile device detected -- " + device);
     }
     if (hadithi.checkEnableZipping()) console.log("Will ZIP with the audio file generated.");
 
@@ -574,20 +645,9 @@ $(function() {
                     //visualise the error
                     $('#allow-mic').removeClass('alert-info').addClass('alert-danger').text(msg);
                     $('button#record-story').attr('disabled', true);
-                    bootbox.alert(msg);
+                    alert(msg);
                 }
             );
-
-            // Get all the JS scripts in the page for GRUNTFILE addition
-            var sc = $('html').find('script').map(function(a, b) {
-                if ($(b).attr('src')) return $(b).attr('src');
-            });
-            console.log(sc);
-
-            var css = $('html').find('link').map(function(a, b) {
-                if ($(b).attr('href')) return $(b).attr('href');
-            });
-            console.log(css);
         });
 
         //if the user begins to record the data
@@ -604,6 +664,7 @@ $(function() {
                 uploadRecordingBtn.hide(); //hide upload btn, if shown
             } else {
                 //Something went wrong, maybe the user denied the application access to the MIC
+                console.error("Something went wrong, maybe the user denied the application access to the MIC");
             }
         });
 
@@ -613,9 +674,25 @@ $(function() {
             //get the recording
             recorder.stop(); //1st stop it
 
+            //Get type of audio required -- wav or mp3
+            var audio = hadithi.audioIsWAVorMp3();
+
             //get the WAV file encoding from the recording
-            //if 2nd param is set -- export Mono WAV
-            recorder.exportWAV(hadithi.processAudioFile, 'audio/wav');
+            //exporting Mono WAV as default now
+            recorder.exportWAV(hadithi.processAudioFile, audio.mimeType, audio.type);
+
+            // Converting the WAV to MP# takes some time
+            //Show user that you are processing their story;
+            if (audio.mimeType === "audio/mp3") {
+                $("body").modalmanager("loading");
+                setTimeout(function() {
+                    $('#progress-header').text("Hey, just a moment! Processing your story...");
+                    $('.progress-bar-pink').animate({
+                        'width': '100%'
+                    });
+                    // $('.modal-scrollable').click(); //Remove the modal
+                }, 0);
+            }
 
             //Get the whole audio recorded, not encoded yet
             // recorder.getBuffer(function(audioBuffer) {
@@ -625,7 +702,7 @@ $(function() {
 
     } else {
         //The STREAM API is not available, fallback to Media Capture API
-        bootbox.alert("Browser does not support getUserMedia");
+        alert("Browser does not support getUserMedia");
 
         // instead will act as handler for the file-picker input
         recordButton.removeAttr("disabled").on('click', function(event) {
@@ -672,16 +749,14 @@ $(function() {
                 }
                 console.log("User data before uploading -- ", user);
 
-                // formdata.append('user_data', user);
                 formdata.append('user_data', JSON.stringify(user));
                 // formdata.append('audio_file', GUM ? af.getAttribute('src') : audioInput.files[0]);
-                // formdata.append('audio_length', af.getAttribute('data-audio-length'));
                 formdata.append('isFacebook', user.isFacebook || false);
 
                 hadithi.uploadAudioFile(formdata);
                 hadithi.localStorage('hadithiUser', false); //erase his data, for debugging purposes
             } else {
-                hadithi.checkIfUserExist([], false);
+                hadithi.checkIfUserExist([], true); //true if user dsnt exists, dont use FB
             }
         }, true); //no FB checkin needed
         //reset the upload button
@@ -701,7 +776,6 @@ $(function() {
             var fdata = $(fd).serializeArray();
 
             //Flatten the form data object array [fdata]
-            window.formDataObject = {};
             for (var key in fdata) {
                 formDataObject[fdata[key].name] = fdata[key].value;
             }
@@ -723,7 +797,6 @@ $(function() {
             //check if an audio recording exists and promp and uploading session
             //match for an email address in his formdata
             if (af.src.indexOf('false75') == -1 && /[\w._%+-]+\@[\w.-]+\.[a-zA-Z]{2,}$/.test(formDataObject.email)) {
-                // $('#questionaire').modal('hide');
                 console.info("Found user has already recorded a story, trying to upload it once more.");
 
                 /*
@@ -739,16 +812,15 @@ $(function() {
                 console.info("User has not recorded yet. So just hide the questionaire and let him/her record");
             }
 
-            //Hide modal window
-            $('#questionaire').on('show.bs.modal', function(event) {
+            //Hide QUESTIONARE TAB window
+            $('a[href="#user-record"]').on('shown.bs.tab', function(event) {
                 //user has already recorded a story, trying to trigger uploading
                 console.log("re-fixing the submit function!!!");
                 el.on('click', el.func);
-            }).modal('hide');
+            }).click(); //.tab('show');
 
             // setTimeout(function() { if (formDataObject.upload) uploadRecordingBtn.trigger("click"); }, 100);
         });
-
     }
     questionaireEvent();
 
@@ -790,7 +862,7 @@ $(function() {
     }(document));
 
     //initialise modals, tips and popovers
-    $('[data-rel="modal"]').modal();
+    // $('[data-rel="modal"]').modal();
 
     $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
         '<div class="loading-spinner" style="width: 250px; margin-left: -125px;">' +
