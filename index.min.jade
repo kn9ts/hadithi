@@ -177,3 +177,9 @@ html(lang='en')
 								//- The audio-player plugin
 								div.hidden.audio-js-box.tube-css#audio-player
 									audio#recorded-audio(src, controls, preload="none", type="audio/wav")
+										p Your browser does not support the audio element
+
+								//- The video tag -- iphone support
+								div.hidden#video-player
+									video#recorded-video(src, controls, preload="none", type="video/mp4")
+										p Your browser does not support the video element

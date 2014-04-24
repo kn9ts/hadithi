@@ -177,7 +177,7 @@ $(function() {
             // if undefined or true -- login in user to app
             if (bool || bool === undefined) {
                 FB.login(cb, {
-                    scope: "email, user_birthday, user_hometown, user_location"
+                    scope: "basic_info, email, user_birthday, user_hometown, user_location"
                 });
                 //note: will acquire profil pic after loggin
             } else { //anything else
@@ -290,19 +290,19 @@ $(function() {
             if (!formdata) formdata = new FormData();
 
             var audioBlob = (window.URL || window.webkitURL).createObjectURL(audiofile);
-            var audio = document.getElementById("recorded-audio");
+            var recTag = /(video)/g.test(blobType) === true ? document.getElementById("recorded-video"): document.getElementById("recorded-audio");
 
             //get the duration of the audio
-            audio.addEventListener("loadedmetadata", function(event) {
-                // console.log(audio);
-                //duration of the audio/blob audio
-                audio.setAttribute('data-audio-length', audio.duration);
+            recTag.addEventListener("loadstart", function(event) {
+                // console.log(recTag);
+                //duration of the recording/blob recording
+                recTag.setAttribute('data-record-length', recTag.duration);
 
                 //Show the upload button
-                if (audio.src.indexOf('false75') == -1) {
+                if (recTag.src.indexOf('false75') == -1) {
                     uploadRecordingBtn.show(500, function() {
-                        // var audio = document.getElementById('recorded-audio');
-                        $(audio).parent().removeClass('hidden');
+                        // var recTag = document.getElementById('recorded-audio');
+                        $(recTag).parent().removeClass('hidden');
                     });
                 }
 
@@ -321,7 +321,7 @@ $(function() {
                         formdata.append('audio_name', "hadithi-" + new Date().getTime() + "." + blobType.split('/')[1]);
 
                     hadithi.readAsDataURL(audiofile); //send to be encoded as DATAURL
-                    formdata.append('audio_length', audio.duration);
+                    formdata.append('audio_length', recTag.duration);
                 } catch (error) {
                     console.log("an error occured -- " + error);
                     // hadithi.checkIfUserExist(); //the upload button will do that for us
@@ -332,13 +332,13 @@ $(function() {
             });
 
             //set stuff
-            audio.setAttribute('src', audioBlob);
-            audio.setAttribute('preload', "metadata");
-            // audio.controls = true;
+            recTag.setAttribute('src', audioBlob);
+            recTag.setAttribute('preload', "metadata");
+            // recTag.controls = true;
 
-            console.log(audio);
+            console.log(recTag);
             setTimeout(function() {
-                audio.play();
+                recTag.play();
             }, 500);
 
         },
@@ -588,15 +588,18 @@ $(function() {
     }
 
     //check for device and change the API
-    var device = hadithi.detectAppleDevices();
+    window.device = hadithi.detectAppleDevices();
     if (device) { //If true -- a mobile device was detected
-        if (device == "android") $('audio#recorded-audio').attr("type", "audio/*"); //Do nothing, that is fine
-        if (device == "idevice") $('audio#recorded-audio').attr({
-            "type": "video/*",
-            capture: "camcorder"
-        });
+        if (device == "android")
+            $('audio#recorded-audio').attr("type", "audio/*"); //Do nothing, that is fine
+        if (device == "idevice")
+            // Apple devices do not support only audio recording only, just video and photos
+            $('audio#recorded-audio').attr({
+                "type": "video/*", //will be using VIDEO
+                capture: "camcorder"
+            });
         // console.log("Mobile device detected -- " + device);
-        alert("Mobile device detected -- " + device);
+        alert("Ahaa! My gut tells me that you may be using some " + device);
     }
     if (hadithi.checkEnableZipping()) console.log("Will ZIP with the audio file generated.");
 
@@ -702,7 +705,7 @@ $(function() {
 
     } else {
         //The STREAM API is not available, fallback to Media Capture API
-        alert("Browser does not support getUserMedia");
+        alert("Browser does not support a very awesome way too record your story ('getUserMedia')");
 
         // instead will act as handler for the file-picker input
         recordButton.removeAttr("disabled").on('click', function(event) {
@@ -710,9 +713,11 @@ $(function() {
             audioInput.click(); //will prompt user to record audio with phone
         });
 
-        //listen when user adds audio file, after recording
+        // listen when user adds audio file, after recording
         audioInput.onchange = function(event) {
-            hadithi.processAudioFile(audioInput.files[0]); //its just one
+            // determine the device -- iDevices or Android
+            var blobType = device === "idevice" ? "video/mp4": "audio/3gpp"
+            hadithi.processAudioFile(audioInput.files[0], blobType); //its just one
             // alert('Your recording has been added successfully. Now press OK to upload your story.')
         };
     }
@@ -746,6 +751,7 @@ $(function() {
                     user.location = "null";
                     user.locale = 'en_GB';
                     user.birthday = "null";
+                    user.age_range = "null";
                 }
                 console.log("User data before uploading -- ", user);
 

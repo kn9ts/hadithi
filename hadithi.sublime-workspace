@@ -4,6 +4,86 @@
 		"selected_items":
 		[
 			[
+				"mime",
+				"mimeType"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"aud",
+				"audioType"
+			],
+			[
+				"blob",
+				"blobType"
+			],
+			[
+				"mp3data",
+				"mp3data"
+			],
+			[
+				"Rec",
+				"Recording"
+			],
+			[
+				"formD",
+				"formDataObject"
+			],
+			[
+				"Data",
+				"Data64URIWriter(contentType)	zip.js"
+			],
+			[
+				"Da",
+				"Data64URIReader(dataURI)	application.js"
+			],
+			[
+				"zipped",
+				"zipped_audio"
+			],
+			[
+				"compression",
+				"compressionType"
+			],
+			[
+				"zipp",
+				"zipped_audio"
+			],
+			[
+				"which_",
+				"which_zip_handler"
+			],
+			[
+				"Blo",
+				"BlobReader"
+			],
+			[
+				"createW",
+				"createZipWriter(writer, onerror, dontDeflate)	zip.js"
+			],
+			[
+				"compres",
+				"compressed"
+			],
+			[
+				"Reco",
+				"Record"
+			],
+			[
+				"wid",
+				"widget"
+			],
+			[
+				"getT",
+				"getTime()	objects.js"
+			],
+			[
+				"sliceVa",
+				"sliceValue"
+			],
+			[
 				"phoe",
 				"phoenix_solid_current_tab"
 			],
@@ -50,10 +130,6 @@
 			[
 				"compre",
 				"compressionType"
-			],
-			[
-				"aud",
-				"audioData"
 			],
 			[
 				"use",
@@ -384,10 +460,6 @@
 				"mp3data"
 			],
 			[
-				"Rec",
-				"Recorder"
-			],
-			[
 				"reco",
 				"recording"
 			],
@@ -424,10 +496,6 @@
 				"addEventListener"
 			],
 			[
-				"blob",
-				"blobURL"
-			],
-			[
 				"crea",
 				"createObjectURL"
 			],
@@ -446,74 +514,6 @@
 			[
 				"add",
 				"addClass"
-			],
-			[
-				"DIS",
-				"disabled"
-			],
-			[
-				"co",
-				"container"
-			],
-			[
-				"col-sm",
-				"col-sm-8"
-			],
-			[
-				"tex",
-				"text/javascript"
-			],
-			[
-				"re",
-				"rel"
-			],
-			[
-				"ret",
-				"return"
-			],
-			[
-				"labe",
-				"label-lg"
-			],
-			[
-				"dis",
-				"disabledOrder"
-			],
-			[
-				"dia",
-				"disabled"
-			],
-			[
-				"bi",
-				"bigger"
-			],
-			[
-				"widget-he",
-				"widget-header-flat"
-			],
-			[
-				"wi",
-				"widget"
-			],
-			[
-				"src",
-				"src=\"/assets/avatars/profile"
-			],
-			[
-				"ora",
-				"orange"
-			],
-			[
-				"padd",
-				"padding-right"
-			],
-			[
-				"ino",
-				"infobox"
-			],
-			[
-				"perce",
-				"percent"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "index.jade",
 			"settings":
 			{
-				"buffer_size": 9506,
+				"buffer_size": 10099,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "index.min.jade",
 			"settings":
 			{
-				"buffer_size": 7516,
+				"buffer_size": 8059,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +539,7 @@
 			"file": "js/application.js",
 			"settings":
 			{
-				"buffer_size": 36780,
+				"buffer_size": 40543,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,7 @@
 			"file": "js/recorder.js",
 			"settings":
 			{
-				"buffer_size": 4857,
+				"buffer_size": 9637,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,31 +555,15 @@
 			"file": "js/recorderWorker.js",
 			"settings":
 			{
-				"buffer_size": 4872,
+				"buffer_size": 5477,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "tellme/audiounzip.php",
+			"file": "js/mp3lib/mp3Worker.js",
 			"settings":
 			{
-				"buffer_size": 881,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tellme/audiosave.php",
-			"settings":
-			{
-				"buffer_size": 601,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/mac/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 493,
+				"buffer_size": 1401,
 				"line_ending": "Unix"
 			}
 		},
@@ -587,15 +571,31 @@
 			"file": "Gruntfile.js",
 			"settings":
 			{
-				"buffer_size": 5972,
+				"buffer_size": 5960,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "docs/djotjog.txt",
+			"file": "js/mp3lib/recordmp3.js",
 			"settings":
 			{
-				"buffer_size": 696,
+				"buffer_size": 7597,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".jshintrc",
+			"settings":
+			{
+				"buffer_size": 268,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1288,
 				"line_ending": "Unix"
 			}
 		}
@@ -660,19 +660,28 @@
 	},
 	"file_history":
 	[
+		"/Users/mac/Applab/hadithi/tellme/index.html",
+		"/Users/mac/Applab/hadithi/.gitignore",
 		"/Users/mac/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/mac/.bash_profile",
+		"/Users/mac/Applab/hadithi/js/mp3lib/libmp3lame.min.js",
+		"/Users/mac/Applab/hadithi/js/mp3lib/recordmp3.js",
+		"/Users/mac/Applab/hadithi/tellme/audiounzip.php",
 		"/Users/mac/Applab/hadithi/tellme/audiosave.php",
+		"/Users/mac/Applab/hadithi/docs/djotjog.txt",
+		"/Users/mac/Applab/hadithi/README.md",
+		"/Users/mac/Applab/hadithi/js/recorderWorker.js",
+		"/Users/mac/Applab/hadithi/js/mp3lib/recorderWorker.js",
+		"/Users/mac/Applab/hadithi/js/lib/zip.js",
+		"/Users/mac/Applab/hadithi/js/hadithi.js",
+		"/Users/mac/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/Users/mac/Applab/hadithi/js/application.js",
 		"/Users/mac/Applab/hadithi/package.json",
-		"/Users/mac/Applab/hadithi/tellme/index.html",
 		"/Users/mac/Applab/hadithi/js/recorder.js",
 		"/Users/mac/Applab/hadithi/js/LJZB.lib.js",
 		"/Users/mac/Applab/hadithi/audiofiles/README.md",
-		"/Users/mac/Applab/hadithi/.gitignore",
 		"/Users/mac/Applab/hadithi/js/application.marc.js",
 		"/Users/mac/Applab/hadithi/assets/js/bootstrap-modalmanager.js",
-		"/Users/mac/Applab/hadithi/README.md",
 		"/Users/mac/Applab/hadithi/docs/FBResponse.json",
 		"/Users/mac/Applab/hadithi/Gruntfile-initfile.js",
 		"/Users/mac/Applab/hadithi/Gruntfile.js",
@@ -680,7 +689,6 @@
 		"/Users/mac/Applab/hadithi/test/hadithi_test.js",
 		"/Users/mac/Applab/hadithi/dist/concatenated.js",
 		"/Users/mac/Applab/hadithi/lib/hadithi.js",
-		"/Users/mac/Applab/hadithi/js/recorderWorker.js",
 		"/Users/mac/Applab/hadithi/.jshintrc",
 		"/Users/mac/Desktop/PSDKEYS.txt",
 		"/Users/mac/Applab/hadithi/tellme/index.jade",
@@ -689,7 +697,6 @@
 		"/Users/mac/Applab/hadithi/Gruntfile copy.js",
 		"/Users/mac/Applab/hadithi/concatenated.min.css",
 		"/Users/mac/Applab/hadithi/tellme/index.",
-		"/Users/mac/Applab/hadithi/js/hadithi.js",
 		"/Users/mac/Applab/hadithi/hadithi.sublime-workspace",
 		"/Users/mac/Applab/hadithi/.git/COMMIT_EDITMSG",
 		"/Users/mac/Applab/hadithi/assets/js/date-time/locales/bootstrap-datepicker.ca.js",
@@ -727,7 +734,6 @@
 		"/Users/mac/Apps/hadithi/js/recorderWorker.js",
 		"/Users/mac/Apps/hadithi/js/recorder.js",
 		"/Users/mac/Apps/hadithi/index.html",
-		"/Users/mac/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/Users/mac/Apps/vitumob/content/extension.js",
 		"/Users/mac/Apps/vitumob/test/content/browser.xul",
 		"/Users/mac/Apps/vitumob/test/content/extension.js",
@@ -781,13 +787,7 @@
 		"/Users/mac/Downloads/vitumob/content/embed.js",
 		"/Users/mac/Downloads/vitumob/content/main.xul",
 		"/Users/mac/Downloads/vitumob/content/main.js",
-		"/Users/mac/Downloads/vitumob/,",
-		"/Users/mac/Downloads/vitumob/content/vitumob.jpg",
-		"/Users/mac/Downloads/vitumob2/install.rdf",
-		"/Users/mac/Apps/lab/valuraha/views/includes/sidebar.jade",
-		"/Users/mac/Apps/lab/valuraha/public/assets/css/ace.min.css",
-		"/Users/mac/Apps/lab/valuraha/public/assets/css/ace-skins.min.css",
-		"/Users/mac/Apps/lab/valuraha/views/includes/header.jade"
+		"/Users/mac/Downloads/vitumob/,"
 	],
 	"find":
 	{
@@ -807,6 +807,62 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"hash",
+			"Light",
+			"Mmmmhh",
+			"audioIsWAVorMp3",
+			"zip_file",
+			"none",
+			"zipjs",
+			"typeb",
+			"processAudioFile",
+			"command",
+			"encoderWorker",
+			"wav",
+			"blob",
+			"mp3blob",
+			"data",
+			"encoderWorker",
+			"data",
+			"buffer",
+			"arrayBuffer",
+			"checkIfUserExist",
+			"formDataObject",
+			"false",
+			"checkIfUserExist",
+			"log",
+			"uploadRecordingBtn",
+			"alert",
+			"bootbox",
+			"zipWriter",
+			"zippedBlob",
+			"BlobWriter",
+			"readAsDataURL",
+			"create",
+			"useJSZip",
+			"zaudio",
+			"compressed",
+			"zippedaudio",
+			"true",
+			"ZIPDATA",
+			"content",
+			"#questionaire ",
+			"#questionaire",
+			"questionaire",
+			"modal",
+			"questionaire",
+			"hide",
+			"modal",
+			"questionaire",
+			"modal",
+			"signup",
+			"\\[record-first]",
+			"record-first",
+			"bigger",
+			"recording",
+			"questionaire",
+			"login",
+			"remote",
 			"phoenix_color_red",
 			"Dark",
 			"phoenix_color_blue",
@@ -878,68 +934,12 @@
 			"audio_file_data",
 			"data",
 			"uplo",
-			"999",
-			"uploadbtn",
-			"recbtn",
-			"stopbtn",
-			"style",
-			"myXhr",
-			"uploadAudioFile",
-			"src",
-			"script",
-			"true",
-			"../",
-			"sc",
-			"src",
-			"script",
-			"asset",
-			"dist",
-			"js",
-			"dist",
-			"LINK",
-			"audio_file",
-			"{\n",
-			"audio_file",
-			"uploadAudioFile",
-			"uploadEvent",
-			"log",
-			"$('')\n",
-			"formdata",
-			"uploadAudioFile",
-			"concatenated",
-			"elements",
-			"Hadithi",
-			"bootbox",
-			"log",
-			"console",
-			"log",
-			"alert",
-			"GUM",
-			"uploadAudioFile",
-			"formdata",
-			"fd",
-			"uploadAudioFile",
-			"():",
-			"facebook_data",
-			"recording",
-			"fileinfo",
-			"Modernizr.getusermedia",
-			"uri",
-			"processAudioFile",
-			"getProfilePic",
-			"response",
-			"// ",
-			"checkIfUserExist",
-			"initApplication",
-			"value",
-			"fdata",
-			"dataObj",
-			"formdata"
+			"999"
 		],
 		"highlight": true,
-		"in_selection": false,
+		"in_selection": true,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
 			""
@@ -953,7 +953,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -961,15 +961,15 @@
 					"file": "index.jade",
 					"settings":
 					{
-						"buffer_size": 9506,
+						"buffer_size": 10099,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2620,
-								2620
+								2231,
+								2231
 							]
 						],
 						"settings":
@@ -1082,7 +1082,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 430.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1092,15 +1092,15 @@
 					"file": "index.min.jade",
 					"settings":
 					{
-						"buffer_size": 7516,
+						"buffer_size": 8059,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								752,
-								752
+								511,
+								511
 							]
 						],
 						"settings":
@@ -1213,7 +1213,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 297.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1223,15 +1223,15 @@
 					"file": "js/application.js",
 					"settings":
 					{
-						"buffer_size": 36780,
+						"buffer_size": 40543,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								24843,
+								24756
 							]
 						],
 						"settings":
@@ -1345,7 +1345,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6850.0,
+						"translation.y": 8574.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1355,15 +1355,15 @@
 					"file": "js/recorder.js",
 					"settings":
 					{
-						"buffer_size": 4857,
+						"buffer_size": 9637,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4083,
+								4083
 							]
 						],
 						"settings":
@@ -1477,7 +1477,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 344.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1487,15 +1487,15 @@
 					"file": "js/recorderWorker.js",
 					"settings":
 					{
-						"buffer_size": 4872,
+						"buffer_size": 5477,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2248,
+								2248
 							]
 						],
 						"settings":
@@ -1609,25 +1609,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 116.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "tellme/audiounzip.php",
+					"file": "js/mp3lib/mp3Worker.js",
 					"settings":
 					{
-						"buffer_size": 881,
+						"buffer_size": 1401,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5,
-								5
+								1193,
+								1197
 							]
 						],
 						"settings":
@@ -1736,9 +1736,8 @@
 							},
 							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
-							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1748,176 +1747,18 @@
 				},
 				{
 					"buffer": 6,
-					"file": "tellme/audiosave.php",
-					"settings":
-					{
-						"buffer_size": 601,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/Users/mac/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-					"settings":
-					{
-						"buffer_size": 493,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								493,
-								493
-							]
-						],
-						"settings":
-						{
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
 					"file": "Gruntfile.js",
 					"settings":
 					{
-						"buffer_size": 5972,
+						"buffer_size": 5960,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								150,
-								150
+								1027,
+								1027
 							]
 						],
 						"settings":
@@ -2031,25 +1872,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 904.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "docs/djotjog.txt",
+					"buffer": 7,
+					"file": "js/mp3lib/recordmp3.js",
 					"settings":
 					{
-						"buffer_size": 696,
+						"buffer_size": 7597,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								590,
-								590
+								7144,
+								7144
 							]
 						],
 						"settings":
@@ -2158,7 +1999,65 @@
 							},
 							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": ".jshintrc",
+					"settings":
+					{
+						"buffer_size": 268,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								268,
+								268
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "package.json",
+					"settings":
+					{
+						"buffer_size": 1288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
